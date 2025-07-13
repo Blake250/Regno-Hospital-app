@@ -54,7 +54,7 @@ const dispatch = useDispatch();
   
      
   
-    fetch(`${BACKEND_URL}/api/payment/stripe-pay/${appointmentId}`, {
+    fetch(`https://regno-hospital-api.onrender.com/api/payment/stripe-pay/${appointmentId}`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

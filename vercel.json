@@ -1,5 +1,10 @@
+
+
 {
     "rewrites": [
-        { "source": "/(.*)", "destination": "/" }
-      ]
-}
+      {
+        "source": "/api/(.*)",
+        "destination": "https://regno-hospital-api.onrender.com/api/$1"
+      }
+    ]
+  }
