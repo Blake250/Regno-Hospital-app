@@ -24,7 +24,6 @@
     "bcrypt": "^5.1.1",
     "cloudinary": "^2.5.1",
     "dayjs": "^1.11.13",
-    "doc-reserve": "file:",
     "dompurify": "^3.2.6",
     "framer-motion": "^12.16.0",
     "html2canvas": "^1.4.1",
@@ -32,7 +31,7 @@
     "react": "^18.3.1",
     "react-confetti": "^6.4.0",
     "react-confirm-alert": "^3.0.6",
-    "react-dom": "^18.3.1",
+  "react-dom": "^18.3.1",
     "react-icons": "^5.5.0",
     "react-multi-carousel": "^2.8.6",
     "react-paginate": "^8.3.0",
@@ -40,12 +39,10 @@
     "react-router-dom": "^6.27.0",
     "react-slick": "^0.30.3",
     "react-toastify": "^10.0.6",
-    "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.18",
-    "validator": "^13.12.0",
-    "vite": "^5.4.19"
+    "validator": "^13.12.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
@@ -56,7 +53,11 @@
     "eslint-plugin-react": "^7.37.1",
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.13",
-    "globals": "^15.11.0"
+    "globals": "^15.11.0",
+    "vite": "^5.4.19"
   }
 }
- // "build": "npm install && cd doc-reserve && npm install && npm run build",
+
+
+
+
