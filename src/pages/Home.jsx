@@ -8,6 +8,7 @@ import Banner from "../components/Banner"
 import CarouselItem from "../components/carousel/CarouselItem"
 import Project from "../components/docSlider/Project"
 import SlideComponent from "../components/docSlider/SlideComponent"
+//import SlideComponent from "../components/docSlider/SlideComponent"
 
 
 
@@ -45,8 +46,6 @@ const Home = () => {
   <Box
 
   >
-
-
   {/* <Project/> */}
     <SlideComponent/>
   <SpecialtyMenu/>

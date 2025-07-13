@@ -9,12 +9,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import Slider from 'react-slick';
 import styled from 'styled-components';
 import HomeSlider from './HomeSlider'; // Your individual slide component
-import { sliderData } from './slideData';
+import { sliderData } from './SlideData';
 
 // Import required slick-carousel styles
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux'
 //import { getAllDoctors } from '../../feature/adminAuth/adminSlice';
 import { useNavigate } from 'react-router-dom';
 
