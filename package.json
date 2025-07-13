@@ -8,7 +8,7 @@
     "build": "npm install && cd frontend && npm install && npm run build",
     "lint": "eslint",
     "preview": "vite preview",
-    "vercel-build": "npm install --legacy-peer-deps && npm run build"
+   // "vercel-build": "npm install --legacy-peer-deps && npm run build"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",
