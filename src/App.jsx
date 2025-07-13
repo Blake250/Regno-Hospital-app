@@ -141,8 +141,6 @@ const shouldHideFooter =
         <Route path='/checkout-success' element={<CheckoutSuccess/>} /> 
           <Route path= "/checkout-paypal/:appointmentId" element={<CheckoutWithPaypal />} />
           <Route path="/checkout-stripe/:appointmentId" element={<CheckoutWithStripes />} />     
-            
-
 
         <Route path="/admin" element={    
           <>   
