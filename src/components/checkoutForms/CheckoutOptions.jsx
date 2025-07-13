@@ -117,6 +117,8 @@ const CheckoutOptions = () => {
             </Card>
           </Grid>
         ))}
+
+        
       </Grid>
 
       <Button variant="contained" size="large" onClick={handleProceedToPayment}>

@@ -38,7 +38,8 @@ import CheckoutWithPaypal from "./components/checkoutForms/CheckoutWithPaypal"
 import CheckoutWithStripes from "./components/checkoutForms/CheckoutWithStripes"
 
 import CheckoutSuccess from "./components/checkoutForms/CheckoutSuccess"
-import CheckoutOptions from "./components/checkoutForms/checkoutOptions"
+import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
+//import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
 
 
 const App = () => {
