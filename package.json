@@ -43,7 +43,8 @@
     "redux-persist": "^6.0.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^6.1.18",
-    "validator": "^13.12.0"
+    "validator": "^13.12.0",
+     "vite": "^7.0.4"
    
   },
   "devDependencies": {
@@ -56,7 +57,7 @@
     "eslint-plugin-react-hooks": "^5.0.0",
     "eslint-plugin-react-refresh": "^0.4.13",
     "globals": "^15.11.0",
-     "vite": "^7.0.4"
+    
     
   }
 }
