@@ -38,8 +38,9 @@ import CheckoutWithPaypal from "./components/checkoutForms/CheckoutWithPaypal"
 import CheckoutWithStripes from "./components/checkoutForms/CheckoutWithStripes"
 
 import CheckoutSuccess from "./components/checkoutForms/CheckoutSuccess"
-import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
 //import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
+import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
+import axios from "axios"
 
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails)
   const dispatch = useDispatch()
   const location = useLocation()  
+  axios.defaults.withCredentials = true;
 
   useEffect(() => {
     dispatch(getLoginStatus())
