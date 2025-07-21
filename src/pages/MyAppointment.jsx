@@ -223,12 +223,10 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
                                <Button
                                  variant="contained"
                                  color="primary"
-                                //  onClick={() =>
-                                //    navigate(`/checkout-options/${booking._id}`)
-                                //  }
-                                onClick={
-                                  navigate(`/checkout-options/${booking._id}`)
-                                }
+                                 onClick={() =>
+                                   navigate(`/checkout-options/${booking._id}`)
+                                 }
+                             
                                  fullWidth
                                  sx={{ mb: 1 }}
                                >
