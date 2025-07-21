@@ -8,7 +8,7 @@ console.log(import.meta.env);
 
 
 
-export const API_URL = `${BACKEND_URL}/api/user`
+export const API_URL = 'https://regno-hospital-api-production.up.railway.app/api/user'
 console.log(`here we come the ${API_URL}`)
 
 
