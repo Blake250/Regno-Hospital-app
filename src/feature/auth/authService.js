@@ -1,6 +1,6 @@
 import axios from  'axios'
 //const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-const BACKEND_URL = 'https://regno-hospital-api.onrender.com'
+const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
 
 console.log(`this is the ${BACKEND_URL}`)
 console.log(import.meta.env);
@@ -183,21 +183,6 @@ const updatePaymentMethod = async({appointmentId, paymentMethod})=>{
 
 
 
-//    const handleSelectPaymentMethod = async (method) => {
-//     try {
-//       const { data } = await axios.patch(
-//         `/api/appointments/payment-method/${appointmentId}`,
-//         { paymentMethod: method },
-//         { headers: { Authorization: `Bearer ${token}` } }
-//       );
-  
-//       // Redirect to Stripe or PayPal checkout
-//       window.location.href = data.redirectTo;
-//     } catch (err) {
-//       console.error(err.response?.data?.message || err.message);
-//     }
-//   };
-  
 
 
 
