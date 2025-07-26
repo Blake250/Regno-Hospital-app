@@ -112,7 +112,7 @@ const shouldHideFooter =
       minHeight: '100vh',
       }}
     >
-    { isLoggedIn &&  !isAdminRoute  && <NavBar />        }  
+    {   !isAdminRoute  && <NavBar />        }  
      
       {/* Toast notifications */}
       <ToastContainer />
