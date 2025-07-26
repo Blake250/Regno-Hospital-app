@@ -314,6 +314,9 @@ const userData = storedUserDetails ? storedUserDetails?.name : '';
                 <Typography onClick={() => navigate('/my-booking')} sx={textStyle}>
                   Appointments
                 </Typography>
+                <Typography onClick={() => navigate('/login')} sx={textStyle}>
+                  Login
+                </Typography>
                 <Typography onClick={logout} sx={textStyle}>
                   Logout
                 </Typography>
