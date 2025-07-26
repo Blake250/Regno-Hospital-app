@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllDoctors } from "../feature/adminAuth/adminSlice";
 import Pagination from "../components/num-page/numPage";
 import Loader from "../components/loader/Loader";
+import { useMemo } from "react";
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -35,26 +36,42 @@ console.log(`isLoading is ${isLoading}`)
   }, [dispatch]);
 
 
+const doctors = useMemo(() => { 
+  return Array.isArray(doctor?.doctor?.doctors)
+    ? doctor?.doctor?.doctors
+    : [];
+}   , [doctor?.doctor?.doctors]); 
+
+//  const doctors =  Array.isArray(doctor?.doctor?.doctors)
+//   ? doctor?.doctor?.doctors
+//   : []
 
 
- const doctors =  Array.isArray(doctor?.doctor?.doctors)
-  ? doctor?.doctor?.doctors
-  : []
 
 
-
-  // Extract unique categories
-  useEffect(() => {
-    const uniqueCategories = [...new Set(doctors?.map((doc) => doc?.speciality))];
+// Populate categories and doctors when doctors change
+useEffect(() => {
+  if (doctors.length > 0) {
+    const uniqueCategories = [...new Set(doctors.map((doc) => doc?.speciality))];
     setCategories(uniqueCategories);
     setFilteredDoctors(doctors);
+  }
+}, [doctors]);
 
-    // If category was passed from query string, filter immediately
-    if (queryCategory) {
-      handleCategoryClick(queryCategory);
-    }
-  }, [doctors]);
+// Run filtering only once on mount if queryCategory exists
+useEffect(() => {
+  if (queryCategory && doctors.length > 0) {
+    const filtered = doctors.filter(
+      (doc) => doc?.speciality?.toLowerCase() === queryCategory.toLowerCase()
+    );
+    setFilteredDoctors(filtered);
+    setSelectedCategory(queryCategory);
+  }
+}, [queryCategory, doctors]);
 
+
+
+ 
 
 
 
