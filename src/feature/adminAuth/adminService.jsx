@@ -4,7 +4,7 @@ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 // const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
 
  const API_URL = 'https://regno-hospital-api.onrender.com/api/admin'
- const getDoc_API_URL = 'https://regno-hospital-api.onrender.com/api/user'  
+//const getDoc_API_URL = 'https://regno-hospital-api.onrender.com/api/user'  
 
 
 // const API_URL = `${BACKEND_URL}/api/admin`
@@ -39,7 +39,7 @@ export const doctorPhoto = async( docPhoto)=>{
 
 //get all doctors registered by admin   
 export const  getAllDoctors = async()=>{
-    const response = await axios.get(`${getDoc_API_URL}/get-docs`, {
+    const response = await axios.get(`${API_URL}/get-docs`, {
         withCredentials: true,
         headers: {'Content-Type': 'application/json'}
     });
