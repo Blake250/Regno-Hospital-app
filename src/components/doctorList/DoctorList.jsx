@@ -2,13 +2,15 @@ import { Box, Typography, ImageListItem, Paper, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context/AppContext";
 import { useContext, useEffect } from "react";
-import { getAllDoctors } from "../../feature/adminAuth/adminSlice";
+//import { getAllDoctors } from "../../feature/adminAuth/adminSlice";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../loader/Loader";
+import { getAllDoctors } from "../../feature/auth/authSlice";
 
 const DoctorList = () => {
-  const doctor = useSelector((state) => state?.admin);
-  const  {isLoading}  = useSelector((state) => state?.admin);
+  const doctor = useSelector((state) => state?.auth);
+  console.log(`doctor data looks like this ${JSON.stringify(doctor)}`); 
+  const  {isLoading}  = useSelector((state) => state?.auth);
 
   const {user} = useSelector((state) => state?.auth);
 
