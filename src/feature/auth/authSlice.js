@@ -136,6 +136,21 @@ export const getOneDoctor = createAsyncThunk('auth/getOneDoctor', async(id, {rej
 
 
 
+
+  //get all doctors registered by admin
+  export const getAllDoctors = createAsyncThunk('auth/getAllDoctors', async(_, {rejectWithValue})=>{
+try{
+  return await authService.getAllDoctors()
+}catch(error){
+  const message =(error.response && error.response.data && error.response.data.message) ||
+  error.message || error.toString()
+  console.log(`getAllDoctors error is ${message}`)
+  return rejectWithValue(message)  
+}  
+
+   }  )
+
+
 //book an appointment by a user 
 export const bookAppointment = createAsyncThunk(`auth/bookAppointment`, async({docId, bookingData},  {rejectWithValue} )=>{
     try {
@@ -222,8 +237,8 @@ const initialState = {
     storedPhoto: null,  
     storedUserDetails: userFromStorage,    
     docData : null,
-   getThisAppointment : []
-//user:null
+   getThisAppointment : [],
+   doctor: null
 }
 
 
@@ -466,6 +481,33 @@ state.message = action.payload;
 state.isLoggedIn = false;
 
 })
+
+
+
+
+    .addCase(getAllDoctors.pending, (state)=>{
+        state.isLoading = true;
+      })
+      .addCase(getAllDoctors.fulfilled, (state, action)=>{
+          state.isLoading = false;
+          state.isSuccess = true;
+         state.isLoggedIn = true;
+         state.doctor = action.payload || []; // Ensure doctor is an array
+
+     //    console.log(`this is the response from get all doctors ${  JSON.stringify(action.payload ) }` )  
+         // toast.success('Doctors fetched successfully!')
+
+      }) 
+      .addCase(getAllDoctors.rejected, (state, action)=>{
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+          state.isSuccess = false;
+        //  state.doctor = null;
+          toast.error(action.payload)
+         console.log(`this is the error from get all doctors ${action.payload}` ) 
+      })
+
 
 
 // booking an appointment as a user 
