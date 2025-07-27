@@ -6,13 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../loader/Loader";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { appointmentAdmin, appointmentCancel, getAllDoctors } from "../../feature/adminAuth/adminSlice";
+import { appointmentAdmin, appointmentCancel,  } from "../../feature/adminAuth/adminSlice";
+import { getAllDoctors } from "../../feature/auth/authSlice";
 
 
 const DashBoard = () => {
   const dispatch = useDispatch(); 
-  const {  isLoading , doctor, appointments, cancelledAppointments} = useSelector((state) => state?.admin);  
-  //const doctor = useSelector((state) => state?.admin);
+  const {  isLoading , appointments, cancelledAppointments} = useSelector((state) => state?.admin);  
+  const {doctor}= useSelector((state) => state?.auth);
 
   console.log(`appointments are ${JSON.stringify(doctor)}`);
 
