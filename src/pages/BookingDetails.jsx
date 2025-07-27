@@ -289,8 +289,10 @@ const downloadPDF = ()=>{
         small
        onClick={()=> navigate(`/my-booking`)}
 
+
           sx={{
             textAlign:'start',
+            padding: { xs: '4px 9px', sm: '10px 20px' },
            // marginTop:'10px',
           }}
         >
