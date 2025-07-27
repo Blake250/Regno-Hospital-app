@@ -37,17 +37,6 @@ export const doctorPhoto = async( docPhoto)=>{
     return response.data;
 }   
 
-//get all doctors registered by admin   
-export const  getAllDoctors = async()=>{
-    const response = await axios.get(`${API_URL}/get-docs`, {
-        withCredentials: true,
-        headers: {'Content-Type': 'application/json'}
-    });
-    
-   // console.log(`this is the response from get all doctors ${JSON.stringify(response.data)}` );
-    return response.data
-
-}
 
 // get all appointments as an admin
 export const appointmentAdmin = async()=>{
@@ -79,7 +68,7 @@ export const appointmentCancel = async()=>{
 export const adminService = {
     addDoctor   ,
     doctorPhoto,
-    getAllDoctors ,
+    //getAllDoctors ,
     appointmentAdmin  ,
     appointmentCancel   
 }
