@@ -1,14 +1,15 @@
 import axios from  'axios'
-//const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+//const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
 
 console.log(`this is the ${BACKEND_URL}`)
 console.log(import.meta.env);
 
 
 
+const API_URL = `${BACKEND_URL}/api/user`
 
-export const API_URL = 'https://regno-hospital-api.onrender.com/api/user'
+//export const API_URL = 'https://regno-hospital-api.onrender.com/api/user'
 console.log(`here we come the ${API_URL}`)
 
 
@@ -125,6 +126,21 @@ const getOneDoctor= async(id)=>{
 }
 
 
+
+//get all doctors registered by admin   
+export const  getAllDoctors = async()=>{
+    const response = await axios.get(`${API_URL}/get-docs`, {
+        withCredentials: true,
+        headers: {'Content-Type': 'application/json'}
+    });
+    
+   // console.log(`this is the response from get all doctors ${JSON.stringify(response.data)}` );
+    return response.data
+
+}
+
+
+
 // booking an appointment
 const bookAppointment = async( {docId, bookingData} )=>{
     const response = await axios.post(`${API_URL}/doc-booking/${docId}`,
@@ -202,7 +218,9 @@ const authService = {
       bookAppointment,
     getAllBookings,
     cancelAppointment,
-    updatePaymentMethod 
+    updatePaymentMethod ,
+    getAllDoctors
+      //updatePaymentMethod
 
 
 }

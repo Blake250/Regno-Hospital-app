@@ -6,11 +6,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import Loader from './loader/Loader'
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-import { getAllDoctors } from '../feature/adminAuth/adminSlice'
+import { getAllDoctors } from '../feature/auth/authSlice'
+//import { getAllDoctors } from '../feature/adminAuth/adminSlice'
 
 const RelatedDoctors = ({speciality,docId, isLoading  }) => {
-  const   {doctor}   = useSelector ((state) => state?.admin)
- // console.log('doctor data  looks like this :', JSON.stringify(doctor))
+  const   {doctor}   = useSelector ((state) => state?.auth  )
+  console.log('doctor data  looks like this :', JSON.stringify(doctor))
   
 
 const dispatch  = useDispatch()
