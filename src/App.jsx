@@ -11,7 +11,7 @@ import Contact from "./pages/Contact"
 import MyAppointment from "./pages/MyAppointment"
 import Appointment from "./pages/Appointment"
 import MyProfile from "./pages/MyProfile"
-import NavBar from "./components/NavBar"
+import NavBar from "./components/NavBar" 
 import Footer from "./components/Footer"
 import 'react-toastify/dist/ReactToastify.css'
 import { toast, ToastContainer } from 'react-toastify'
@@ -112,7 +112,7 @@ const shouldHideFooter =
       minHeight: '100vh',
       }}
     >
-    {   !isAdminRoute  && <NavBar />        }  
+    { !isAdminRoute  && <NavBar />        }  
      
       {/* Toast notifications */}
       <ToastContainer />
@@ -124,8 +124,8 @@ const shouldHideFooter =
           <Route path="/" element={<Home />} />
           <Route path="/doctors" element={ <Doctors/>} />
           <Route path="/doctors/:speciality" element={<Doctors />} />
-          <Route path="/register" element={ <Register />} />
-          <Route path="/login" element={ <Login />} />
+          <Route path="/register" element={ isLoggedIn   && user ? <Navigate to="/login" /> :  <Register />} />
+          <Route path="/login" element={   isLoggedIn   && user ? <Navigate to="/" /> : <Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<MyProfile />} />

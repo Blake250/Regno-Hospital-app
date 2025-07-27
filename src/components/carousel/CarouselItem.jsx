@@ -4,11 +4,14 @@ import "react-multi-carousel/lib/styles.css";
 import { responsive } from "./carouselStyles/Res";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllDoctors } from "../../feature/adminAuth/adminSlice";
+//import { getAllDoctors } from "../../feature/adminAuth/adminSlice";
 import { useNavigate } from "react-router-dom";
+import { getAllDoctors } from "../../feature/auth/authSlice";
 
 const CarouselItem = () => {
-  const doctor = useSelector((state) => state?.admin);
+  const doctor = useSelector((state) => state?.auth);
+  console.log(`we have all the doctors data like this ${JSON.stringify(doctor)} `)
+  //console.log(we have all the doctors data like this ${JSON.stringify(doctor)}
   const {user} = useSelector((state) => state?.auth);
   const dispatch = useDispatch();
   const navigate = useNavigate();

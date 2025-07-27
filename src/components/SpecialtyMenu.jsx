@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { specialityData } from "../assets/prescripto_assets/assets/assets_frontend/assets";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { getAllDoctors } from "../feature/adminAuth/adminSlice";
+import { getAllDoctors } from "../feature/auth/authSlice";
+//import { getAllDoctors } from "../feature/adminAuth/adminSlice";
 
 const SpecialtyMenu = () => {
   const doctor = useSelector((state) => state?.admin);
@@ -27,7 +28,7 @@ const SpecialtyMenu = () => {
         flexDirection: 'column',
         alignItems: 'center',
         gap: '15px',
-      //  padding: '16px',
+        padding: '16px',
         boxSizing: 'border-box',
       }}
     >

@@ -7,17 +7,19 @@ import { Box, Typography, ImageListItem, Paper, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDoctors } from "../feature/adminAuth/adminSlice";
+//import { getAllDoctors } from "../feature/adminAuth/adminSlice";
 import Loader from "./loader/Loader";
+import { getAllDoctors } from "../feature/auth/authSlice";
 //import CarouselItem from "../components/carousel/CarouselItem"
 
 
 
 const TopDoctors = () => {
-  const doctor = useSelector((state) => state?.admin);
+  const doctor = useSelector((state) => state?.auth);
+  console.log(`here is the  list of doctors data ${JSON.stringify(doctor)}`)  
   //  const {user} = useSelector((state) => state?.auth);
-  const  isLoading = useSelector((state) => state?.admin);
-  //console.log(  `is loading is ${JSON.stringify(isLoading)}`)
+  const  isLoading = useSelector((state) => state?.auth);
+  console.log(  `is loading is ${JSON.stringify(isLoading)}`)
   
 
 

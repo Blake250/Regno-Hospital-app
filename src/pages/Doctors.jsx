@@ -9,17 +9,19 @@ import {
 import { useEffect, useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllDoctors } from "../feature/adminAuth/adminSlice";
+//import { getAllDoctors } from "../feature/adminAuth/adminSlice";
 import Pagination from "../components/num-page/numPage";
 import Loader from "../components/loader/Loader";
 import { useMemo } from "react";
+import { getAllDoctors } from "../feature/auth/authSlice";
 
 const Doctors = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
   const dispatch = useDispatch();
-  const doctor = useSelector((state) => state?.admin);
-  const {isLoading}= useSelector((state) => state?.admin);
+  const doctor = useSelector((state) => state?.auth);
+  const {isLoading}= useSelector((state) => state?.auth);
+  console.log(`doctor data looks like this ${JSON.stringify(doctor) }`  )
 console.log(`isLoading is ${isLoading}`)
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState(null);
