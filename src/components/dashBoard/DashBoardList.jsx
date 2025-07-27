@@ -10,13 +10,14 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import {
   appointmentAdmin,
-  getAllDoctors,
+  //getAllDoctors,
   appointmentCancel,
 } from "../../feature/adminAuth/adminSlice";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import Pagination from "../num-page/numPage";
 import Loader from "../loader/Loader";
+import { getAllDoctors } from "../../feature/auth/authSlice";
 
 const statusColor = {
   Scheduled: "success",
