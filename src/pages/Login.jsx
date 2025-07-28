@@ -19,7 +19,8 @@ const Login = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-   const {isLoggedIn, isLoading, isSuccess, isError, message, user} = useSelector((state)=> state?.auth)
+   const {isLoggedIn, isLoading, isSuccess, isError, message,user } = useSelector((state)=> state?.auth)
+//   const user = useSelector((state)=> state?.auth?.user)  
   console.log(`loading is ${isLoading} ${isLoggedIn} is ${user} `)
   const storedUserDetails = useSelector((state)=> state?.auth?.storedUserDetails)
   console.log(`here we have the updated date like this ${JSON.stringify(storedUserDetails) }`)
@@ -38,52 +39,52 @@ const Login = () => {
 
 
 
-  // const loginUser = (async(e)=>{
-  //   e.preventDefault()
-  //   if(!email || !password ){
-  //    toast.error('please enter the correct data')
-  //    return
-  //   }
+  const loginUser = (async(e)=>{
+    e.preventDefault()
+    if(!email || !password ){
+     toast.error('please enter the correct data')
+     return
+    }
   
-  //   if(!validateEmail(email)){
-  //   toast.error('email is invalid...')
-  //   return 
+    if(!validateEmail(email)){
+    toast.error('email is invalid...')
+    return 
   
-  //   }
+    }
   
-  //   if(password.length < 6){
-  //      toast.error('wrong email & password..')
-  //      return
-  //   }
-  //   try{
+    if(password.length < 6){
+       toast.error('wrong email & password..')
+       return
+    }
+    try{
   
-  //     const userData = {email, password}
-  //   // await dispatch(login(userData)).unwrap()
-  //   dispatch(login(userData)).then((res) => {
-  //     if (res.payload) {
-  //       dispatch(getUser()).then((res2) => {
-  //         if (res2.payload) {
-  //           dispatch(setUser(res2.payload));
-  //         }
-  //       });
-  //     } 
-  //   });
+      const userData = {email, password}
+    // await dispatch(login(userData)).unwrap()
+    dispatch(login(userData)).then((res) => {
+      if (res.payload) {
+        dispatch(getUser()).then((res2) => {
+          if (res2.payload) {
+            dispatch(setUser(res2.payload));
+          }
+        });
+      } 
+    });
   
   
-  //     toast.success('login is successful')
-  //    navigate('/')
+      toast.success('login is successful')
+     navigate('/')
      
   
     
   
-  //   }catch(error){
+    }catch(error){
           
-  //     toast.error(error.message)
-  //      console.log(error.message)
-  //   }
+      toast.error(error.message)
+       console.log(error.message)
+    }
   
   
-  // })
+  })
 
 
 
@@ -110,30 +111,30 @@ const styledAnimation = {
 
 
 
-  const loginUser = async (e) => {
-    e.preventDefault();
+  // const loginUser = async (e) => {
+  //   e.preventDefault();
   
-    if (!email || !password || !validateEmail(email) || password.length < 6) {
-      return toast.error('Invalid email or password');
-    }
+  //   if (!email || !password || !validateEmail(email) || password.length < 6) {
+  //     return toast.error('Invalid email or password');
+  //   }
      
   
-    try {
-      const userData = { email, password };
-      const result = await dispatch(login(userData));
+  //   try {
+  //     const userData = { email, password };
+  //     const result = await dispatch(login(userData));
   
-      if (result.payload) {
-        const userResult = await dispatch(getUser());
-        if (userResult.payload) {
-          dispatch(setUser(userResult.payload));
-          toast.success('Login successful');
-          navigate('/');
-        }
-      }
-    } catch (error) {
-      toast.error(error?.message || 'Login failed');
-    }
-  };
+  //     if (result.payload) {
+  //       const userResult = await dispatch(getUser());
+  //       if (userResult.payload) {
+  //         dispatch(setUser(userResult.payload));
+  //         toast.success('Login successful');
+  //         navigate('/');
+  //       }
+  //     }
+  //   } catch (error) {
+  //     toast.error(error?.message || 'Login failed');
+  //   }
+  // };
   
 
   const handleTogglePassword = ()=>{

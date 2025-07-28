@@ -1,53 +1,36 @@
-
-
-
-
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-//import PropTypes from "prop-types";
-import {
-  Box,
-  Typography,
-  Button,
-  Grid,
-  Card,
-  CardActionArea,
-  CardContent,
-} from "@mui/material";
+import { Box, Typography, Button, Grid, Card, CardActionArea, CardContent } from "@mui/material";
 import { toast } from "react-toastify";
 import { FaStripe, FaPaypal } from "react-icons/fa";
 import { updatePaymentMethod } from "../../feature/auth/authSlice";
 
 const CheckoutOptions = () => {
-
-  const {appointmentId } = useParams()
-
-  const getThisAppointment = useSelector((state)=> state?.auth)
-  console.log(`i am getting this data ${JSON.stringify(getThisAppointment?.paymentMethod)}`)
-  //const { appointmentId  } = useParams({appointmentId:propAppointmentId});
-  
-
-
-
+  const { appointmentId } = useParams();
+  const { getThisAppointment, isLoading, isError, message } = useSelector((state) => state?.auth);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [paymentMethod, setPaymentMethod] = useState("");
 
-  const [paymentMethod, setPaymentMethod] = useState(getThisAppointment?.paymentMethod || '');
+  console.log("appointmentId from useParams:", appointmentId);
+  console.log("getThisAppointment:", JSON.stringify(getThisAppointment));
 
-
-
-    console.log("appointmentId from props:", paymentMethod);
-  console.log("Final appointmentId used:", appointmentId);
-
+  // Validate appointmentId and find the appointment
   useEffect(() => {
-    console.log(`i have the ${appointmentId}`)
     if (!appointmentId) {
-      
-      toast.error("This appointment is not available");
-      navigate(`/my-booking`);
+      toast.error("Invalid appointment ID");
+      navigate("/my-booking");
+      return;
     }
-  }, [appointmentId, navigate]);
+
+    // Check if appointment exists in getThisAppointment
+    const appointment = getThisAppointment?.find((item) => item?._id === appointmentId);
+    if (!appointment) {
+      toast.error("Appointment not found");
+      navigate("/my-booking");
+    }
+  }, [appointmentId, getThisAppointment, navigate]);
 
   const handleProceedToPayment = async () => {
     if (!paymentMethod) {
@@ -56,17 +39,17 @@ const CheckoutOptions = () => {
     }
 
     try {
-     await dispatch(updatePaymentMethod({ appointmentId, paymentMethod })).unwrap();
-
+      await dispatch(updatePaymentMethod({ appointmentId, paymentMethod })).unwrap();
+      toast.success("Payment method updated successfully");
       if (paymentMethod === "stripe") {
         navigate(`/checkout-stripe/${appointmentId}`);
         console.log("Navigating to:", `/checkout-stripe/${appointmentId}`);
-
       } else if (paymentMethod === "paypal") {
         navigate(`/checkout-paypal/${appointmentId}`);
+        console.log("Navigating to:", `/checkout-paypal/${appointmentId}`);
       }
     } catch (error) {
-      toast.error("Failed to update payment method: " + error);
+      toast.error(`Failed to update payment method: ${error}`);
       console.error("Dispatch error:", error);
     }
   };
@@ -87,53 +70,193 @@ const CheckoutOptions = () => {
   ];
 
   return (
-    <Box sx={{ p: 4, maxWidth: 600, mx: "auto", textAlign: "center" }}>
-      <Typography variant="h5" gutterBottom>
-        Choose a Payment Method
-      </Typography>
-
-      <Grid container spacing={3} justifyContent="center" sx={{ mt: 2, mb: 4 }}>
-        {paymentOptions.map((option) => (
-          <Grid item xs={12} sm={6} key={option.value}>
-            <Card
-              sx={{
-                border:
-                  paymentMethod === option.value
-                    ? `2px solid ${option.color}`
-                    : "1px solid #ccc",
-                borderRadius: 3,
-                boxShadow: paymentMethod === option.value ? 6 : 1,
-                transition: "all 0.3s ease",
-              }}
-            >
-              <CardActionArea onClick={() => setPaymentMethod(option.value)}>
-                <CardContent sx={{ py: 3 }}>
-                  <Box sx={{ color: option.color }}>{option.icon}</Box>
-                  <Typography variant="h6" sx={{ mt: 1 }}>
-                    {option.label}
-                  </Typography>
-                </CardContent>
-              </CardActionArea>
-            </Card>
-          </Grid>
-        ))}
-
-        
-      </Grid>
-
-      <Button variant="contained" size="large" onClick={handleProceedToPayment}>
-        Proceed to Payment
-      </Button>
-    </Box>
+    <>
+      {isLoading && <Loader />}
+      {isError && (
+        <Typography sx={{ textAlign: "center", mt: 2, color: "error.main" }}>
+          Error: {message}
+        </Typography>
+      )}
+      <Box sx={{ p: 4, maxWidth: 600, mx: "auto", textAlign: "center" }}>
+        <Typography variant="h5" gutterBottom>
+          Choose a Payment Method
+        </Typography>
+        <Grid container spacing={3} justifyContent="center" sx={{ mt: 2, mb: 4 }}>
+          {paymentOptions.map((option) => (
+            <Grid item xs={12} sm={6} key={option.value}>
+              <Card
+                sx={{
+                  border: paymentMethod === option.value ? `2px solid ${option.color}` : "1px solid #ccc",
+                  borderRadius: 3,
+                  boxShadow: paymentMethod === option.value ? 6 : 1,
+                  transition: "all 0.3s ease",
+                }}
+              >
+                <CardActionArea onClick={() => setPaymentMethod(option.value)}>
+                  <CardContent sx={{ py: 3 }}>
+                    <Box sx={{ color: option.color }}>{option.icon}</Box>
+                    <Typography variant="h6" sx={{ mt: 1 }}>
+                      {option.label}
+                    </Typography>
+                  </CardContent>
+                </CardActionArea>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
+        <Button variant="contained" size="large" onClick={handleProceedToPayment}>
+          Proceed to Payment
+        </Button>
+      </Box>
+    </>
   );
 };
 
 export default CheckoutOptions;
 
 
-// CheckoutOptions.propTypes = {
-//   appointmentId: PropTypes.string,
+
+
+
+
+// import  { useEffect, useState } from "react";
+// import { useNavigate, useParams } from "react-router-dom";
+// import { useDispatch, useSelector } from "react-redux";
+// //import PropTypes from "prop-types";
+// import {
+//   Box,
+//   Typography,
+//   Button,
+//   Grid,
+//   Card,
+//   CardActionArea,
+//   CardContent,
+// } from "@mui/material";
+// import { toast } from "react-toastify";
+// import { FaStripe, FaPaypal } from "react-icons/fa";
+// import { updatePaymentMethod } from "../../feature/auth/authSlice";
+// //import { Book } from "@mui/icons-material";
+
+// const CheckoutOptions = () => {
+
+//   const {appointmentId } = useParams()
+
+//   const {getThisAppointment} = useSelector((state)=> state?.auth)
+//   console.log(`i am getting this data ${JSON.stringify(getThisAppointment)}`)
+//   //const { appointmentId  } = useParams({appointmentId:propAppointmentId});
+
+
+// // const getThisBookingId = getThisAppointment?.find(item=> item._id === bookingId )
+// //   console.log(`my booking id is ${getThisBookingId}`)
+// //   const appointmentId = getThisBookingId?._id || bookingId;
+// //   console.log(`my appointmentId is ${appointmentId}`)
+//   // Filter to find the payment method for the current appointment
+// //sconst getThisAppointmentFilter = getThisAppointment?.find(item=> item.paymentMethod === "stripe" || item.paymentMethod === "paypal" )
+
+//   const navigate = useNavigate();
+//   const dispatch = useDispatch();
+
+//   const [paymentMethod, setPaymentMethod] = useState(getThisAppointment  || '');
+
+
+
+//     console.log("appointmentId from props:", paymentMethod);
+//   console.log("Final appointmentId used:", appointmentId);
+
+//   useEffect(() => {
+//     console.log(`i have the ${appointmentId}`)
+//     if (!appointmentId) {
+      
+//       toast.error("This appointment is not available");
+//       navigate(`/my-booking`);
+//     }
+//   }, [appointmentId, navigate]);
+
+//   const handleProceedToPayment = async () => {
+//     if (!paymentMethod) {
+//       toast.warning("Please select a payment method before proceeding.");
+//       return;
+//     }
+
+//     try {
+//      await dispatch(updatePaymentMethod({ appointmentId, paymentMethod })).unwrap();
+
+//       if (paymentMethod === "stripe") {
+//         navigate(`/checkout-stripe/${appointmentId}`);
+//         console.log("Navigating to:", `/checkout-stripe/${appointmentId}`);
+
+//       } else if (paymentMethod === "paypal") {
+//         navigate(`/checkout-paypal/${appointmentId}`);
+//       }
+//     } catch (error) {
+//       toast.error("Failed to update payment method: " + error);
+//       console.error("Dispatch error:", error);
+//     }
+//   };
+
+//   const paymentOptions = [
+//     {
+//       label: "Stripe",
+//       value: "stripe",
+//       icon: <FaStripe size={30} />,
+//       color: "#635BFF",
+//     },
+//     {
+//       label: "PayPal",
+//       value: "paypal",
+//       icon: <FaPaypal size={30} />,
+//       color: "#003087",
+//     },
+//   ];
+
+//   return (
+//     <Box sx={{ p: 4, maxWidth: 600, mx: "auto", textAlign: "center" }}>
+//       <Typography variant="h5" gutterBottom>
+//         Choose a Payment Method
+//       </Typography>
+
+//       <Grid container spacing={3} justifyContent="center" sx={{ mt: 2, mb: 4 }}>
+//         {paymentOptions.map((option) => (
+//           <Grid item xs={12} sm={6} key={option.value}>
+//             <Card
+//               sx={{
+//                 border:
+//                   paymentMethod === option.value
+//                     ? `2px solid ${option.color}`
+//                     : "1px solid #ccc",
+//                 borderRadius: 3,
+//                 boxShadow: paymentMethod === option.value ? 6 : 1,
+//                 transition: "all 0.3s ease",
+//               }}
+//             >
+//               <CardActionArea onClick={() => setPaymentMethod(option.value)}>
+//                 <CardContent sx={{ py: 3 }}>
+//                   <Box sx={{ color: option.color }}>{option.icon}</Box>
+//                   <Typography variant="h6" sx={{ mt: 1 }}>
+//                     {option.label}
+//                   </Typography>
+//                 </CardContent>
+//               </CardActionArea>
+//             </Card>
+//           </Grid>
+//         ))}
+
+        
+//       </Grid>
+
+//       <Button variant="contained" size="large" onClick={handleProceedToPayment}>
+//         Proceed to Payment
+//       </Button>
+//     </Box>
+//   );
 // };
+
+// export default CheckoutOptions;
+
+
+// // CheckoutOptions.propTypes = {
+// //   appointmentId: PropTypes.string,
+// // };
 
 
 

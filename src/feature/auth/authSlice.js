@@ -253,7 +253,7 @@ const authSlice = createSlice({
             state.isLoading= false;
             state.isSuccess = false;
             state.message = '';
-            state.storedUserDetails = localStorage.removeItem('profile')
+          //  state.storedUserDetails = localStorage.removeItem('profile')
 
         },
         setUser:(state, action)=>{
@@ -315,8 +315,7 @@ const authSlice = createSlice({
     state.user = action.payload;
     
     state.isLoading = false
-    
-localStorage.setItem('profile', JSON.stringify(action.payload)); // 3
+    localStorage.setItem('profile', JSON.stringify(action.payload)); // 3
     toast.success(action.payload)
     console.log(action.payload)
  })
@@ -362,7 +361,7 @@ localStorage.setItem('profile', JSON.stringify(action.payload)); // 3
     state.isLoading = false
     toast.success(action.payload)
     console.log(action.payload)
-  // localStorage.setItem("profile", JSON.stringify(action.payload)); // <-- This
+  localStorage.setItem("profile", JSON.stringify(action.payload)); // <-- This
 })
 
 
@@ -425,7 +424,7 @@ state.isLoggedIn = false;
     state.isSuccess = true;
     state.user = action.payload;
     state.isLoading = false;
-    localStorage.setItem("profile", JSON.stringify(action.payload))
+    //localStorage.setItem("profile", JSON.stringify(action.payload))
   //  toast.success("data saved successfully")
     console.log(action.payload);
 })
@@ -551,7 +550,7 @@ toast.success(action.payload)
     console.log(action.payload);
     state.isLoading = false;
     toast.success(action.payload)
-    //localStorage.setItem("profile", JSON.stringify(action.payload))
+  localStorage.setItem("profile", JSON.stringify(action.payload))
     })
     .addCase(getAllBookings.rejected, (state,action)=>{
     state.isLoading = false;
@@ -573,7 +572,7 @@ toast.success(action.payload)
     console.log(action.payload);
     state.isLoading = false;
     toast.success(action.payload)
-    //localStorage.setItem("profile", JSON.stringify(action.payload))
+    localStorage.setItem("profile", JSON.stringify(action.payload))
     })
     .addCase(cancelAppointment.rejected, (state,action)=>{
     state.isLoading = false;
@@ -590,12 +589,13 @@ toast.success(action.payload)
            .addCase(updatePaymentMethod.fulfilled, (state,action)=>{
           //  state.isLoggedIn = true;
             state.isSuccess = true;
-            state.getThisAppointment = action.payload?.updated;
+            state.getThisAppointment = action.payload
+            //.updated;
             console.log(action.payload);
             state.isLoading = false;
             toast.success(action.payload.message)
             console.log(action.payload)
-            //localStorage.setItem("profile", JSON.stringify(action.payload))
+            localStorage.setItem("profile", JSON.stringify(action.payload))
            }    )
            .addCase(updatePaymentMethod.rejected, (state,action)=>{
             state.isLoading = false;

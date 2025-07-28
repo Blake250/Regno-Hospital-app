@@ -45,8 +45,10 @@ import axios from "axios"
 
 const App = () => {
   const { isLoggedIn, user, isError, isSuccess , } = useSelector((state) => state?.auth)
+  console.log(`isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`)
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails)
-  const dispatch = useDispatch()
+
+    const dispatch = useDispatch()
   const location = useLocation()  
   axios.defaults.withCredentials = true;
 
@@ -73,7 +75,6 @@ const App = () => {
   // }, [isLoggedIn, user, dispatch]);
 
 
-  
  
 
   useEffect(() => {
