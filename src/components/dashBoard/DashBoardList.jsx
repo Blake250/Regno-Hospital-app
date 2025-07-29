@@ -12,6 +12,7 @@ import {
   appointmentAdmin,
   //getAllDoctors,
   appointmentCancel,
+  getAllDocsByAdmin,
 } from "../../feature/adminAuth/adminSlice";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -39,7 +40,7 @@ const DashBoardList = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getAllDoctors());
+    dispatch(getAllDocsByAdmin());
     toast.success("Welcome to Admin Dashboard");
   }, [dispatch]);
 

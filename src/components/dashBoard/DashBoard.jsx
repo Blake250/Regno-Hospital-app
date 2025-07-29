@@ -7,7 +7,7 @@ import Loader from "../loader/Loader";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import { appointmentAdmin, appointmentCancel, getAllDocsByAdmin,  } from "../../feature/adminAuth/adminSlice";
-import { getAllDoctors } from "../../feature/auth/authSlice";
+//import { getAllDoctors } from "../../feature/auth/authSlice";
 
 
 const DashBoard = () => {
@@ -49,7 +49,7 @@ useEffect(() => {
 
 
 useEffect(() => {
-  dispatch(getAllDoctors());
+  dispatch(appointmentCancel());
   //toast.success("Welcome to Admin Dashboard");
 }, [dispatch]);
 
