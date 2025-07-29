@@ -238,7 +238,7 @@ const initialState = {
     storedUserDetails: userFromStorage,    
     docData : null,
    getThisAppointment : [],
-   doctor: null
+   doctor: []
 }
 
 
