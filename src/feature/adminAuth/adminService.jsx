@@ -1,15 +1,15 @@
 import axios from 'axios';  
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 // const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
 
  const API_URL = 'https://regno-hospital-api.onrender.com/api/admin'
-//const getDoc_API_URL = 'https://regno-hospital-api.onrender.com/api/user'  
+
 
 
 // const API_URL = `${BACKEND_URL}/api/admin`
-// const getDoc_API_URL = `${BACKEND_URL}/api/user`
-//console.log(`this is the ${API_URL}`)   
+
+console.log(`this is the ${API_URL}`)   
 
 
 // ADD  doctor as an admin
@@ -25,6 +25,8 @@ export const addDoctor = async(doctorData )=>{
 
 }
 
+
+
 //update  a doctor's photo  
 export const doctorPhoto = async( docPhoto)=>{
     const response = await axios.patch(`${API_URL}/doc-photo`, docPhoto, {
@@ -36,6 +38,22 @@ export const doctorPhoto = async( docPhoto)=>{
     console.log(`this is the response from update doctor photo ${response.data}` );
     return response.data;
 }   
+
+// fetch all docs by admin
+export const getAllDocsByAdmin = async()=>{
+    const response = await axios.get(`${API_URL}/get-admin-docs`, {
+        withCredentials: true,
+        headers: {'Content-Type': 'application/json'}
+    });
+    
+    console.log(`this is the response from get all admin doctors ${JSON.stringify(response.data)}` );
+    return response.data;   
+
+}
+
+
+
+
 
 
 // get all appointments as an admin
@@ -53,7 +71,7 @@ export const appointmentAdmin = async()=>{
 
 // fetch all cancel appointments as an admin 
 export const appointmentCancel = async()=>{
-    const response = await axios.get(`${API_URL}/cancel`, {
+    const response = await axios.get(`${API_URL}/cancelled-appointments`, {
         withCredentials: true,
         headers: {'Content-Type': 'application/json'}
     });
@@ -68,7 +86,7 @@ export const appointmentCancel = async()=>{
 export const adminService = {
     addDoctor   ,
     doctorPhoto,
-    //getAllDoctors ,
+    getAllDocsByAdmin ,
     appointmentAdmin  ,
     appointmentCancel   
 }

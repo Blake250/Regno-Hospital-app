@@ -1,9 +1,9 @@
 import axios from  'axios'
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-//const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+// //const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
 
-console.log(`this is the ${BACKEND_URL}`)
-console.log(import.meta.env);
+// console.log(`this is the ${BACKEND_URL}`)
+// console.log(import.meta.env);
 
 
 

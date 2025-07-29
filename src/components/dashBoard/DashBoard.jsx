@@ -6,14 +6,14 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../loader/Loader";
 import { useEffect } from "react";
 import { toast } from "react-toastify";
-import { appointmentAdmin, appointmentCancel,  } from "../../feature/adminAuth/adminSlice";
+import { appointmentAdmin, appointmentCancel, getAllDocsByAdmin,  } from "../../feature/adminAuth/adminSlice";
 import { getAllDoctors } from "../../feature/auth/authSlice";
 
 
 const DashBoard = () => {
   const dispatch = useDispatch(); 
   const {  isLoading , appointments, cancelledAppointments} = useSelector((state) => state?.admin);  
-  const {doctor}= useSelector((state) => state?.auth);
+  const {doctor}= useSelector((state) => state?.admin);
 
   console.log(`appointments are ${JSON.stringify(doctor)}`);
 
@@ -25,10 +25,23 @@ const DashBoard = () => {
   console.log(`doctor is ${JSON.stringify(doctor)}`); 
 
 
-useEffect(()=>{
-  dispatch(appointmentCancel()) 
-  //toast.success("Welcome to Admin Dashboard");
-},[dispatch]);  
+// useEffect(()=>{
+//     dispatch(getAllDocsByAdmin());
+//   dispatch(appointmentCancel()) 
+//    dispatch(appointmentAdmin())
+//   //toast.success("Welcome to Admin Dashboard");
+// },[dispatch]);  
+
+
+
+
+
+
+useEffect(() => {
+  dispatch(getAllDocsByAdmin());
+
+ }, [dispatch]);
+
 
 
 
@@ -37,19 +50,8 @@ useEffect(()=>{
 
 useEffect(() => {
   dispatch(getAllDoctors());
- 
- }, [dispatch, ]);
-
-
-
-
-
-
-
-// useEffect(() => {
-//   dispatch(getAllDoctors());
-//   //toast.success("Welcome to Admin Dashboard");
-// }, [dispatch]);
+  //toast.success("Welcome to Admin Dashboard");
+}, [dispatch]);
 
 
 

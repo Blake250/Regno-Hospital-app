@@ -28,7 +28,8 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
  const MyAppointment = () => {
    const dispatch = useDispatch();
    const navigate = useNavigate();
-   const { isLoading, getThisAppointment } = useSelector((state) => state.auth);
+   const { isLoading, getThisAppointment } = useSelector((state) => state?.auth);
+   console.log(`getThisAppointment is ${JSON.stringify(getThisAppointment)}`);
  
    const itemsPerPage = 5;
    const [itemOffset, setItemOffset] = useState(0);
@@ -105,6 +106,7 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
  
    return (
      <>
+   
        <Box sx={{ px: 4, py: 12 }}>
          <Button
            variant="outlined"
@@ -120,13 +122,14 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
  
          {isLoading && <Loader />}
  
-         {!isLoading && currentItems?.length === 0 && (
+         {!isLoading && currentItems &&  currentItems?.length === 0 && (
            <Typography variant="body1" color="text.secondary">
              No Appointment found.
            </Typography>
          )}
  
-         {!isLoading &&
+         { !isLoading  &&  currentItems && currentItems?.length > 0 && (
+
            currentItems?.map((booking) => {
              const isOld = isPast(booking.slotDate, booking.slotTime);
  
@@ -279,7 +282,11 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
                  </Grid>
                </Card>
              );
-           })}
+           })
+           
+             )
+           
+           }
  
          <Box
            sx={{

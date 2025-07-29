@@ -35,6 +35,19 @@ export const addDoctor = createAsyncThunk('admin/addDoctor', async(doctorData, {
   }  )
 
 
+
+  export const getAllDocsByAdmin = createAsyncThunk('admin/getAllDocsByAdmin', async(_, {rejectWithValue})=>{
+    try{
+        return await adminService.getAllDocsByAdmin()
+    }catch(error){
+        const message = (error.response && error.response.data && error.response.data.message) ||
+        error.message || error.toString()
+        console.log(`getAllDocsByAdmin error is ${message}`)
+        return rejectWithValue(message)
+    }
+  } ) 
+
+
 //get all appointments as an admin  
 export const appointmentAdmin = createAsyncThunk('admin/appointmentAdmin', async(_, {rejectWithValue})=>{
     try{
@@ -130,6 +143,31 @@ export const appointmentCancel = createAsyncThunk('admin/appointmentCancel', asy
 
       })
       .addCase(doctorPhoto.rejected, (state, action)=>{
+          state.isLoading = false;
+          state.isError = true;
+          state.message = action.payload;
+          state.isSuccess = false;
+          state.doctor = null;
+          toast.error(action.payload)
+          console.log(`this is the error from update doctor photo ${action.payload}` ) 
+      })    	
+
+
+
+      // get all docotor by admin
+     .addCase(getAllDocsByAdmin.pending, (state)=>{
+        state.isLoading = true;
+      })
+      .addCase(getAllDocsByAdmin.fulfilled, (state, action)=>{
+          state.isLoading = false;
+          state.isSuccess = true;
+          state.isLoggedIn = true;
+          state.doctor = action.payload;
+          console.log(`this is the response from update doctor photo ${action.payload}` )  
+          toast.success('Doctor photo updated successfully!')
+
+      })
+      .addCase(getAllDocsByAdmin.rejected, (state, action)=>{
           state.isLoading = false;
           state.isError = true;
           state.message = action.payload;
