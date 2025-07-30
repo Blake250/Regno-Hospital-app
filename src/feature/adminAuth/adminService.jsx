@@ -7,7 +7,7 @@ const API_URL = 'https://regno-hospital-api.onrender.com/api/admin'
 
 
 
-const API_URL = `${BACKEND_URL}/api/admin`
+//const API_URL = `${BACKEND_URL}/api/admin`
 
 console.log(`this is the ${API_URL}`)   
 
