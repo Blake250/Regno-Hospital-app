@@ -5,6 +5,7 @@ import { Box, Typography, Button, Grid, Card, CardActionArea, CardContent } from
 import { toast } from "react-toastify";
 import { FaStripe, FaPaypal } from "react-icons/fa";
 import { updatePaymentMethod } from "../../feature/auth/authSlice";
+import Loader from "../loader/Loader";
 
 const CheckoutOptions = () => {
   const { appointmentId } = useParams();
