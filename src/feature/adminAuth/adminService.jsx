@@ -1,9 +1,9 @@
 import axios from 'axios';  
 
-const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-// const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+// // const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
 
-//  const API_URL = 'https://regno-hospital-api.onrender.com/api/admin'
+const API_URL = 'https://regno-hospital-api.onrender.com/api/admin'
 
 
 
