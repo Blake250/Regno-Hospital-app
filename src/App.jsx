@@ -68,14 +68,6 @@ const App = () => {
 
 
 
-  // useEffect(() => {
-  //   if (isLoggedIn && user === null) {
-  //     dispatch(getUser());
-  //   }
-  // }, [isLoggedIn, user, dispatch]);
-
-
- 
 
   useEffect(() => {
     if (isLoggedIn && user=== null) {
