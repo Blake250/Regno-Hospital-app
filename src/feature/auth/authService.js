@@ -9,7 +9,7 @@ console.log(`here we come the ${API_URL}`)
 
 // registering a user
 const register = async(userData)=>{
-  //  const response = await axios.post(`${API_URL}/register`,userData,{
+
         const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/register`,userData,{
         withCredentials: true,
         //credentials: 'include',
@@ -24,7 +24,7 @@ const register = async(userData)=>{
 // login a user
 const login = async(userData)=>{
     const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/login`, userData,{
-      //     const response = await axios.post(`${API_URL}/login`, userData,{
+   
         withCredentials: true,
         //credentials: 'include',
         headers: {'Content-Type' : 'application/json'},
@@ -40,7 +40,7 @@ const login = async(userData)=>{
 //logout a User
 const logout = async()=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/logout`,{
-     //   const response = await axios.get(`${API_URL}/logout`,userData,{
+    
         withCredentials: true,
         //credentials: 'include',
         headers:{'Content-Type': 'application/json'}
@@ -58,7 +58,7 @@ const logout = async()=>{
 //get user Login status
 const getLoginStatus = async()=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/get-status`, {
-        // const response = await axios.get(`${API_URL}/get-status`, {
+     
         withCredentials: true,
         //credentials: 'include',
         headers:{'Content-Type': 'application/json'} 
@@ -72,7 +72,7 @@ const getLoginStatus = async()=>{
 //get User data 
 const getUser = async()=>{
      const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/get-user`, {
-     //   const response = await axios.get(`${API_URL}/get-user`, {
+    
         withCredentials:true,
         //credentials: 'include',
         headers:{'Content-Type':'application/json'}
@@ -85,7 +85,7 @@ const getUser = async()=>{
 //update user's updatePhoto
 const updatedPhoto = async(userData)=>{
     const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/update-photo`, userData,{
-       //   const response = await axios.patch(`${API_URL}/update-photo`, userData,{
+      
         withCredentials: true,
         //credentials: 'include',
         headers:{'Content-Type' : 'application/json'}
@@ -96,7 +96,7 @@ const updatedPhoto = async(userData)=>{
 
 const updatedUser = async(userData)=>{
     const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/update-user`, userData,{
-      //  const response = await axios.patch(`${API_URL}/update-user`, userData,{
+    
         withCredentials:true,
 
         //credentials: 'include',
@@ -109,7 +109,7 @@ const updatedUser = async(userData)=>{
 // get otr fetch  A single booking or appointment with a doctor
 const getSingleBooking = async(docId)=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/appointments/${docId}`, {
-        // const response = await axios.get(`${API_URL}/appointments/${docId}`, {
+
         withCredentials : true,
         headers:{'Content-Type':'application/json'}
 
@@ -120,7 +120,7 @@ const getSingleBooking = async(docId)=>{
 // get a doctor's single page 
 const getOneDoctor= async(id)=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/fetch-doc/${id}`, {
-    //     const response = await axios.get(`${API_URL}/fetch-doc/${id}`, {
+  
         withCredentials : true,
         headers:{'Content-Type':'application/json'}
 
@@ -133,7 +133,7 @@ const getOneDoctor= async(id)=>{
 //get all doctors registered by admin   
 export const  getAllDoctors = async()=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/get-docs`, {
-   //     const response = await axios.get(`${API_URL}/get-docs`, {
+
         withCredentials: true,
         headers: {'Content-Type': 'application/json'}
     });
@@ -148,7 +148,7 @@ export const  getAllDoctors = async()=>{
 // booking an appointment
 const bookAppointment = async( {docId, bookingData} )=>{
     const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/doc-booking/${docId}`,
-      //   const response = await axios.post(`${API_URL}/doc-booking/${docId}`,
+    
         bookingData,
         {
             withCredentials:true,
@@ -163,7 +163,7 @@ const bookAppointment = async( {docId, bookingData} )=>{
 // get All  bookings by a single user
 const getAllBookings = async()=>{
  const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/appointments`,
-   //  const response = await axios.get(`${API_URL}/appointments`,
+
    {
     withCredentials:true,
     headers: {'Content-Type':'application/json' }
@@ -177,7 +177,7 @@ const getAllBookings = async()=>{
 // get All  bookings by a single user
 const cancelAppointment = async(appointmentId)=>{
     const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/cancel-doc`,
-       //  const response = await axios.patch(`${API_URL}/cancel-doc`,
+    
         appointmentId,
       {
        withCredentials:true,
@@ -192,7 +192,7 @@ const cancelAppointment = async(appointmentId)=>{
    // get All  bookings by a single user
 const updatePaymentMethod = async({appointmentId, paymentMethod})=>{
     const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/${appointmentId}/payment-method`,
-       // const response = await axios.patch(`${API_URL}/${appointmentId}/payment-method`,
+      
         {paymentMethod},
     
       {
