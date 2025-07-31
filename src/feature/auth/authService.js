@@ -1,13 +1,6 @@
 import axios from  'axios'
 // const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
-// // //const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
 
-// console.log(`this is the ${BACKEND_URL}`)
-// console.log(import.meta.env);
-
-
-
-// const API_URL = `${BACKEND_URL}/api/user`
 
  export const API_URL = 'https://regno-hospital-api.onrender.com/api/user'
 console.log(`here we come the ${API_URL}`)
