@@ -8,7 +8,7 @@ import axios from 'axios';
 // ADD  doctor as an admin
 export const addDoctor = async(doctorData )=>{
 
- const response = await axios.post(`'https://regno-hospital-api.onrender.com/api/admin'/add-doc`,doctorData,{
+ const response = await axios.post(`https://regno-hospital-api.onrender.com/api/admin'/add-doc`,doctorData,{
     withCredentials:true,
     headers:{'Content-Type':'application/json'}
    } )
