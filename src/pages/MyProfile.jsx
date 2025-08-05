@@ -1,12 +1,5 @@
 
 
-
-
-
-
-
-
-
 import { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/system";
 import {
@@ -50,25 +43,53 @@ const MyProfile = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (user === null) {
-      dispatch(getUser());
-    } else {
-      setUserData({
-        photo: user?.photo || '',
-        name: user?.name || '',
-        email: user?.email || '',
-        phone: user?.phone || '',
-        role: user?.role || '',
-        dob: user?.dob || '',
-        gender: user?.gender || '',
-        address: {
-          line1: user?.address?.line1 || '',
-          line2: user?.address?.line2 || ''
-        }
-      });
-    }
-  }, [dispatch, user]);
+  //useEffect(() => {
+  //   if (user === null) {
+  //     dispatch(getUser());
+  //   } else {
+  //     setUserData({
+  //       photo: user?.photo || '',
+  //       name: user?.name || '',
+  //       email: user?.email || '',
+  //       phone: user?.phone || '',
+  //       role: user?.role || '',
+  //       dob: user?.dob || '',
+  //       gender: user?.gender || '',
+  //       address: {
+  //         line1: user?.address?.line1 || '',
+  //         line2: user?.address?.line2 || ''
+  //       }
+  //     });
+  //   }
+  // }, [dispatch, user]);
+
+
+
+
+useEffect(() => {
+  if (user) {
+    const updatedProfile = {
+      photo: user?.photo || '',
+      name: user?.name || '',
+      email: user?.email || '',
+      phone: user?.phone || '',
+      role: user?.role || '',
+      dob: user?.dob || '',
+      gender: user?.gender || '',
+      address: {
+        line1: user?.address?.line1 || '',
+        line2: user?.address?.line2 || ''
+      }
+    };
+    setUserData(updatedProfile);
+    setImagePreview(user?.photo || '');
+  } else {
+    setUserData(initialState); // clear the state if no user
+  }
+}, [user]); // ✅ only depends on user
+
+
+
 
   useEffect(() => {
     const storedDetails = localStorage.getItem('profile');
@@ -186,7 +207,7 @@ const MyProfile = () => {
       }
     } catch (error) {
       toast.error("Error updating profile photo");
-      console.log(`we have this error ${error.message}`)
+    //  console.log(we have this error ${error.message})
     }
   };
 
@@ -263,9 +284,7 @@ const MyProfile = () => {
             </>
             )}
   
-      
-
-
+          
 
           {/* Upload / Change Buttons */}
 <Box display="flex" justifyContent="center" gap={2} flexWrap="wrap">
@@ -402,10 +421,4 @@ const MyProfile = () => {
 
   }
 
-export default MyProfile
-
-
-
-
-
-
+export default MyProfile   

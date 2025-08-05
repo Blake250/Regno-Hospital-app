@@ -12,7 +12,7 @@ import {
   appointmentAdmin,
   //getAllDoctors,
   appointmentCancel,
-  getAllDocsByAdmin,
+ //getAllDocsByAdmin,
 } from "../../feature/adminAuth/adminSlice";
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
@@ -39,10 +39,10 @@ const DashBoardList = () => {
     toast.success("Welcome to Admin Dashboard");
   }, [dispatch]);
 
-  useEffect(() => {
-    dispatch(getAllDocsByAdmin());
-    toast.success("Welcome to Admin Dashboard");
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getAllDocsByAdmin());
+  //   toast.success("Welcome to Admin Dashboard");
+  // }, [dispatch]);
 
 
 
@@ -187,7 +187,12 @@ setItemOffset(newOffset)
           </Typography>
         )}
       </Paper>
-      <Box sx={{ marginTop: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'fixed', left: 0, bottom: 0, width: '100%', backgroundColor: '#fff', padding: '20px', borderTop: '1px solid #e0e0e0' }}>
+      <Box sx={{
+          overflowX: 'auto', // <-- Add this
+    whiteSpace: 'nowrap', // <-- Prevent wrapping
+    scrollbarWidth: 'none', // For Firefox
+    '&::-webkit-scrollbar': { display: 'none' },
+        marginTop: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'fixed', left: 0, bottom: 0, width: '100%', backgroundColor: '#fff', padding: '20px', borderTop: '1px solid #e0e0e0' }}>
           <Pagination itemsPerPage={itemsPerPage} pageCount={pageCount} handlePageClick={handlePageClick} itemOffset={itemOffset} setItemOffset={setItemOffset} />
         </Box>
     </Box>

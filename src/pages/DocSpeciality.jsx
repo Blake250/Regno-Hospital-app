@@ -14,13 +14,14 @@ import Pagination from "../components/num-page/numPage";
 import Loader from "../components/loader/Loader";
 import { useMemo } from "react";
 import { getAllDoctors } from "../feature/auth/authSlice";
-//import { getAllDoctors } from "../feature/auth/authSlice";
 
-const DocSpeciality     = () => {
+
+const DocSpeciality = () => {
   const navigate = useNavigate();
   const location = useLocation(); 
   const dispatch = useDispatch();
   const doctor = useSelector((state) => state?.auth);
+  console.log(`doctor data looks like this ${JSON.stringify(doctor)}`);
   const {isLoading}= useSelector((state) => state?.auth);
   console.log(`doctor data looks like this ${JSON.stringify(doctor) }`  )
 console.log(`isLoading is ${isLoading}`)

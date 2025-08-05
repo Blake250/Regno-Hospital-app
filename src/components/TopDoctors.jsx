@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 //import { getAllDoctors } from "../feature/adminAuth/adminSlice";
 import Loader from "./loader/Loader";
 import { getAllDoctors } from "../feature/auth/authSlice";
+import { useMemo } from "react";
 //import CarouselItem from "../components/carousel/CarouselItem"
 
 
@@ -32,6 +33,13 @@ const TopDoctors = () => {
   }, [dispatch]);
 
 
+  const doctors = useMemo(() => { 
+  return Array.isArray(doctor?.doctor?.doctors)
+    ? doctor?.doctor?.doctors
+    : [];
+}   , [doctor?.doctor?.doctors]); 
+
+
   // useEffect(() => {
   //   if(user && user?.role === 'admin'){
   //     dispatch(getAllDoctors());
@@ -50,26 +58,6 @@ const TopDoctors = () => {
 
 
 
-  // const topDoc = doctor?.doctor?.doctors && doctor?.doctor?.doctors?.filter((docId)=> docId?.amount > 50 )?.map((amt, index)=>{
-  //   if(!amt || Object.keys(amt).length === 0){
-  //     return null
-  //   }
-  //   return(
-  //   <>
-  //   <Box  key={index}>
-  //   <CarouselItem
-    
-  //   topDoc ={topDoc}
-  //   />
-  //   </Box>
-  //   </>
-  //   )
-  // })
-
-  // const topDoctors = doctor?.doctor?.doctors?.filter(doc => doc?.amount > 50) || [];
-
-
-  // <CarouselItem topDoc={topDoctors} />
 
 const openDocDetails  = (docId)=>{
   navigate(`/booking/${docId}`)
@@ -116,9 +104,9 @@ const openDocDetails  = (docId)=>{
           gap: 3,
         }}
       >
-        {Array.isArray(doctor?.doctor?.doctors) &&
-        doctor?.doctor?.doctors.length > 0 ? (
-          doctor.doctor.doctors.slice(20, 30)?.map((item) => (
+        {          doctors?.length > 0 ? (
+          doctors.slice(0, 10)?.map((item) => (
+
             <Box
               key={item._id}
               sx={{
@@ -494,5 +482,4 @@ export default TopDoctors;
 // };
 
 // export default TopDoctors;
-
 

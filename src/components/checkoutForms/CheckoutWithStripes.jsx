@@ -52,8 +52,8 @@ const dispatch = useDispatch();
       return;
     }
   
-     
-  
+
+
     fetch(`https://regno-hospital-api.onrender.com/api/payment/stripe-pay/${appointmentId}`, {
       method: "GET",
       headers: {

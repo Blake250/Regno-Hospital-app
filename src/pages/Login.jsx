@@ -39,6 +39,81 @@ const Login = () => {
 
 
 
+  // const loginUser = (async(e)=>{
+  //   e.preventDefault()
+  //   if(!email || !password ){
+  //    toast.error('please enter the correct data')
+  //    return
+  //   }
+  
+  //   if(!validateEmail(email)){
+  //   toast.error('email is invalid...')
+  //   return 
+  
+  //   }
+  
+  //   if(password.length < 6){
+  //      toast.error('wrong email & password..')
+  //      return
+  //   }
+  //   try{
+  
+  //     const userData = {email, password}
+  //   // await dispatch(login(userData)).unwrap()
+  //   dispatch(login(userData)).then((res) => {
+  //     if (res.payload) {
+  //       dispatch(getUser()).then((res2) => {
+  //         if (res2.payload) {
+  //           dispatch(setUser(res2.payload));
+  //         }
+  //       });
+  //     } 
+  //   });
+  
+  
+  //     toast.success('login is successful')
+  //    navigate('/')
+     
+  
+    
+  
+  //   }catch(error){
+          
+  //     toast.error(error.message)
+  //      console.log(error.message)
+  //   }
+  
+  
+  // })
+
+
+
+
+
+
+
+
+  
+
+const styledAnimation = {
+  '@keyframes slide-down': {
+      '0%': {
+        transform: 'translateY(-5rem)', 
+      opacity: 0, 
+      },
+      '100%': {
+        transform: 'translateY(0)', 
+        opacity: 1, 
+      },
+    },
+}
+
+
+
+
+
+
+
   const loginUser = (async(e)=>{
     e.preventDefault()
     if(!email || !password ){
@@ -78,7 +153,10 @@ const Login = () => {
     
   
     }catch(error){
-          
+     localStorage.removeItem('profile')
+     dispatch({type: RESET_AUTH})
+     toast.error(error?.message || 'Login failed')
+     //toast.error(error.message)
       toast.error(error.message)
        console.log(error.message)
     }
@@ -90,51 +168,6 @@ const Login = () => {
 
 
 
-
-
-  
-
-const styledAnimation = {
-  '@keyframes slide-down': {
-      '0%': {
-        transform: 'translateY(-5rem)', 
-      opacity: 0, 
-      },
-      '100%': {
-        transform: 'translateY(0)', 
-        opacity: 1, 
-      },
-    },
-}
-
-
-
-
-
-  // const loginUser = async (e) => {
-  //   e.preventDefault();
-  
-  //   if (!email || !password || !validateEmail(email) || password.length < 6) {
-  //     return toast.error('Invalid email or password');
-  //   }
-     
-  
-  //   try {
-  //     const userData = { email, password };
-  //     const result = await dispatch(login(userData));
-  
-  //     if (result.payload) {
-  //       const userResult = await dispatch(getUser());
-  //       if (userResult.payload) {
-  //         dispatch(setUser(userResult.payload));
-  //         toast.success('Login successful');
-  //         navigate('/');
-  //       }
-  //     }
-  //   } catch (error) {
-  //     toast.error(error?.message || 'Login failed');
-  //   }
-  // };
   
 
   const handleTogglePassword = ()=>{

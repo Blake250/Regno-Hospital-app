@@ -1,6 +1,12 @@
 
 
 
+
+
+
+
+
+
 import { Navigate, Route, Routes, useLocation } from "react-router-dom"
 import Home from "./pages/Home"
 import Doctors from "./pages/Doctors"
@@ -40,13 +46,14 @@ import CheckoutSuccess from "./components/checkoutForms/CheckoutSuccess"
 //import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
 import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
 import axios from "axios"
-import DocSpeciality from "./pages/DocSpeciality"
+//import DocSpeciality from "./pages/DocSpeciality"
 
 
 const App = () => {
   const { isLoggedIn, user, isError, isSuccess , } = useSelector((state) => state?.auth)
   console.log(`isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`)
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails)
+  console.log(`storedUserDetails: ${JSON.stringify(storedUserDetails)}`)  
 
     const dispatch = useDispatch()
   const location = useLocation()  
@@ -67,9 +74,12 @@ const App = () => {
   }, [isError])
 
 
+   const loginStatus = user ? user : storedUserDetails
+  console.log(`loginStatus: ${JSON.stringify(loginStatus)}`)
 
 
   useEffect(() => {
+ 
     if (isLoggedIn && user=== null) {
       dispatch(getUser()).then((res) => {
         if (res.payload) {
@@ -78,6 +88,10 @@ const App = () => {
       });
     }
   }, [dispatch, isLoggedIn, user]);
+
+
+  
+ 
   
 
 
@@ -105,8 +119,10 @@ const shouldHideFooter =
       minHeight: '100vh',
       }}
     >
-    { !isAdminRoute  && <NavBar />        }  
-     
+    {/* { isAdminRoute && <NavBar /> } */}
+    {!isAdminRoute && isLoggedIn && <NavBar />}
+
+
       {/* Toast notifications */}
       <ToastContainer />
 
@@ -116,8 +132,8 @@ const shouldHideFooter =
       
           <Route path="/" element={<Home />} />
           <Route path="/doctors" element={ <Doctors/>} />
-          <Route path="/doctors/:speciality" element={<DocSpeciality />} />
-          <Route path="/register" element={ isLoggedIn   && user ? <Navigate to="/login" /> :  <Register />} />
+          <Route path="/doctors/:speciality" element={<Doctors />} />
+          <Route path="/register" element={  <Register />} />
           <Route path="/login" element={   isLoggedIn   && user ? <Navigate to="/" /> : <Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />

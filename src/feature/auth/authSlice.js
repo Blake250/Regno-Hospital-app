@@ -237,7 +237,7 @@ const initialState = {
     storedPhoto: null,  
     storedUserDetails: userFromStorage,    
     docData : null,
-   getThisAppointment : [],
+   getThisAppointment : [] ,
    doctor: []
 }
 
@@ -253,7 +253,7 @@ const authSlice = createSlice({
             state.isLoading= false;
             state.isSuccess = false;
             state.message = '';
-          //  state.storedUserDetails = localStorage.removeItem('profile')
+        state.storedUserDetails = localStorage.removeItem('profile')
 
         },
         setUser:(state, action)=>{
@@ -312,10 +312,10 @@ const authSlice = createSlice({
  .addCase(login.fulfilled, (state, action)=>{
     state.isLoggedIn = true;
     state.isSuccess = true;
-    state.user = action.payload;
+    state.user = action.payload
     
     state.isLoading = false
-    localStorage.setItem('profile', JSON.stringify(action.payload)); // 3
+   // localStorage.setItem('profile', JSON.stringify(action.payload)); // 3
     toast.success(action.payload)
     console.log(action.payload)
  })
@@ -361,7 +361,7 @@ const authSlice = createSlice({
     state.isLoading = false
     toast.success(action.payload)
     console.log(action.payload)
-  localStorage.setItem("profile", JSON.stringify(action.payload)); // <-- This
+ // localStorage.setItem("profile", JSON.stringify(action.payload)); // <-- This
 })
 
 
@@ -385,7 +385,7 @@ state.user = action.payload;
 console.log(action.payload);
 state.isLoading = false;
 toast.success(action.payload)
-localStorage.setItem("profile", JSON.stringify(action.payload))
+//localStorage.setItem("profile", JSON.stringify(action.payload))
 })
 .addCase(getUser.rejected, (state,action)=>{
 state.isLoading = false;
@@ -500,7 +500,7 @@ state.isLoggedIn = false;
       .addCase(getAllDoctors.rejected, (state, action)=>{
           state.isLoading = false;
           state.isError = true;
-          state.message = action.payload;
+          state.message = action.payload
           state.isSuccess = false;
         //  state.doctor = null;
           toast.error(action.payload)
@@ -589,7 +589,7 @@ toast.success(action.payload)
            .addCase(updatePaymentMethod.fulfilled, (state,action)=>{
           //  state.isLoggedIn = true;
             state.isSuccess = true;
-            state.getThisAppointment = action.payload
+            state.getThisAppointment = action.payload.updated
             //.updated;
             console.log(action.payload);
             state.isLoading = false;

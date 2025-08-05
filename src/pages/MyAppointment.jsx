@@ -301,6 +301,10 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle'
              py: 2,
              boxShadow: "0 -2px 5px rgba(0,0,0,0.05)",
              zIndex: 99,
+               overflowX: 'auto', 
+    whiteSpace: 'nowrap', 
+    scrollbarWidth: 'none', 
+    '&::-webkit-scrollbar': { display: 'none' },
            }}
          >
            <Pagination

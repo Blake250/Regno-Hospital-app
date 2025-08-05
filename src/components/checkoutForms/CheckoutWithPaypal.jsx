@@ -67,18 +67,7 @@ const CheckoutWithPaypal = () => {
                     ],
                   });
                 }}
-                // onApprove={async (data, actions) => {
-                //   const details = await actions.order.capture();
-                //   toast.success("Payment successful!");
-                //   console.log("Payment Details:", details);
-
-                //   // Optional: Navigate or update backend here
-                // navigate("/checkout-success");
-                // }}
-                // onError={(err) => {
-                //   toast.error("PayPal payment failed.");
-                //   console.error("PayPal Error:", err);
-                // }}
+             
 
                 onApprove={async (data, actions) => {
                   try {
@@ -102,10 +91,10 @@ const CheckoutWithPaypal = () => {
                  
                  const result = await res.json();
                 
-                    if (!res.ok) {
-                    //  throw new Error(result.message || "Payment verification failed");
-               //     toast.error(result.message || "Payment verification failed")
-                    }
+              //       if (!result.ok) {
+              //       //  throw new Error(result.message || "Payment verification failed");
+              //  //     toast.error(result.message || "Payment verification failed")
+              //       }
                 
                     toast.success("Payment verified and appointment updated!");
                     navigate("/checkout-success");
@@ -137,54 +126,3 @@ export default CheckoutWithPaypal;
 
 
 
-
-
-
-// import { useDispatch, useSelector } from 'react-redux'
-// import { useNavigate, useParams } from 'react-router-dom'
-// import { getSingleBooking } from '../../feature/auth/authSlice'
-// import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
-// import { Box } from '@mui/material';
-
-// const CheckoutWithPaypal = () => {
-
-//      const { docId } = useParams()
-//       const { isLoading,   } = useSelector((state) => state?.auth)
-//       const {getThisAppointment, user,   } = useSelector((state) => state?.auth)
-//       console.log(`my data is this ${JSON.stringify(getThisAppointment) }`)
-//      // console.log(`i have a doc details coming as a ${JSON.stringify(user) } `)
-
-
-    
-
-//   const dispatch = useDispatch()
-//   const navigate = useNavigate()
-
-
-//       useEffect(() => {
-//         if (docId) {
-//           dispatch(getSingleBooking(docId))
-//         }
-//       }, [docId, dispatch])
-    
-//       const initialOptions = {
-//         'client-id' : import.meta.env.VITE_PAYPAL_CLIENT_ID ,
-//         currency: "USD",
-//         intent: "capture", 
-//     }
- 
-  
-//   return (
-//     <PayPalScriptProvider options={initialOptions} >
-//     <Box>
-//       <Box>
-
-//       </Box>
-//       CheckoutWithPaypal
-      
-//       </Box>
-//       </PayPalScriptProvider>
-//   )
-// }
-
-// export default CheckoutWithPaypal

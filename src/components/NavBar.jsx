@@ -5,11 +5,12 @@ import { Box, Typography, Button, Avatar, IconButton, Stack } from '@mui/materia
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseIcon from '@mui/icons-material/Close';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUser, logOutUser, setUser } from '../feature/auth/authSlice';
+import { getUser, logOutUser, RESET_AUTH, setUser } from '../feature/auth/authSlice';
 import ShowOnLogin, { ShowOnLogOut } from './hiddenLinks/hideLinks';
 import { shortenText } from '../../util';
 import { AdminOnlyLinks } from './hiddenLinks/adminOnlyRoute';
 import CenterFocusStrongRoundedIcon from '@mui/icons-material/CenterFocusStrongRounded';
+import { toast } from 'react-toastify';
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -25,6 +26,10 @@ const NavBar = () => {
     await dispatch(logOutUser());
     navigate('/login');
     setShowMenu(false); // Close mobile menu on logout
+   RESET_AUTH();
+    //dispatch(setUser(null)); // Clear user data
+    //dispatch(getUser()); // Fetch updated user data
+    toast.success('Logged out successfully');
   };
 
   // Menu items
@@ -333,7 +338,7 @@ const NavBar = () => {
             <Typography sx={textStyle}>Login</Typography>
           </NavLink>
         </ShowOnLogOut>
-        <ShowOnLogin>
+        {/* <ShowOnLogin>
           <NavLink
             to={'/login'} // Navigate to login after logout
             className={({ isActive }) => (isActive ? 'activeText' : '')}
@@ -348,7 +353,7 @@ const NavBar = () => {
           >
             <Typography sx={textStyle}>Logout</Typography>
           </NavLink>
-        </ShowOnLogin>
+        </ShowOnLogin> */}
       </Box>
     </Box>
   );

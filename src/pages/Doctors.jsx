@@ -54,7 +54,7 @@ const doctors = useMemo(() => {
 // Populate categories and doctors when doctors change
 useEffect(() => {
   if (doctors.length > 0) {
-    const uniqueCategories = [...new Set(doctors.map((doc) => doc?.speciality))];
+    const uniqueCategories = [...new Set(doctors?.map((doc) => doc?.speciality))];
     setCategories(uniqueCategories);
     setFilteredDoctors(doctors);
   }
@@ -62,7 +62,7 @@ useEffect(() => {
 
 // Run filtering only once on mount if queryCategory exists
 useEffect(() => {
-  if (queryCategory && doctors.length > 0) {
+  if (queryCategory && doctors?.length > 0) {
     const filtered = doctors.filter(
       (doc) => doc?.speciality?.toLowerCase() === queryCategory.toLowerCase()
     );
@@ -328,7 +328,27 @@ useEffect(() => {
                   </Stack>
    
                 </Paper>
-                <Box sx={{ marginTop: '15px', display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'fixed', left: 0, bottom: 0, width: '100%', backgroundColor: '#fff', padding: '20px', borderTop: '1px solid #e0e0e0' }}>
+                <Box sx={{ 
+                  marginTop: '15px', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center',
+                  position: 'fixed', 
+                  left: 0, 
+                  bottom: 0, 
+                  width: '100%',
+                   backgroundColor: '#fff',
+                  //  padding: '20px',
+             //   padding:{xs:'5px', md:'20px'},
+                       overflowX: 'auto', // <-- Add this
+    whiteSpace: 'nowrap', // <-- Prevent wrapping
+    scrollbarWidth: 'none', // For Firefox
+    '&::-webkit-scrollbar': { display: 'none' },
+
+
+
+                     borderTop: '1px solid #e0e0e0'
+                     }}>
           <Pagination itemsPerPage={itemsPerPage} pageCount={pageCount} handlePageClick={handlePageClick} itemOffset={itemOffset} setItemOffset={setItemOffset} />
         </Box>
          
