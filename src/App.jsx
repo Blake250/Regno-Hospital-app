@@ -135,7 +135,7 @@ const shouldHideFooter =
           <Route path="/doctors/:speciality" element={<Doctors />} />
           <Route path="/register" element={  <Register />} />
 {/*           <Route path="/login" element={   isLoggedIn   && user ? <Navigate to="/" /> : <Login />} /> */}
-            <Route path="/login" element={ <Login />} 
+            <Route path="/login" element={ <Login />} />
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/profile" element={<MyProfile />} />
