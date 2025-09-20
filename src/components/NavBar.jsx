@@ -26,9 +26,7 @@ const NavBar = () => {
     await dispatch(logOutUser());
     navigate('/login');
     setShowMenu(false); // Close mobile menu on logout
-   RESET_AUTH();
-    //dispatch(setUser(null)); // Clear user data
-    //dispatch(getUser()); // Fetch updated user data
+
     toast.success('Logged out successfully');
   };
 
