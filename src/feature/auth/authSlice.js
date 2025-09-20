@@ -218,7 +218,7 @@ let userFromStorage = null;
 const stored = localStorage.getItem("profile");
 
 try {
-  if (stored && stored !== "undefined") {
+  if (stored && stored !== "undefined" || stored !== null  ) {
     userFromStorage = JSON.parse(stored);
   }
 } catch (error) {
@@ -264,7 +264,7 @@ const authSlice = createSlice({
             state.isError = false;  
             state.isLoading = false;    
             state.message = ''  
-            state.user = action.payload     
+          // state.user = action.payload     
         },
         setUserPhoto:(state, action)=>{
             state.storedPhoto = action.payload
