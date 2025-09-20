@@ -91,42 +91,48 @@ useEffect(() => {
 
 
 
-  useEffect(() => {
-    const storedDetails = localStorage.getItem('profile');
+  // useEffect(() => {
+  //   const storedDetails = localStorage.getItem('profile');
 
 
-    if (user === null && storedDetails) {
-      try {
-        const parsed = JSON.parse(storedDetails);
-     const fetchedData =    setUserData(parsed)
-        dispatch(setUser(fetchedData));
-      } catch (e) {
-        console.error('Failed to parse stored profile JSON:', e);
-        localStorage.removeItem('profile');
-      }
-     }
-  }, [ dispatch]);
+  //   if (user === null && storedDetails) {
+  //     try {
+  //       const parsed = JSON.parse(storedDetails);
+  //    const fetchedData =    setUserData(parsed)
+  //       dispatch(setUser(fetchedData));
+  //     } catch (e) {
+  //       console.error('Failed to parse stored profile JSON:', e);
+  //       localStorage.removeItem('profile');
+  //     }
+  //    }
+  // }, [ dispatch]);
     
 
 
-  // useEffect(() => {
-  //   const newUserData = async () => {
-  //     if ((isLoggedIn && !user) || storedUserDetails === null) {
-  //       const storedDetails = localStorage.getItem('profile');
-  //       if (storedDetails) {
-  //         try {
-  //           const parsed = JSON.parse(storedDetails);
-  //           await dispatch(setUser(parsed));
-  //         } catch (e) {
-  //           console.error('Failed to parse stored profile JSON:', e);
-  //           localStorage.removeItem('profile');
-  //         }
-  //       }
-  //     }
-  //   };
+ 
+  useEffect(() => {
+    const newUserData = async () => {
+      if ((isLoggedIn && !user) || storedUserDetails === null) {
+        const storedDetails = localStorage.getItem('profile');
+        if (storedDetails) {
+          try {
+            const parsed = JSON.parse(storedDetails);
+
+
+            await dispatch(setUser(parsed));
+          } catch (e) {
+            console.error('Failed to parse stored profile JSON:', e);
+        //    localStorage.removeItem('profile');
+          }
+        }
+        else{
+          await dispatch(storedUserDetails())
+        }
+      }
+    };
   
-  //   newUserData(); // Call the async function
-  // }, [isLoggedIn, user, storedUserDetails, dispatch]); // Include dependencies
+    newUserData(); // Call the async function
+  }, [isLoggedIn, user, storedUserDetails, dispatch]); 
   
 
 
