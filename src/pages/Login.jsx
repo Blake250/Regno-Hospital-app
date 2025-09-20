@@ -153,8 +153,7 @@ const styledAnimation = {
     
   
     }catch(error){
-     // localStorage.removeItem('profile')
-     // dispatch({type: RESET_AUTH})
+ 
      toast.error(error?.message || 'Login failed')
      //toast.error(error.message)
       toast.error(error.message)
