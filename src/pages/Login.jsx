@@ -26,18 +26,6 @@ const Login = () => {
   console.log(`here we have the updated date like this ${JSON.stringify(storedUserDetails) }`)
 
   
-// useEffect(()=>{
-//   if(user !== null && storedUserDetails){
-//     // dispatch(getUser()).then((res) => {
-//     //   if (res.payload) {
-//     //     dispatch(setUser(res.payload));
-//     //   }
-
-//     // });
-//   } 
-// },[dispatch, user])
-
-
 
   // const loginUser = (async(e)=>{
   //   e.preventDefault()
@@ -147,7 +135,7 @@ const styledAnimation = {
   
   
       toast.success('login is successful')
-     navigate('/')
+     navigate('/home')
      
   
     
