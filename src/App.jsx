@@ -130,7 +130,7 @@ const shouldHideFooter =
       <Box sx={{ flexGrow: 1 }}>
         <Routes>
       
-          <Route path="/" element={<Home />} />
+           <Route path="/" element={   isLoggedIn   && user ? <Navigate to="/" /> : <Home/>} />
           <Route path="/doctors" element={ <Doctors/>} />
           <Route path="/doctors/:speciality" element={<Doctors />} />
           <Route path="/register" element={  <Register />} />
