@@ -27,54 +27,6 @@ const Login = () => {
 
   
 
-  // const loginUser = (async(e)=>{
-  //   e.preventDefault()
-  //   if(!email || !password ){
-  //    toast.error('please enter the correct data')
-  //    return
-  //   }
-  
-  //   if(!validateEmail(email)){
-  //   toast.error('email is invalid...')
-  //   return 
-  
-  //   }
-  
-  //   if(password.length < 6){
-  //      toast.error('wrong email & password..')
-  //      return
-  //   }
-  //   try{
-  
-  //     const userData = {email, password}
-  //   // await dispatch(login(userData)).unwrap()
-  //   dispatch(login(userData)).then((res) => {
-  //     if (res.payload) {
-  //       dispatch(getUser()).then((res2) => {
-  //         if (res2.payload) {
-  //           dispatch(setUser(res2.payload));
-  //         }
-  //       });
-  //     } 
-  //   });
-  
-  
-  //     toast.success('login is successful')
-  //    navigate('/')
-     
-  
-    
-  
-  //   }catch(error){
-          
-  //     toast.error(error.message)
-  //      console.log(error.message)
-  //   }
-  
-  
-  // })
-
-
 
 
 
