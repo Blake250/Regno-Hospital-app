@@ -28,27 +28,6 @@ const Register = () => {
 
   
 
-  
-// useEffect(() => {
-//   if (!isSuccess  ) {
-//     toast.success("Registration successful. Please log in...");
-//     navigate("/register");
-//    // dispatch(RESET_AUTH());else
-//   }else{
-//     navigate("/login");
-//   }
-// }, [dispatch, isSuccess, navigate,]) 
-
-
-
-// useEffect(() => {
-//   // Reset any previous auth state on first load
-//   if(isError){
-//     toast.error(message)
-//     dispatch(RESET_AUTH());
-//   }
-
-// }, [ message, isError] ) 
 
 
 
@@ -79,7 +58,7 @@ const userData = {name, email, password}
  await dispatch(register(userData))
 
  // toast.success( 'registration is successful')
-   navigate("/login");
+   navigate("/");
 
 
 
@@ -246,7 +225,7 @@ const userData = {name, email, password}
   sx={{fontSize:'14px'}}>
 Already have an account?
 </Typography>
-  <Link  to={'/login'} >
+  <Link  to={'/'} >
   <Typography
    sx={{fontSize:'14px', paddingLeft:'4px'}}
   >
