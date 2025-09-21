@@ -306,7 +306,7 @@ const NavBar = () => {
         ))}
         <AdminOnlyLinks>
           <NavLink
-            to={'/logout'}
+            to={'/login'}
             className={({ isActive }) => (isActive ? 'activeText' : '')}
             style={{
               textDecoration: 'none',
