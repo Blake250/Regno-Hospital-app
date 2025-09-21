@@ -24,7 +24,7 @@ const NavBar = () => {
   // Handle logout
   const logout = async () => {
     await dispatch(logOutUser());
-    navigate('/login');
+    navigate('/');
     setShowMenu(false); // Close mobile menu on logout
 
     toast.success('Logged out successfully');
@@ -32,7 +32,7 @@ const NavBar = () => {
 
   // Menu items
   const menu = [
-    { id: 1, name: 'Home', path: '/' },
+    { id: 1, name: 'Home', path: '/home' },
     { id: 4, name: 'All Doctors', path: '/doctors' },
     { id: 3, name: 'Contact', path: '/contact' },
     { id: 2, name: 'About', path: '/about' },
@@ -66,11 +66,11 @@ const NavBar = () => {
           {isLoggedIn ? (
             <>
               <CenterFocusStrongRoundedIcon
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/home')}
                 sx={{ fontSize: { xs: '24px', md: '30px' }, marginRight: '10px', color: '#0033cc' }}
               />
               <Typography
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/home')}
                 sx={{ fontWeight: '600', fontSize: { xs: '16px', md: '18px' }, color: '#0033cc' }}
               >
                 Logoipsum
@@ -79,11 +79,11 @@ const NavBar = () => {
           ) : (
             <>
               <CenterFocusStrongRoundedIcon
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/')}
                 sx={{ fontSize: { xs: '24px', md: '30px' }, marginRight: '10px', color: '#0033cc' }}
               />
               <Typography
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/')}
                 sx={{ fontWeight: '600', fontSize: { xs: '16px', md: '18px' }, color: '#0033cc' }}
               >
                 Logoipsum
@@ -253,7 +253,7 @@ const NavBar = () => {
               color="primary"
               variant="contained"
               size="medium"
-              onClick={() => navigate('/login')}
+              onClick={() => navigate('/')}
               sx={{
                 fontSize: { xs: '10px', md: '12px' },
                 display: { xs: 'none', md: 'block' }, // Hide on mobile, show on desktop
@@ -322,7 +322,7 @@ const NavBar = () => {
         </AdminOnlyLinks>
         <ShowOnLogOut>
           <NavLink
-            to={'/login'}
+            to={'/'}
             className={({ isActive }) => (isActive ? 'activeText' : '')}
             style={{
               textDecoration: 'none',
@@ -338,7 +338,7 @@ const NavBar = () => {
         </ShowOnLogOut>
         {/* <ShowOnLogin>
           <NavLink
-            to={'/login'} // Navigate to login after logout
+            to={'/'} // Navigate to login after logout
             className={({ isActive }) => (isActive ? 'activeText' : '')}
             style={{
               textDecoration: 'none',
