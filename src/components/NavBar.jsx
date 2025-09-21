@@ -26,7 +26,9 @@ const NavBar = () => {
     await dispatch(logOutUser());
     navigate('/login');
     setShowMenu(false); // Close mobile menu on logout
-
+   RESET_AUTH();
+    //dispatch(setUser(null)); // Clear user data
+    //dispatch(getUser()); // Fetch updated user data
     toast.success('Logged out successfully');
   };
 
@@ -304,9 +306,9 @@ const NavBar = () => {
             <Typography sx={textStyle}>{item.name}</Typography>
           </NavLink>
         ))}
-        <AdminOnlyLinks>
+{/*         <AdminOnlyLinks>
           <NavLink
-            to={'/login'}
+            to={'/logout'}
             className={({ isActive }) => (isActive ? 'activeText' : '')}
             style={{
               textDecoration: 'none',
@@ -319,7 +321,7 @@ const NavBar = () => {
           >
             <Typography sx={textStyle}>Logout</Typography>
           </NavLink>
-        </AdminOnlyLinks>
+        </AdminOnlyLinks> */}
         <ShowOnLogOut>
           <NavLink
             to={'/login'}
