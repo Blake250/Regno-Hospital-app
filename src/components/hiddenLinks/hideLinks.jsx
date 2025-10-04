@@ -40,4 +40,23 @@ export const PrivateRoute = ({children} )=>{
 
  return isLoggedIn ? children :  <Navigate to='/login' />
 }
+
+
+
+export const ProtectedRoute = ({ children }) => {
+  const { isLoggedIn, user } = useSelector((state) => state?.auth);
+  console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
+
+  // If not logged in, redirect to login
+  if (!isLoggedIn || !user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  // Otherwise, show the protected component
+  return children;
+};
+
+
+
+
 export default  ShowOnLogin
