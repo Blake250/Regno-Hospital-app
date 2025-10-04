@@ -46,6 +46,7 @@ import CheckoutSuccess from "./components/checkoutForms/CheckoutSuccess"
 //import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
 import CheckoutOptions from "./components/checkoutForms/CheckoutOptions"
 import axios from "axios"
+import { ProtectedRoute } from "./components/hiddenLinks/hideLinks"
 //import DocSpeciality from "./pages/DocSpeciality"
 
 
@@ -130,7 +131,9 @@ const shouldHideFooter =
       <Box sx={{ flexGrow: 1 }}>
         <Routes>
       
-           <Route path="/" element={ <Home/>} />
+           {/* <Route path="/" element={ <Home/>} /> */}
+              
+        <Route path="/" element={  <ProtectedRoute> <Home /> </ProtectedRoute>} />
           <Route path="/doctors" element={ <Doctors/>} />
           <Route path="/doctors/:speciality" element={<Doctors />} />
           <Route path="/register" element={  <Register />} />
