@@ -79,23 +79,23 @@ const App = () => {
   console.log(`loginStatus: ${JSON.stringify(loginStatus)}`)
 
 
-  // useEffect(() => {
+  useEffect(() => {
  
-  //   if (isLoggedIn && user=== null) {
-  //     dispatch(getUser()).then((res) => {
-  //       if (res.payload) {
-  //         dispatch(setUser(res.payload)); // ✅ Correctly update Redux state
-  //       }
-  //     });
-  //   }
-  // }, [dispatch, isLoggedIn, user]);
+    if (isLoggedIn && user=== null) {
+      dispatch(getUser()).then((res) => {
+        if (res.payload) {
+          dispatch(setUser(res.payload)); // ✅ Correctly update Redux state
+        }
+      });
+    }
+  }, [dispatch, isLoggedIn, user]);
 
-  useEffect(()=>{
-  if(isLoggedIn && user === null){
-    dispatch(getUser())
-  }
+//   useEffect(()=>{
+//   if(isLoggedIn && user === null){
+//     dispatch(getUser())
+//   }
 
-}, [dispatch, isLoggedIn, user])
+// }, [dispatch, isLoggedIn, user])
   
 
 
