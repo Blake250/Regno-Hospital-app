@@ -50,7 +50,9 @@ import { ProtectedRoute } from "./components/hiddenLinks/hideLinks"
 //import DocSpeciality from "./pages/DocSpeciality"
 
 
-const App = () => {
+const App = () => { 
+  axios.defaults.withCredentials = true;
+axios.defaults.baseURL = 'https://your-backend.onrender.com/api';
   const { isLoggedIn, user, isError, isSuccess , } = useSelector((state) => state?.auth)
   console.log(`isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`)
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails)
