@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux"
-import { Navigate } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 
 
  // eslint-disable-next-line react/prop-types
@@ -43,7 +43,7 @@ export const PrivateRoute = ({children} )=>{
 
 
 
-export const ProtectedRoute = ({ children }) => {
+export const ProtectedRoute = () => {
   const { isLoggedIn, user } = useSelector((state) => state?.auth);
   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
 
@@ -53,7 +53,7 @@ export const ProtectedRoute = ({ children }) => {
   }
 
   // Otherwise, show the protected component
-  return children;
+  return <Outlet/>;
 };
 
 
