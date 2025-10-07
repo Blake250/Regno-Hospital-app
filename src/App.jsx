@@ -96,7 +96,11 @@ const App = () => {
 
           {/* 🔒 Protected Routes */}
           <Route element={<ProtectedRoute />}>
-            <Route path="/" element={<Home />} />
+            {/* <Route path="/" element={<Home />} /> */}
+              <Route
+            path="/"
+            element={isLoggedIn && user ? <Navigate to="/" /> : <Login />}
+          /> 
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:speciality" element={<Doctors />} />
             <Route path="/profile" element={<MyProfile />} />
