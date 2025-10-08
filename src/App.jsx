@@ -98,9 +98,9 @@ const App = () => {
           <Route path="/contact" element={<Contact />} />
 
          
-        
-            <Route path="/" element={<Home />} />
               <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Home />} />
+           
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:speciality" element={<Doctors />} />
             <Route path="/profile" element={<MyProfile />} />
