@@ -40,7 +40,9 @@ const App = () => {
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails);
   const dispatch = useDispatch();
   const location = useLocation();
-  axios.defaults.withCredentials = true;
+    axios.defaults.baseURL = 'https://regno-hospital-api.onrender.com';
+axios.defaults.withCredentials = true;
+ 
 
   useEffect(() => {
     dispatch(getLoginStatus());
