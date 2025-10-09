@@ -13,7 +13,7 @@ console.log(`here we come the ${API_URL}`)
 // registering a user
 const register = async(userData)=>{
 
-        const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/register`,userData,{
+        const response = await axios.post('https://regno-hospital-api.onrender.com/api/user/register',userData,{
         withCredentials: true,
         //credentials: 'include',
        headers: {"Content-Type" :'application/json'}
@@ -26,7 +26,7 @@ const register = async(userData)=>{
 
 // login a user
 const login = async(userData)=>{
-    const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/login`, userData,{
+    const response = await axios.post('https://regno-hospital-api.onrender.com/api/user/login, userData,{
    
         withCredentials: true,
         //credentials: 'include',
@@ -42,7 +42,7 @@ const login = async(userData)=>{
 
 //logout a User
 const logout = async()=>{
-    const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/logout`,{
+    const response = await axios.get('https://regno-hospital-api.onrender.com/api/user/logout',{
     
         withCredentials: true,
         //credentials: 'include',
