@@ -26,7 +26,7 @@ const register = async(userData)=>{
 
 // login a user
 const login = async(userData)=>{
-    const response = await axios.post('https://regno-hospital-api.onrender.com/api/user/login, userData,{
+    const response = await axios.post('https://regno-hospital-api.onrender.com/api/user/login', userData,{
    
         withCredentials: true,
         //credentials: 'include',
