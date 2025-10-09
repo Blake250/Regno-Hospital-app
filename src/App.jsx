@@ -52,19 +52,19 @@ axios.defaults.withCredentials = true;
     if (isError) toast.error(isError);
   }, [isError]);
 
-  useEffect(() => {
-    if (isLoggedIn && user === null) {
-      dispatch(getUser()).then((res) => {
-        if (res.payload) dispatch(setUser(res.payload));
-      });
-    }
-  }, [dispatch, isLoggedIn, user]);
+  // useEffect(() => {
+  //   if (isLoggedIn && user === null) {
+  //     dispatch(getUser()).then((res) => {
+  //       if (res.payload) dispatch(setUser(res.payload));
+  //     });
+  //   }
+  // }, [dispatch, isLoggedIn, user]);
 
-  // useEffect(()=>{
-  //   if(isLoggedIn && user === null){
-  //     dispatch(getUser())
-  //      }
-  // }, [user, dispatch, isLoggedIn])
+  useEffect(()=>{
+    if(isLoggedIn && user === null){
+      dispatch(getUser())
+       }
+  }, [user, dispatch, isLoggedIn])
       
 
   const isAdminRoute = location.pathname.startsWith("/admin");
