@@ -134,16 +134,16 @@ const styledAnimation = {
     try{
   
       const userData = {email, password}
-    // await dispatch(login(userData)).unwrap()
-    dispatch(login(userData)).then((res) => {
-      if (res.payload) {
-        dispatch(getUser()).then((res2) => {
-          if (res2.payload) {
-            dispatch(setUser(res2.payload));
-          }
-        });
-      } 
-    });
+     await dispatch(login(userData)).unwrap()
+    // dispatch(login(userData)).then((res) => {
+    //   if (res.payload) {
+    //     dispatch(getUser()).then((res2) => {
+    //       if (res2.payload) {
+    //         dispatch(setUser(res2.payload));
+    //       }
+    //     });
+    //   } 
+    // });
   
   
       toast.success('login is successful')
