@@ -27,29 +27,24 @@ const Register = () => {
 
 
   
+useEffect(() => {
+  if (isError) {
+    // If the backend says the user already exists
+    if (message && message.toLowerCase().includes("exists")) {
+      toast.error("You already have an account. Please log in.");
+      navigate("/login");
+    } else {
+      toast.error(message || "Registration failed");
+    }
+    dispatch(RESET_AUTH());
+  }
 
-  
-// useEffect(() => {
-//   if (!isSuccess  ) {
-//     toast.success("Registration successful. Please log in...");
-//     navigate("/register");
-//    // dispatch(RESET_AUTH());else
-//   }else{
-//     navigate("/login");
-//   }
-// }, [dispatch, isSuccess, navigate,]) 
-
-
-
-// useEffect(() => {
-//   // Reset any previous auth state on first load
-//   if(isError){
-//     toast.error(message)
-//     dispatch(RESET_AUTH());
-//   }
-
-// }, [ message, isError] ) 
-
+  if (isSuccess) {  
+    toast.success("Registration successful. Please log in.");
+    navigate("/login");
+ //   dispatch(RESET_AUTH());
+  }
+}, [isError, isSuccess, message, dispatch, navigate]);
 
 
 
@@ -64,14 +59,18 @@ const Register = () => {
 const registerUser = (async(e)=>{
   e.preventDefault()
 if(!name || !email || !password){
- return toast.error(`invaLid login details`)  
+   toast.error(`invaLid login details`) 
+ return 
 }
 if(!validateEmail(email)){
-  return toast.error(`invalid Email`)
+  toast.error(`invalid Email`)
+  return 
 }
 
 if(password.length < 6){
-  return toast.error(`password  must not be less than 6`)
+  toast.error(`password  must not be less than 6`)
+  return 
+  
 } 
 
 try{

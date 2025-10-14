@@ -25,7 +25,7 @@ import {
 } from '@mui/icons-material';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOutUser, setUser } from '../../feature/auth/authSlice';
+import { logOutUser, RESET_AUTH, setUser } from '../../feature/auth/authSlice';
 import { shortenText } from '../../../util';
 
 const drawerWidth = 240;
@@ -44,10 +44,22 @@ const Admin = () => {
     dispatch(setUser());
   }
 
-  const logout = async () => {
-    await dispatch(logOutUser());
-    navigate('/login');
-  };
+ const logout = async () => {
+   try {
+     await dispatch(logOutUser()).unwrap();
+ 
+     // ✅ Clear Redux and localStorage before navigation
+     dispatch(RESET_AUTH());
+   
+ 
+     setTimeout(() => {
+       navigate("/login");
+       
+     }, 500);
+   } catch (error) {
+     console.error("Logout failed:", error);
+   }
+ };
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);

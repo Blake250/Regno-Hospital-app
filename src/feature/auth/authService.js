@@ -1,19 +1,22 @@
-
-
-
 import axios from  'axios'
-// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+ const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
+// // //const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
+
+console.log(`this is the ${BACKEND_URL}`)
+console.log(import.meta.env);
 
 
- export const API_URL = 'https://regno-hospital-api.onrender.com/api/user'
-console.log(`here we come the ${API_URL}`)
+
+ const API_URL = `${BACKEND_URL}/api/user`
+
+//  export const API_URL = 'https://regno-hospital-api.onrender.com/api/user'
+// console.log(`here we come the ${API_URL}`)
 
 
 
 // registering a user
 const register = async(userData)=>{
-
-        const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/register`,userData,{
+    const response = await axios.post('https://regno-hospital-api.onrender.com/api/user/register',userData,{
         withCredentials: true,
         //credentials: 'include',
        headers: {"Content-Type" :'application/json'}
@@ -26,8 +29,7 @@ const register = async(userData)=>{
 
 // login a user
 const login = async(userData)=>{
-    const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/login`, userData,{
-   
+    const response = await axios.post('https://regno-hospital-api.onrender.com/api/user/login', userData,{
         withCredentials: true,
         //credentials: 'include',
         headers: {'Content-Type' : 'application/json'},
@@ -42,8 +44,7 @@ const login = async(userData)=>{
 
 //logout a User
 const logout = async()=>{
-    const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/logout`,{
-    
+    const response = await axios.get('https://regno-hospital-api.onrender.com/api/user/logout',{
         withCredentials: true,
         //credentials: 'include',
         headers:{'Content-Type': 'application/json'}
@@ -60,8 +61,7 @@ const logout = async()=>{
 
 //get user Login status
 const getLoginStatus = async()=>{
-    const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/get-status`, {
-     
+    const response = await axios.get('https://regno-hospital-api.onrender.com/api/user/get-status', {
         withCredentials: true,
         //credentials: 'include',
         headers:{'Content-Type': 'application/json'} 
@@ -74,8 +74,7 @@ const getLoginStatus = async()=>{
 
 //get User data 
 const getUser = async()=>{
-     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/get-user`, {
-    
+    const response = await axios.get('https://regno-hospital-api.onrender.com/api/user/get-user', {
         withCredentials:true,
         //credentials: 'include',
         headers:{'Content-Type':'application/json'}
@@ -87,8 +86,7 @@ const getUser = async()=>{
 
 //update user's updatePhoto
 const updatedPhoto = async(userData)=>{
-    const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/update-photo`, userData,{
-      
+    const response = await axios.patch('https://regno-hospital-api.onrender.com/api/user/update-photo', userData,{
         withCredentials: true,
         //credentials: 'include',
         headers:{'Content-Type' : 'application/json'}
@@ -98,10 +96,8 @@ const updatedPhoto = async(userData)=>{
 }
 
 const updatedUser = async(userData)=>{
-    const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/update-user`, userData,{
-    
+    const response = await axios.patch('https://regno-hospital-api.onrender.com/api/user/update-user', userData,{
         withCredentials:true,
-
         //credentials: 'include',
         headers:{'Content-Type':'application/json'}
 
@@ -112,7 +108,6 @@ const updatedUser = async(userData)=>{
 // get otr fetch  A single booking or appointment with a doctor
 const getSingleBooking = async(docId)=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/appointments/${docId}`, {
-
         withCredentials : true,
         headers:{'Content-Type':'application/json'}
 
@@ -123,7 +118,6 @@ const getSingleBooking = async(docId)=>{
 // get a doctor's single page 
 const getOneDoctor= async(id)=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/fetch-doc/${id}`, {
-  
         withCredentials : true,
         headers:{'Content-Type':'application/json'}
 
@@ -136,7 +130,6 @@ const getOneDoctor= async(id)=>{
 //get all doctors registered by admin   
 export const  getAllDoctors = async()=>{
     const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/get-docs`, {
-
         withCredentials: true,
         headers: {'Content-Type': 'application/json'}
     });
@@ -151,7 +144,6 @@ export const  getAllDoctors = async()=>{
 // booking an appointment
 const bookAppointment = async( {docId, bookingData} )=>{
     const response = await axios.post(`https://regno-hospital-api.onrender.com/api/user/doc-booking/${docId}`,
-    
         bookingData,
         {
             withCredentials:true,
@@ -166,7 +158,6 @@ const bookAppointment = async( {docId, bookingData} )=>{
 // get All  bookings by a single user
 const getAllBookings = async()=>{
  const response = await axios.get(`https://regno-hospital-api.onrender.com/api/user/appointments`,
-
    {
     withCredentials:true,
     headers: {'Content-Type':'application/json' }
@@ -180,22 +171,21 @@ const getAllBookings = async()=>{
 // get All  bookings by a single user
 const cancelAppointment = async(appointmentId)=>{
     const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/cancel-doc`,
-    
         appointmentId,
       {
        withCredentials:true,
+        
        headers: {'Content-Type':'application/json' }
       }
       
     )
     return response.data
-   }
+   } 
    
 
    // get All  bookings by a single user
 const updatePaymentMethod = async({appointmentId, paymentMethod})=>{
     const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/${appointmentId}/payment-method`,
-      
         {paymentMethod},
     
       {

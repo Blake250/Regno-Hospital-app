@@ -11,26 +11,47 @@ import { shortenText } from '../../util';
 import { AdminOnlyLinks } from './hiddenLinks/adminOnlyRoute';
 import CenterFocusStrongRoundedIcon from '@mui/icons-material/CenterFocusStrongRounded';
 import { toast } from 'react-toastify';
+import { useEffect } from 'react';
 
 const NavBar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const { isLoggedIn, user, storedUserDetails } = useSelector((state) => state?.auth);
+  const { isLoggedIn, storedUserDetails } = useSelector((state) => state?.auth)
+  const user = useSelector((state) => state?.auth?.user);
+  console.log(`NavBar - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
   const dispatch = useDispatch();
 
-  const userImg = storedUserDetails?.photo || '';
-  const userData = storedUserDetails?.name || '';
+  useEffect(() => {
+  if (isLoggedIn && !user?.name) {
+    dispatch(getUser());
+  }
+}, [isLoggedIn, user, dispatch]);
 
-  // Handle logout
+  const userImg = user?.photo || '';
+  const userData = user?.name || '';
+
+;
+
+
   const logout = async () => {
-    await dispatch(logOutUser());
-    navigate('/login');
-    setShowMenu(false); // Close mobile menu on logout
-   RESET_AUTH();
-    //dispatch(setUser(null)); // Clear user data
-    //dispatch(getUser()); // Fetch updated user data
-    toast.success('Logged out successfully');
-  };
+  try {
+    await dispatch(logOutUser()).unwrap();
+
+    // ✅ Clear Redux and localStorage before navigation
+    dispatch(RESET_AUTH());
+  
+
+    setTimeout(() => {
+  navigate("/login");
+  setShowMenu(false);    
+}, 500);
+
+    toast.success("Logout successful");
+  } catch (error) {
+    console.error("Logout failed:", error);
+  }
+};
+
 
   // Menu items
   const menu = [
@@ -102,7 +123,7 @@ const NavBar = () => {
             alignItems: 'center',
           }}
         >
-          {menu.map((item) => (
+          {menu?.map((item) => (
             <NavLink
               key={item.id}
               to={item.path}
@@ -306,9 +327,11 @@ const NavBar = () => {
             <Typography sx={textStyle}>{item.name}</Typography>
           </NavLink>
         ))}
-        <AdminOnlyLinks>
+                 <AdminOnlyLinks
+                    onClick={logout}
+                 >
           <NavLink
-            to={'/logout'}
+            to={'/login'}
             className={({ isActive }) => (isActive ? 'activeText' : '')}
             style={{
               textDecoration: 'none',
@@ -317,11 +340,14 @@ const NavBar = () => {
               width: '80%',
               textAlign: 'center',
             }}
-            onClick={() => setShowMenu(false)}
+          onClick={() => setShowMenu(false)}
+         //   onClick={logout}
+         
           >
-            <Typography sx={textStyle}>Logout</Typography>
+            <Typography
+            sx={textStyle}>Logout</Typography>
           </NavLink>
-        </AdminOnlyLinks>
+        </AdminOnlyLinks> 
         <ShowOnLogOut>
           <NavLink
             to={'/login'}
@@ -360,8 +386,6 @@ const NavBar = () => {
 };
 
 export default NavBar;
-
-
 
 
 

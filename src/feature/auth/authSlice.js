@@ -62,7 +62,7 @@ export const getLoginStatus = createAsyncThunk('auth/getLoginStatus', async(_, {
 
 
 //get User data
-export const getUser = createAsyncThunk('auth/getUser', async(_ ,{rejectWithValue})=>{
+export const getUser = createAsyncThunk('auth/get-user', async(_ ,{rejectWithValue})=>{
     try {
      return   await authService.getUser()
     } catch (error) {
@@ -208,34 +208,46 @@ export const cancelAppointment = createAsyncThunk(`auth/cancelAppointment`, asyn
 
 
 
- 
-// const userFromStorage = localStorage.getItem("profile")
-//   ? JSON.parse(localStorage.getItem("profile"))
-//   : null  ;
+
+
+
+// let userFromStorage = null;
+// try {
+//   const stored = localStorage.getItem("profile");
+//   if (stored) {
+//     userFromStorage = JSON.parse(stored);
+//   }
+// } catch (error) {
+//   console.error("Failed to parse user from localStorage:", error);
+//   localStorage.removeItem("profile"); // remove corrupted data
+// }
 
 
 let userFromStorage = null;
-const stored = localStorage.getItem("profile");
-
 try {
-  if (stored && stored !== "undefined") {
+  const stored = localStorage.getItem("profile");
+  if (stored && stored !== "undefined" && stored !== "null") {
     userFromStorage = JSON.parse(stored);
   }
 } catch (error) {
   console.error("Failed to parse user from localStorage:", error);
- // localStorage.removeItem("profile"); // optional: clean up bad data
+  localStorage.removeItem("profile");
 }
 
 
+
+
 const initialState = {
-    isLoggedIn: false,
-    user:null,
+
+   isLoggedIn: !!userFromStorage,
+  //  user:null,
+   user: userFromStorage || null,
     isError:false,
     isLoading:false,
     isSuccess:false,
     message:'',
     storedPhoto: null,  
-    storedUserDetails: userFromStorage,    
+    storedUserDetails: null,
     docData : null,
    getThisAppointment : [] ,
    doctor: []
@@ -253,11 +265,11 @@ const authSlice = createSlice({
             state.isLoading= false;
             state.isSuccess = false;
             state.message = '';
-        state.storedUserDetails = localStorage.removeItem('profile')
+       state.storedUserDetails = localStorage.removeItem('profile')
 
         },
         setUser:(state, action)=>{
-            state.storedUserDetails = action.payload
+          // state.storedUserDetails = action.payload
             localStorage.setItem('profile', JSON.stringify(action.payload))
             state.isLoggedIn = true;
             state.isSuccess = true  ;
@@ -312,10 +324,10 @@ const authSlice = createSlice({
  .addCase(login.fulfilled, (state, action)=>{
     state.isLoggedIn = true;
     state.isSuccess = true;
-    state.user = action.payload
+    state.user = action.payload;
     
     state.isLoading = false
-   // localStorage.setItem('profile', JSON.stringify(action.payload)); // 3
+   localStorage.setItem('profile', JSON.stringify(action.payload)); // 3
     toast.success(action.payload)
     console.log(action.payload)
  })
@@ -359,9 +371,9 @@ const authSlice = createSlice({
     state.isSuccess = true;
     state.isLoggedIn = action.payload
     state.isLoading = false
-    toast.success(action.payload)
+    //toast.success(action.payload)
     console.log(action.payload)
- // localStorage.setItem("profile", JSON.stringify(action.payload)); // <-- This
+//localStorage.setItem("profile", JSON.stringify(action.payload)); // <-- This
 })
 
 
@@ -384,7 +396,7 @@ state.isSuccess = true;
 state.user = action.payload;
 console.log(action.payload);
 state.isLoading = false;
-toast.success(action.payload)
+//toast.success(action.payload)
 //localStorage.setItem("profile", JSON.stringify(action.payload))
 })
 .addCase(getUser.rejected, (state,action)=>{
@@ -406,14 +418,14 @@ state.isLoggedIn = false;
     state.isSuccess = true;
     state.isLoggedIn = true;
     state.user = action.payload;
-    toast.success('photo uploaded successfully')
-    toast.success(action.payload)
+    //toast.success('photo uploaded successfully')
+   //toast.success(action.payload)
 })
 .addCase(updatedPhoto.rejected, (state, action)=>{
     state.isLoading = false;
     state.isError = true;
     state.message = action.payload;
-    toast.error(action.payload);
+  // toast.error(action.payload);
 })
 
 .addCase(updatedUser.pending, (state)=>{
@@ -424,7 +436,7 @@ state.isLoggedIn = false;
     state.isSuccess = true;
     state.user = action.payload;
     state.isLoading = false;
-    //localStorage.setItem("profile", JSON.stringify(action.payload))
+   // localStorage.setItem("profile", JSON.stringify(action.payload))
   //  toast.success("data saved successfully")
     console.log(action.payload);
 })
@@ -432,7 +444,7 @@ state.isLoggedIn = false;
 state.isLoading = false;
 state.isError = true;
 state.message = action.payload;
-toast.error(action.payload);
+//toast.error(action.payload);
 
 })
 
@@ -446,7 +458,7 @@ state.isSuccess = true;
 state.getThisAppointment = action.payload?.appointmentData;
 console.log(action.payload);
 state.isLoading = false;
-toast.success(action.payload)
+//toast.success(action.payload)
 //localStorage.setItem("profile", JSON.stringify(action.payload))
 })
 .addCase(getSingleBooking.rejected, (state,action)=>{
@@ -470,7 +482,7 @@ state.isSuccess = true;
 state.docData = action.payload.fetchedDoc;
 console.log(action.payload);
 state.isLoading = false;
-toast.success(action.payload)
+//toast.success(action.payload)
 //localStorage.setItem("profile", JSON.stringify(action.payload))
 })
 .addCase(getOneDoctor.rejected, (state,action)=>{
@@ -503,7 +515,7 @@ state.isLoggedIn = false;
           state.message = action.payload
           state.isSuccess = false;
         //  state.doctor = null;
-          toast.error(action.payload)
+         // toast.error(action.payload)
          console.log(`this is the error from get all doctors ${action.payload}` ) 
       })
 
@@ -521,7 +533,7 @@ state.isSuccess = true;
 state.user = action.payload.appointment
 console.log(action.payload);
 state.isLoading = false;
-toast.success(action.payload)
+//toast.success(action.payload)
 
 }) 
 
@@ -533,7 +545,7 @@ toast.success(action.payload)
     state.isLoggedIn = false;
     state.user = null
     console.log(action.payload.appointment);
-    toast.success(action.payload.message || "Success");
+   // toast.success(action.payload.message || "Success");
 
     
     })
@@ -549,8 +561,8 @@ toast.success(action.payload)
     state.getThisAppointment = action.payload.bookedData;
     console.log(action.payload);
     state.isLoading = false;
-    toast.success(action.payload)
-  localStorage.setItem("profile", JSON.stringify(action.payload))
+    //toast.success(action.payload)
+  //localStorage.setItem("profile", JSON.stringify(action.payload))
     })
     .addCase(getAllBookings.rejected, (state,action)=>{
     state.isLoading = false;
@@ -571,8 +583,8 @@ toast.success(action.payload)
     state.getThisAppointment = action.payload.message;
     console.log(action.payload);
     state.isLoading = false;
-    toast.success(action.payload)
-    localStorage.setItem("profile", JSON.stringify(action.payload))
+    //toast.success(action.payload)
+   // localStorage.setItem("profile", JSON.stringify(action.payload))
     })
     .addCase(cancelAppointment.rejected, (state,action)=>{
     state.isLoading = false;
@@ -593,9 +605,9 @@ toast.success(action.payload)
             //.updated;
             console.log(action.payload);
             state.isLoading = false;
-            toast.success(action.payload.message)
+            //toast.success(action.payload.message)
             console.log(action.payload)
-            localStorage.setItem("profile", JSON.stringify(action.payload))
+          //  localStorage.setItem("profile", JSON.stringify(action.payload))
            }    )
            .addCase(updatePaymentMethod.rejected, (state,action)=>{
             state.isLoading = false;

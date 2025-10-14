@@ -34,7 +34,7 @@ const Footer = () => {
         alignItems: 'center',
       
         '@media(max-width:768px)':{
-          width: '100%', 
+          width: '95%', 
         }
       }}
     >

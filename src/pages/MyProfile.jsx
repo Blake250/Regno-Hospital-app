@@ -1,5 +1,8 @@
 
 
+
+
+
 import { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/system";
 import {
@@ -37,32 +40,16 @@ const MyProfile = () => {
 
   const [isEdit, setIsEdit] = useState(true);
   const [profileImage, setProfileImage] = useState(false);
-  const [imagePreview, setImagePreview] = useState(localStorage.getItem('profile')?.photo || '');
+   const [imagePreview, setImagePreview] = useState(localStorage.getItem('profile')?.photo || '');
+//   const storedProfile = JSON.parse(localStorage.getItem('profile') || '{}');
+// const [imagePreview, setImagePreview] = useState(storedProfile?.photo || '');
+
   const [showLoadButton, setShowLoadButton] = useState(false);
   const [userData, setUserData] = useState(initialState);
 
   const dispatch = useDispatch();
 
-  //useEffect(() => {
-  //   if (user === null) {
-  //     dispatch(getUser());
-  //   } else {
-  //     setUserData({
-  //       photo: user?.photo || '',
-  //       name: user?.name || '',
-  //       email: user?.email || '',
-  //       phone: user?.phone || '',
-  //       role: user?.role || '',
-  //       dob: user?.dob || '',
-  //       gender: user?.gender || '',
-  //       address: {
-  //         line1: user?.address?.line1 || '',
-  //         line2: user?.address?.line2 || ''
-  //       }
-  //     });
-  //   }
-  // }, [dispatch, user]);
-
+ 
 
 
 
@@ -95,7 +82,7 @@ useEffect(() => {
     const storedDetails = localStorage.getItem('profile');
 
 
-    if (user === null && storedDetails) {
+    if (user === null || storedDetails) {
       try {
         const parsed = JSON.parse(storedDetails);
      const fetchedData =    setUserData(parsed)
@@ -108,25 +95,6 @@ useEffect(() => {
   }, [ dispatch]);
     
 
-
-  // useEffect(() => {
-  //   const newUserData = async () => {
-  //     if ((isLoggedIn && !user) || storedUserDetails === null) {
-  //       const storedDetails = localStorage.getItem('profile');
-  //       if (storedDetails) {
-  //         try {
-  //           const parsed = JSON.parse(storedDetails);
-  //           await dispatch(setUser(parsed));
-  //         } catch (e) {
-  //           console.error('Failed to parse stored profile JSON:', e);
-  //           localStorage.removeItem('profile');
-  //         }
-  //       }
-  //     }
-  //   };
-  
-  //   newUserData(); // Call the async function
-  // }, [isLoggedIn, user, storedUserDetails, dispatch]); // Include dependencies
   
 
 
@@ -139,32 +107,72 @@ useEffect(() => {
     updateUser();
   }, [dispatch]);
 
+
+
+
   const saveProfile = async (e) => {
-    e.preventDefault();
-    const { photo, name, email, role, phone, dob, gender } = userData;
-    try {
-      const userInfo = {
-        ...userData,
-        photo: photo || '',
-        name: name || '',
-        email: email || '',
-        role: role || '',
-        phone: phone || '',
-        dob: dob || '',
-        gender: gender || '',
-        address: {
-          line1: userData?.address?.line1 || '',
-          line2: userData?.address?.line2 || ''
-        }
-      };
-      const userDetails = await dispatch(updatedUser(userInfo)).unwrap();
-      if (userDetails) {
-        localStorage.setItem('profile', JSON.stringify(userDetails));
+  e.preventDefault();
+  try {
+    const userInfo = {
+      ...userData,
+      photo: userData.photo || '',
+      name: userData.name || '',
+      email: userData.email || '',
+      role: userData.role || '',
+      phone: userData.phone || '',
+      dob: userData.dob || '',
+      gender: userData.gender || '',
+      address: {
+        line1: userData?.address?.line1 || '',
+        line2: userData?.address?.line2 || ''
       }
-    } catch (error) {
-      toast.error(error?.message);
+    };
+
+    const updated = await dispatch(updatedUser(userInfo)).unwrap();
+
+    if (updated) {
+      // ✅ Update Redux
+      dispatch(setUser(updated));
+
+      // ✅ Update localStorage
+      localStorage.setItem('profile', JSON.stringify(updated));
+
+      toast.success("Profile updated successfully");
     }
-  };
+  } catch (error) {
+    toast.error(error?.message || "Profile update failed");
+  }
+};
+
+
+  // const saveProfile = async (e) => {
+  //   e.preventDefault();
+  //   const { photo, name, email, role, phone, dob, gender } = userData;
+  //   try {
+  //     const userInfo = {
+  //       ...userData,
+  //       photo: photo || '',
+  //       name: name || '',
+  //       email: email || '',
+  //       role: role || '',
+  //       phone: phone || '',
+  //       dob: dob || '',
+  //       gender: gender || '',
+  //       address: {
+  //         line1: userData?.address?.line1 || '',
+  //         line2: userData?.address?.line2 || ''
+  //       }
+  //     };
+  //     const userDetails = await dispatch(updatedUser(userInfo)).unwrap();
+  //     if (userDetails) {
+  //       localStorage.setItem('profile', JSON.stringify(userDetails));
+  //     }
+  //   } catch (error) {
+  //     toast.error(error?.message);
+  //   }
+  // };
+
+
 
   const handleImageChange = (e) => {
     const file = e.target?.files[0];
@@ -389,7 +397,7 @@ useEffect(() => {
                   >
                     <MenuItem value="Male">Male</MenuItem>
                     <MenuItem value="Female">Female</MenuItem>
-                    <MenuItem value="Not Selected">Not Selected</MenuItem>
+                    {/* <MenuItem value="Not Selected">Not Selected</MenuItem> */}
                   </Select>
                 </FormControl>
               ))}
