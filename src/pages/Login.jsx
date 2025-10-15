@@ -19,7 +19,9 @@ const Login = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-   const {isLoggedIn, isLoading, isSuccess, isError, message } = useSelector((state)=> state?.auth)
+   const {isLoading, isSuccess, isError, message } = useSelector((state)=> state?.auth)
+   const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+   console.log(`is logged in is ${isLoggedIn}`)
    const user = useSelector((state)=> state?.auth?.user)  
   console.log(`loading is ${isLoading} ${isLoggedIn} is ${user} `)
 //  const storedUserDetails = useSelector((state)=> state?.auth?.storedUserDetails)

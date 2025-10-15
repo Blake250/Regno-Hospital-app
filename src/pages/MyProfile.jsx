@@ -21,7 +21,9 @@ const MyProfile = () => {
   const PRESET_NAME = import.meta.env.VITE_PRESET_NAME;
   const url = "https://api.cloudinary.com/v1_1/diilsfevw/image/upload";
 
-  const { isError, user, isLoading,isLoggedIn } = useSelector((state) => state?.auth);
+  const { isError, user, isLoading,} = useSelector((state) => state?.auth);
+  const isLoggedin = useSelector((state) => state?.auth?.isLoggedIn);
+  console.log(`is logged in inside profile is ${isLoggedin}`)
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails) || {};
 
   const initialState = {
