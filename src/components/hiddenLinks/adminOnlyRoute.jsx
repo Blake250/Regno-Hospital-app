@@ -14,6 +14,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { getUser, setUser } from "../../feature/auth/authSlice";
 import { Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
+import Loader from "../loader/Loader";
 
 const AdminOnlyRoute = () => {
   const { isLoggedIn, isLoading} = useSelector((state) => state?.auth);
@@ -22,7 +23,7 @@ const AdminOnlyRoute = () => {
  
  
 
-  if (isLoading || isLoggedIn === undefined)  {
+  if (isLoading)  {
     return (
       <Box
         sx={{
@@ -34,7 +35,7 @@ const AdminOnlyRoute = () => {
           color: "#555",
         }}
       >
-        Checking admin access...
+       <Loader/>
       </Box>
     );
   }
