@@ -16,8 +16,8 @@ import { Box, Typography, Button } from "@mui/material";
 import { Link } from "react-router-dom";
 
 const AdminOnlyRoute = () => {
-  const { isLoggedIn, isLoading, user} = useSelector((state) => state?.auth);
- // const user = useSelector((state) => state?.auth?.user);
+  const { isLoggedIn, isLoading} = useSelector((state) => state?.auth);
+ const user = useSelector((state) => state?.auth?.user);
   console.log(`User: ${JSON.stringify(user)} isLoggedIn: ${isLoggedIn}`);
  
  
