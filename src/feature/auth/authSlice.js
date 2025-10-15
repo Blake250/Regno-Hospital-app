@@ -369,7 +369,7 @@ const authSlice = createSlice({
 
 .addCase(getLoginStatus.fulfilled, (state,action)=>{
     state.isSuccess = true;
-    state.isLoggedIn = action.payload
+    state.isLoggedIn = action.payload?.isLoggedIn || false;
     state.isLoading = false
     //toast.success(action.payload)
     console.log(action.payload)
