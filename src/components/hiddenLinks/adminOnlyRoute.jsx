@@ -22,7 +22,7 @@ const AdminOnlyRoute = () => {
  
  
 
-  if (isLoading) {
+  if (isLoading || isLoggedIn === undefined)  {
     return (
       <Box
         sx={{

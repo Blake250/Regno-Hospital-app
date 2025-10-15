@@ -42,7 +42,7 @@ const App = () => {
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails);
   const dispatch = useDispatch();
   const location = useLocation();
- //   axios.defaults.baseURL = 'https://regno-hospital-api.onrender.com';
+    axios.defaults.baseURL = 'https://regno-hospital-api.onrender.com';
 axios.defaults.withCredentials = true;
  
 
@@ -113,14 +113,15 @@ useEffect(() => {
           {/* <Route path="/login" element={<Home />} /> */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-
+                
+             
          
             <Route path="/" element={<Home />} />
-                <Route path="/doctors" element={<Doctors />} />
+             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:speciality" element={<Doctors />} />
            
-              <Route element={<ProtectedRoute />}>
-        
+           
+              <Route element={<ProtectedRoute />}>   
             <Route path="/profile" element={<MyProfile />} />
             <Route path="/my-booking" element={<MyAppointment />} />
             <Route path="/booking/:docId" element={<Appointment />} />
