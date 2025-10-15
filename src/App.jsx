@@ -119,14 +119,12 @@ useEffect(() => {
           <Route path="/contact" element={<Contact />} />
                 
              
-           <Route element={<ProtectedRoute />}>   
+          
             <Route path="/" element={<Home />} />
              
-           
-           
-              
               <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:speciality" element={<Doctors />} />
+             <Route element={<ProtectedRoute />}>   
             <Route path="/profile" element={<MyProfile />} />
             <Route path="/my-booking" element={<MyAppointment />} />
             <Route path="/booking/:docId" element={<Appointment />} />
