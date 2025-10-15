@@ -97,7 +97,7 @@ useEffect(() => {
       }}
      >
        {isLoggedIn && !isAdminRoute &&  <NavBar />}
-       {/* {isLoggedIn && user?.role !== "admin" && !['/login', '/register'].includes(location.pathname) && <NavBar />} */}
+    
 
 
       <ToastContainer />
@@ -115,9 +115,9 @@ useEffect(() => {
           <Route path="/contact" element={<Contact />} />
 
          
-              <Route element={<ProtectedRoute />}>
             <Route path="/" element={<Home />} />
            
+              <Route element={<ProtectedRoute />}>
             <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:speciality" element={<Doctors />} />
             <Route path="/profile" element={<MyProfile />} />
