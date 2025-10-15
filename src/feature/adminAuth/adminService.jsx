@@ -1,3 +1,7 @@
+
+
+
+
 import axios from 'axios';  
 
  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
@@ -91,3 +95,72 @@ export const adminService = {
     appointmentAdmin  ,
     appointmentCancel   
 }
+
+
+
+
+
+
+
+// import axios from "axios";
+
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+// const API_URL = `${BACKEND_URL}/api/admin`;
+
+// console.log(`Admin API base URL: ${API_URL}`);
+
+// // Add doctor
+// export const addDoctor = async (doctorData) => {
+//   const response = await axios.post(`${API_URL}/add-doc`, doctorData, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Update doctor photo
+// export const doctorPhoto = async (docPhoto) => {
+//   const response = await axios.patch(`${API_URL}/doc-photo`, docPhoto, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "multipart/form-data" },
+//   });
+//   return response.data;
+// };
+
+// // Get all admin doctors
+// export const getAllDocsByAdmin = async () => {
+//   const response = await axios.get(`${API_URL}/get-admin-docs`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Get all appointments
+// export const appointmentAdmin = async () => {
+//   const response = await axios.get(`${API_URL}/get-booking`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Get all canceled appointments
+// export const appointmentCancel = async () => {
+//   const response = await axios.get(`${API_URL}/cancelled-appointments`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// export const adminService = {
+//   addDoctor,
+//   doctorPhoto,
+//   getAllDocsByAdmin,
+//   appointmentAdmin,
+//   appointmentCancel,
+// };
+
+
+

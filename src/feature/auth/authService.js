@@ -1,3 +1,6 @@
+
+
+
 import axios from  'axios'
  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 // // //const BACKEND_URL = 'https://regno-hospital-api-production.up.railway.app'
@@ -233,3 +236,151 @@ const authService = {
 
 
  export default authService
+
+
+
+
+
+
+
+import axios from "axios";
+
+// const BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+// const API_URL = `${BACKEND_URL}/api/user`;
+
+// console.log(`User API base URL: ${API_URL}`);
+
+// // Register a user
+// const register = async (userData) => {
+//   const response = await axios.post(`${API_URL}/register`, userData, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Login
+// const login = async (userData) => {
+//   const response = await axios.post(`${API_URL}/login`, userData, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Logout
+// const logout = async () => {
+//   const response = await axios.get(`${API_URL}/logout`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data.message;
+// };
+
+// // Get login status
+// const getLoginStatus = async () => {
+//   const response = await axios.get(`${API_URL}/get-status`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data.isLoggedIn;
+// };
+
+// // Get user data
+// const getUser = async () => {
+//   const response = await axios.get(`${API_URL}/get-user`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Update user photo
+// const updatedPhoto = async (userData) => {
+//   const response = await axios.patch(`${API_URL}/update-photo`, userData, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Update user info
+// const updatedUser = async (userData) => {
+//   const response = await axios.patch(`${API_URL}/update-user`, userData, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Get single booking
+// const getSingleBooking = async (docId) => {
+//   const response = await axios.get(`${API_URL}/appointments/${docId}`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Get one doctor
+// const getOneDoctor = async (id) => {
+//   const response = await axios.get(`${API_URL}/fetch-doc/${id}`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Get all doctors
+// const getAllDoctors = async () => {
+//   const response = await axios.get(`${API_URL}/get-docs`, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Book appointment
+// const bookAppointment = async ({ docId, bookingData }) => {
+//   const response = await axios.post(`${API_URL}/doc-booking/${docId}`, bookingData, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Cancel appointment
+// const cancelAppointment = async (appointmentId) => {
+//   const response = await axios.patch(`${API_URL}/cancel-doc`, appointmentId, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// // Update payment method
+// const updatePaymentMethod = async ({ appointmentId, paymentMethod }) => {
+//   const response = await axios.patch(`${API_URL}/${appointmentId}/payment-method`, { paymentMethod }, {
+//     withCredentials: true,
+//     headers: { "Content-Type": "application/json" },
+//   });
+//   return response.data;
+// };
+
+// const authService = {
+//   register,
+//   login,
+//   logout,
+//   getLoginStatus,
+//   getUser,
+//   updatedPhoto,
+//   updatedUser,
+//   getSingleBooking,
+//   getOneDoctor,
+//   getAllDoctors,
+//   bookAppointment,
+//   cancelAppointment,
+//   updatePaymentMethod,
+// };
+
+// export default authService;

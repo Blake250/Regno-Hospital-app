@@ -17,8 +17,8 @@ import { Link } from "react-router-dom";
 import Loader from "../loader/Loader";
 
 const AdminOnlyRoute = () => {
-  const { isLoading} = useSelector((state) => state?.auth);
-  const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+  const { isLoading, isLoggedIn} = useSelector((state) => state?.auth);
+  //const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   console.log(`AdminOnlyRoute - isLoggedIn: ${isLoggedIn}`);
  const user = useSelector((state) => state?.auth?.user);
   console.log(`User: ${JSON.stringify(user)} isLoggedIn: ${isLoggedIn}`);
@@ -102,9 +102,9 @@ const AdminOnlyRoute = () => {
 
 
 export const AdminOnlyLinks = ({ children }) => {
-  const dispatch = useDispatch();
+
    const { isLoggedIn,isLoading } = useSelector((state) => state?.auth);
-  //const [isLoading, setIsLoading] = useState(true);
+
   const user = useSelector((state) => state?.auth?.user);
   console.log(`AdminOnlyLinks - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
 

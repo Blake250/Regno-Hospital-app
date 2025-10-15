@@ -36,8 +36,9 @@ import { ProtectedRoute } from "./components/hiddenLinks/hideLinks";
 import AdminOnlyRoute from "./components/hiddenLinks/adminOnlyRoute";
 
 const App = () => {
-  const {  isError } = useSelector((state) => state?.auth);
-  const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+  const {  isError, isLoggedIn } = useSelector((state) => state?.auth);
+  //const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
+  console.log(`is error inside app is ${isError}`)
   console.log(`is logged in inside app is ${isLoggedIn}`)
 
   const user = useSelector((state)=> state?.auth?.user)
@@ -118,12 +119,12 @@ useEffect(() => {
           <Route path="/contact" element={<Contact />} />
                 
              
-         
+           <Route element={<ProtectedRoute />}>   
             <Route path="/" element={<Home />} />
              
            
            
-              <Route element={<ProtectedRoute />}>   
+              
               <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:speciality" element={<Doctors />} />
             <Route path="/profile" element={<MyProfile />} />

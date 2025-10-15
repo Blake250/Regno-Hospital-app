@@ -37,7 +37,7 @@ const Admin = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
-  const { user, isLoggedIn, storedUserDetails } = useSelector((state) => state.auth);
+  const { user, isLoggedIn, storedUserDetails } = useSelector((state) => state?.auth);
   const userImg = storedUserDetails?.photo || '';
 
   if (isLoggedIn && !userImg) {
