@@ -1,5 +1,7 @@
-import { useSelector } from "react-redux"
+import { useEffect } from "react"
+import { useDispatch, useSelector } from "react-redux"
 import { Navigate , Outlet} from "react-router-dom"
+import { getUser, setUser } from "../../feature/auth/authSlice"
 
 
  // eslint-disable-next-line react/prop-types
@@ -48,15 +50,17 @@ export const PrivateRoute = ({children} )=>{
 
 
 export const ProtectedRoute = () => {
-  const { isLoggedIn } = useSelector((state) => state?.auth);
-   const user = useSelector((state)=> state?.auth?.user)  
+  const { isLoggedIn, user } = useSelector((state) => state?.auth);
+ //  const user = useSelector((state)=> state?.auth?.user)  
   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
+const dispatch = useDispatch();
 
-  // If not logged in, redirect to login
-//   if (!isLoggedIn || !user  ) 
  const storedUser = localStorage.getItem("profile");
+//let storedUser
+ 
 
-  if (!isLoggedIn && !storedUser)
+
+  if (!isLoggedIn && !user)
     {
     return <Navigate to="/login" replace />;
   }
@@ -64,5 +68,21 @@ export const ProtectedRoute = () => {
   // Otherwise, show the protected component
   return <Outlet/>;
 };
+
+
+
+
+// export const AdminOnlyRoute = () => {
+//   const navigate = useNavigate();
+//   const { isLoading, isLoggedIn, user } = useSelector((state) => state.auth);
+
+//   useEffect(() => {
+//     if (!isLoading && !isLoggedIn) {
+//       navigate("/login", { replace: true });
+//     }
+//   }, [isLoading, isLoggedIn, navigate]);
+
+  
+// };
 
 export default  ShowOnLogin

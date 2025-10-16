@@ -68,7 +68,7 @@ const loginUser = async (e) => {
     const user = await dispatch(login(userData)).unwrap();
     dispatch(setUser(user));
     localStorage.setItem("profile", JSON.stringify(user));
-    toast.success("Login successful!");
+   // toast.success("Login successful!");
     navigate("/");
   } catch (err) {
     toast.error(err?.message || "Login failed");
