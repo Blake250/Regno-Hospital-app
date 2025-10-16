@@ -50,9 +50,9 @@ const App = () => {
 axios.defaults.withCredentials = true;
  
 
-  useEffect(() => {
-    dispatch(getLoginStatus());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getLoginStatus());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (isError) toast.error(isError);
@@ -63,22 +63,43 @@ axios.defaults.withCredentials = true;
 
 
 
+// useEffect(() => {
+//   const initializeAuth = async () => {
+//     try {
+//       const stored = localStorage.getItem("profile");
+//       if (stored) {
+//         dispatch(setUser(JSON.parse(stored)));
+//       } else {
+//         const status = await dispatch(getLoginStatus()).unwrap();
+//         if (status) await dispatch(getUser());
+//       }
+//     } catch (err) {
+//       console.error("Auth init error:", err);
+//     }
+//   };
+//   initializeAuth();
+// }, [dispatch]);
+
+
 useEffect(() => {
-  const initializeAuth = async () => {
-    try {
-      const stored = localStorage.getItem("profile");
-      if (stored) {
-        dispatch(setUser(JSON.parse(stored)));
-      } else {
+  const initAuth = async () => {
+    const stored = localStorage.getItem("profile");
+
+    if (stored) {
+      dispatch(setUser(JSON.parse(stored)));
+    } else {
+      try {
         const status = await dispatch(getLoginStatus()).unwrap();
         if (status) await dispatch(getUser());
+      } catch (err) {
+        console.error("Auth init error:", err);
       }
-    } catch (err) {
-      console.error("Auth init error:", err);
     }
   };
-  initializeAuth();
+
+  initAuth();
 }, [dispatch]);
+
 
 
 
