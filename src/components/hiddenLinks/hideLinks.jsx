@@ -48,26 +48,47 @@ export const PrivateRoute = ({children} )=>{
 
 
 
-
 export const ProtectedRoute = () => {
-  const { isLoggedIn, user } = useSelector((state) => state?.auth);
- //  const user = useSelector((state)=> state?.auth?.user)  
-  console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
-const dispatch = useDispatch();
+  const { isLoggedIn, user } = useSelector((state) => state.auth);
+  const storedUser = localStorage.getItem("profile");
 
- const storedUser = localStorage.getItem("profile");
-//let storedUser
- 
+  if (!isLoggedIn && !storedUser) {
+    return (
+      <div style={{ textAlign: "center", marginTop: "4rem" }}>
+        <p>Checking login status...</p>
+      </div>
+    );
+  }
 
-
-  if (!isLoggedIn &&  (!storedUser || !user))
-    {
+  if (!isLoggedIn || (!user && !storedUser)) {
     return <Navigate to="/login" replace />;
   }
 
-  // Otherwise, show the protected component
-  return <Outlet/>;
+  return <Outlet />;
 };
+
+
+
+
+// export const ProtectedRoute = () => {
+//   const { isLoggedIn, user } = useSelector((state) => state?.auth);
+//  //  const user = useSelector((state)=> state?.auth?.user)  
+//   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
+// const dispatch = useDispatch();
+
+//  const storedUser = localStorage.getItem("profile");
+// //let storedUser
+ 
+
+
+//   if (!isLoggedIn &&  (!storedUser || !user))
+//     {
+//     return <Navigate to="/login" replace />;
+//   }
+
+//   // Otherwise, show the protected component
+//   return <Outlet/>;
+// };
 
 
 
