@@ -17,15 +17,15 @@ import { Link } from "react-router-dom";
 import Loader from "../loader/Loader";
 
 const AdminOnlyRoute = () => {
-  const { isLoading, isLoggedIn} = useSelector((state) => state?.auth);
+  const { isLoading, isLoggedIn, user} = useSelector((state) => state?.auth);
   //const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   console.log(`AdminOnlyRoute - isLoggedIn: ${isLoggedIn}`);
- const user = useSelector((state) => state?.auth?.user);
+// const user = useSelector((state) => state?.auth?.user);
   console.log(`User: ${JSON.stringify(user)} isLoggedIn: ${isLoggedIn}`);
-  const dispatch = useDispatch();
 
 
-  if (isLoading || !isLoggedIn ) { 
+
+  if (isLoading || isLoggedIn === undefined) { 
     return (
       <Box
         sx={{

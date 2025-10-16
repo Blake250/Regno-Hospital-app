@@ -19,10 +19,10 @@ const Login = () => {
 
   const navigate = useNavigate()
   const dispatch = useDispatch()
-   const {isLoading, isSuccess, isError, message, isLoggedIn } = useSelector((state)=> state?.auth)
+   const {isLoading, isSuccess, isError, message, isLoggedIn, user } = useSelector((state)=> state?.auth)
   // const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   
-   const user = useSelector((state)=> state?.auth?.user)  
+  // const user = useSelector((state)=> state?.auth?.user)  
   console.log(`loading is ${isLoading} ${isLoggedIn} is ${user} `)
 //  const storedUserDetails = useSelector((state)=> state?.auth?.storedUserDetails)
  //  console.log(`here we have the updated date like this ${JSON.stringify(storedUserDetails) }`)
