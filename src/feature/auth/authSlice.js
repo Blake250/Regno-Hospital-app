@@ -239,7 +239,7 @@ try {
 
 const initialState = {
 
-   isLoggedIn: !!userFromStorage,
+   isLoggedIn: false,
   //  user:null,
    user: userFromStorage || null,
     isError:false,
@@ -383,6 +383,8 @@ const authSlice = createSlice({
     state.isLoading = false;
     state.message = action.payload
     console.log(action.payload)
+    state.isLoggedIn = false;
+    state.user = null;
 })
 
 
@@ -404,7 +406,7 @@ state.isLoading = false;
 state.isError = true;
 state.message = action.payload;
 state.isLoggedIn = false;
-
+state.user = null;
 })
 
 
@@ -444,6 +446,9 @@ state.isLoggedIn = false;
 state.isLoading = false;
 state.isError = true;
 state.message = action.payload;
+state.isLoggedIn = false;
+state.user = null;
+
 //toast.error(action.payload);
 
 })
