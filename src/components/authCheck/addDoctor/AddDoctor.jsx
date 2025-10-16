@@ -24,7 +24,7 @@ import Loader from "../../loader/Loader";
 const AddDoctor = () => {
   const dispatch = useDispatch();
   const {  isLoading, isSuccess, message } = useSelector(
-    (state) => state.admin
+    (state) => state?.admin
   );
  const doctor = useSelector((state)=> state?.admin?.doctor?.doctors)
  console.log(`my doc looks like this ${doctor}`)

@@ -36,12 +36,12 @@ import { ProtectedRoute } from "./components/hiddenLinks/hideLinks";
 import AdminOnlyRoute from "./components/hiddenLinks/adminOnlyRoute";
 
 const App = () => {
-  const {  isError, isLoggedIn ,user} = useSelector((state) => state?.auth);
+  const {  isError, isLoggedIn } = useSelector((state) => state?.auth);
   //const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
   console.log(`is error inside app is ${isError}`)
   console.log(`is logged in inside app is ${isLoggedIn}`)
 
-  //const user = useSelector((state)=> state?.auth?.user)
+  const user = useSelector((state)=> state?.auth?.user)
   console.log(`here we have the updated date like this ${JSON.stringify(user) }`)
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails);
   const dispatch = useDispatch();

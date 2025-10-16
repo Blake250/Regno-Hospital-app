@@ -16,10 +16,10 @@ import { useEffect } from 'react';
 const NavBar = () => {
   const navigate = useNavigate();
   const [showMenu, setShowMenu] = useState(false);
-  const {  user isLoggedIn} = useSelector((state) => state?.auth)
+  const {   isLoggedIn} = useSelector((state) => state?.auth)
    //const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
-  // console.log(`NavBar - isLoggedIn: ${isLoggedIn}`);
-  //const user = useSelector((state) => state?.auth?.user);
+  // console.log(`NavBar - isLoggedIn: ${isLoggedIn}`); 
+  const user = useSelector((state) => state?.auth?.user);
   console.log(`NavBar - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
   const dispatch = useDispatch();
 

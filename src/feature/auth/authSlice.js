@@ -310,6 +310,8 @@ const authSlice = createSlice({
     state.isError = true;
     state.message = action.payload;
     state.user = null;
+    state.isLoggedIn = false;
+
     toast.error(action.payload)
     console.log(action.payload)
  })
@@ -336,7 +338,9 @@ const authSlice = createSlice({
     state.message = action.payload;
     state.user = null;
     state.isLoggedIn = false
+    state.isLoading = false;
 } )
+
 
 
 // logout user
@@ -356,6 +360,9 @@ const authSlice = createSlice({
 .addCase(logOutUser.rejected, (state, action)=>{
     state.isLoading = false;
     state.isError = true;
+    state.isLoggedIn = true;
+    state.user = null;
+
     state.message = action.payload;
     toast.error(action.payload)
 })
@@ -420,6 +427,8 @@ state.user = null;
     state.isSuccess = true;
     state.isLoggedIn = true;
     state.user = action.payload;
+    state.isLoading = false;
+
     //toast.success('photo uploaded successfully')
    //toast.success(action.payload)
 })
@@ -427,6 +436,8 @@ state.user = null;
     state.isLoading = false;
     state.isError = true;
     state.message = action.payload;
+    state.isLoggedIn = false;
+    state.user = null;
   // toast.error(action.payload);
 })
 
@@ -438,6 +449,7 @@ state.user = null;
     state.isSuccess = true;
     state.user = action.payload;
     state.isLoading = false;
+
    // localStorage.setItem("profile", JSON.stringify(action.payload))
   //  toast.success("data saved successfully")
     console.log(action.payload);
