@@ -22,10 +22,10 @@ const AdminOnlyRoute = () => {
   console.log(`AdminOnlyRoute - isLoggedIn: ${isLoggedIn}`);
  const user = useSelector((state) => state?.auth?.user);
   console.log(`User: ${JSON.stringify(user)} isLoggedIn: ${isLoggedIn}`);
- 
- 
+  const dispatch = useDispatch();
 
-  if (isLoading)  {
+
+  if (isLoading || !isLoggedIn ) { 
     return (
       <Box
         sx={{
