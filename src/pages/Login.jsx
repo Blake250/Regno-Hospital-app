@@ -57,45 +57,45 @@ const styledAnimation = {
 
 
 
-// const loginUser = async (e) => {
-//   e.preventDefault();
-//   if (!email || !password) return toast.error("Please fill all fields");
-//   if (!validateEmail(email)) return toast.error("Invalid email");
-//   if (password.length < 6) return toast.error("Password too short");
-
-//   try {
-//     const userData = { email, password };
-//     const user = await dispatch(login(userData)).unwrap();
-//     dispatch(setUser(user));
-//     localStorage.setItem("profile", JSON.stringify(user));
-//    // toast.success("Login successful!");
-//     navigate("/");
-//   } catch (err) {
-//     toast.error(err?.message || "Login failed");
-//   }
-// };
-
-
-
-
-
 const loginUser = async (e) => {
   e.preventDefault();
-
   if (!email || !password) return toast.error("Please fill all fields");
   if (!validateEmail(email)) return toast.error("Invalid email");
   if (password.length < 6) return toast.error("Password too short");
 
   try {
     const userData = { email, password };
-    await dispatch(login(userData)).unwrap();
-
-    toast.success("Login successful!");
+    const user = await dispatch(login(userData)).unwrap();
+    dispatch(setUser(user));
+    localStorage.setItem("profile", JSON.stringify(user));
+   // toast.success("Login successful!");
     navigate("/");
   } catch (err) {
     toast.error(err?.message || "Login failed");
   }
 };
+
+
+
+
+
+// const loginUser = async (e) => {
+//   e.preventDefault();
+
+//   if (!email || !password) return toast.error("Please fill all fields");
+//   if (!validateEmail(email)) return toast.error("Invalid email");
+//   if (password.length < 6) return toast.error("Password too short");
+
+//   try {
+//     const userData = { email, password };
+//     await dispatch(login(userData)).unwrap();
+
+//     toast.success("Login successful!");
+//     navigate("/");
+//   } catch (err) {
+//     toast.error(err?.message || "Login failed");
+//   }
+// };
 
 
 
