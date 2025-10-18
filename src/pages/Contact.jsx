@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Grid, Paper } from "@mui/material";
 import 'react-toastify/dist/ReactToastify.css';
 import { toast } from 'react-toastify';
+  import { keyframes } from "@emotion/react";
 
 
 const Contact = () => {
@@ -51,6 +52,18 @@ const Contact = () => {
       });
   };
 
+const styledAnimationDown = keyframes`
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
+
   return (
     <Box
       sx={{
@@ -78,8 +91,10 @@ const Contact = () => {
       <Grid container spacing={4}>
         <Grid item xs={12} md={6}>
           <Paper
+          
             elevation={3}
             sx={{
+               animation: `${styledAnimationDown} 0.6s ease`,
               padding: "20px",
               borderRadius: "12px",
               backgroundColor: "#ffffff",
@@ -150,6 +165,7 @@ const Contact = () => {
               padding: "20px",
               borderRadius: "12px",
               backgroundColor: "#e8f5fe",
+              animation: `${styledAnimationDown} 0.6s ease`,
             }}
           >
             <Typography

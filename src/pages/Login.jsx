@@ -8,6 +8,8 @@ import {getLoginStatus, getUser, login, RESET_AUTH, setUser } from "../feature/a
 import {Visibility, VisibilityOff} from '@mui/icons-material'
 import {IconButton,InputAdornment } from "@mui/material";
 import Loader from "../components/loader/Loader";
+import { keyframes } from "@emotion/react";
+
 
 
 
@@ -35,26 +37,23 @@ useEffect(() => {
   }
 
 
-  if (isSuccess) {
-    toast.success(message || "Login successful");
-    dispatch(getUser());
-  }
+  // if (isSuccess) {
+  //   toast.success(message || "Login successful");
+  //   dispatch(getUser());
+  // }
 }, [isError, isSuccess, message, dispatch]);
 
 
-const styledAnimation = {
-  '@keyframes slide-down': {
-      '0%': {
-        transform: 'translateY(-5rem)', 
-      opacity: 0, 
-      },
-      '100%': {
-        transform: 'translateY(0)', 
-        opacity: 1, 
-      },
-    },
-}
-
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 
 const loginUser = async (e) => {
@@ -115,7 +114,8 @@ const loginUser = async (e) => {
     {isLoading  && <Loader/>}
     <Box
       sx={{
-        styledAnimation,
+     //  animation: 'slideDown 0.6s ease',
+        animation: `${styledAnimation} 0.6s ease`,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",

@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { bookAppointment, getAllBookings, getOneDoctor } from "../feature/auth/authSlice";
 import Loader from "../components/loader/Loader";
 import { toast } from "react-toastify";
+  import { keyframes } from "@emotion/react";
 
 const Appointment = () => {
   const [docInfo, setDocInfo] = useState(null);
@@ -116,94 +117,29 @@ const Appointment = () => {
   }, [docId]);
 
 
-  // useEffect(() => {
-  //   if (docId) {
-  //     setDocInfo(null);
-  //     setDocSlots([]);
-  //     setSlotsIndex(0);
-  //     setSelectedTime(null);
-  //     dispatch(getOneDoctor(docId));
-  //   }
-  // }, [dispatch, docId]);
+  const styledAnimationDown = keyframes`
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
 
-  // useEffect(() => {
-  //   if (docData && docData?._id === docId) {
-  //     setDocInfo(docData);
-  //   }
-  // }, [docData, docId]);
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
-  // const daysOfWeek = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
 
-  // const getAvailableSlots = async () => {
-  //   let today = new Date();
-  //   setDocSlots([]); // Clear previous slots
-  //   for (let i = 0; i < 7; i++) {
-  //     let currentDate = new Date(today);
-  //     currentDate.setDate(today.getDate() + i);
-
-  //     let endTime = new Date();
-  //     endTime.setDate(today.getDate() + i);
-  //     endTime.setHours(21, 0, 0, 0);
-
-  //     if (today.getDate() === currentDate.getDate()) {
-  //       currentDate.setHours(
-  //         currentDate.getHours() > 10 ? currentDate.getHours() + 1 : 10
-  //       );
-  //       currentDate.setMinutes(currentDate.getMinutes() > 30 ? 30 : 0);
-  //     } else {
-  //       currentDate.setHours(10);
-  //       currentDate.setMinutes(0);
-  //     }
-
-  //     let timeSlots = [];
-  //     while (currentDate < endTime) {
-  //       let formattedTime = currentDate.toLocaleTimeString([], {
-  //         hour: "2-digit",
-  //         minute: "2-digit",
-  //       });
-  //       timeSlots.push({
-  //         dateTime: new Date(currentDate),
-  //         time: formattedTime,
-  //       });
-  //       currentDate.setMinutes(currentDate.getMinutes() + 30);
-  //     }
-  //     setDocSlots((prev) => [...prev, timeSlots]);
-  //   }
-  // };
-
-  // const bookAnAppointment = async () => {
-  //   const selectedSlotDay = docSlots?.[slotsIndex]?.find(
-  //     (slot) => slot.time === selectedTime
-  //   )?.dateTime;
-
-  //   if (!selectedSlotDay) {
-  //     toast.error("No slot selected or available");
-  //     return;
-  //   }
-
-  //   let day = selectedSlotDay.getDate();
-  //   let month = selectedSlotDay.getMonth() + 1;
-  //   let year = selectedSlotDay.getFullYear();
-  //   const slotDate = `${day}-${month}-${year}`;
-  //   const minutes = selectedSlotDay.getMinutes().toString().padStart(2, "0");
-  //   const hours = selectedSlotDay.getHours().toString().padStart(2, "0");
-  //   const slotTime = `${hours}:${minutes}`;
-
-  //   try {
-  //     const bookingData = { slotDate, slotTime };
-  //     await dispatch(bookAppointment({ docId, bookingData })).unwrap();
-  //     await dispatch(getAllBookings()).unwrap();
-  //     toast.success("Successfully booked");
-  //     navigate(`/my-booking`);
-  //   } catch (error) {
-  //     console.error(`Invalid booking due to ${error.message}`);
-  //     toast.error(`Booking not possible: ${error.message}`);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAvailableSlots();
-  // }, []);
 
   return (
     <>
@@ -234,6 +170,7 @@ const Appointment = () => {
           >
             <Box
               sx={{
+                 animation: `${styledAnimationDown} 0.6s ease`,
                 flex: { xs: "none", md: 1 },
                 display: "flex",
                 justifyContent: "center",
@@ -308,6 +245,7 @@ const Appointment = () => {
                     setSelectedTime(null);
                   }}
                   sx={{
+                     animation: `${styledAnimationDown} 0.6s ease`,
                     minWidth: "80px",
                     fontSize: { xs: "12px", md: "14px" },
                     padding: { xs: "4px 8px", md: "6px 12px" },
@@ -350,6 +288,7 @@ const Appointment = () => {
                 alignSelf: { xs: "center", md: "flex-start" },
                 fontSize: { xs: "12px", md: "14px" },
                 padding: { xs: "6px 12px", md: "8px 16px" },
+                  animation: `${styledAnimationDown} 0.6s ease`,
               }}
             >
               Book Appointment

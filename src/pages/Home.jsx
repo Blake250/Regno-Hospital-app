@@ -9,6 +9,19 @@ import CarouselItem from "../components/carousel/CarouselItem"
 import Project from "../components/docSlider/Project"
 import SlideComponent from "../components/docSlider/SlideComponent"
 //import SlideComponent from "../components/docSlider/SlideComponent"
+  import { keyframes } from "@emotion/react";
+
+
+  const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 
 
@@ -17,28 +30,14 @@ import SlideComponent from "../components/docSlider/SlideComponent"
 
 
 const Home = () => {
- // const {isLoggedIn, isLoading, isSuccess, user} = useSelector((state)=> state?.auth)
-
-//const dispatch = useDispatch()
-
-  // useEffect(()=>{
-  //   if(isLoggedIn && user === null){
-  //     dispatch(getUser())
-  //   }
-  // },[dispatch, user, isLoggedIn])
-
-
-  //   useEffect(()=>{
-  //     //if(isLoggedIn && is)
-  //    dispatch(getLoginStatus())
-  //   },[dispatch])
-
 
   return(
     <>  
     
     <Box
-   
+   sx={{
+       animation: `${styledAnimation} 0.6s ease`,
+   }}
     
     >
     

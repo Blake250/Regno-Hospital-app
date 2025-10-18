@@ -18,6 +18,7 @@ import {
 import { toast } from "react-toastify";
 import { FaStripe, FaPaypal } from "react-icons/fa";
 import { updatePaymentMethod } from "../../feature/auth/authSlice";
+  import { keyframes } from "@emotion/react";
 
 const CheckoutOptions = () => {
 
@@ -35,6 +36,16 @@ const CheckoutOptions = () => {
 
   const [paymentMethod, setPaymentMethod] = useState(getThisAppointment?.paymentMethod || '');
 
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 
     console.log("appointmentId from props:", paymentMethod);
@@ -97,6 +108,7 @@ const CheckoutOptions = () => {
           <Grid item xs={12} sm={6} key={option.value}>
             <Card
               sx={{
+                  animation: `${styledAnimation} 0.6s ease`,
                 border:
                   paymentMethod === option.value
                     ? `2px solid ${option.color}`

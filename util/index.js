@@ -1,12 +1,3 @@
-// shortening long text
-
-// export const shortenText = ((text, n)=>{
-//     if(text?.length > n){
-//         const shortenedText = text?.subString(0, n).concat('...')
-//         return shortenedText
-//     }
-//     return shortenText
-// })
 
 
 export const shortenText = (text, n) => {

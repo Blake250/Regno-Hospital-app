@@ -35,6 +35,8 @@ import axios from "axios";
 import { ProtectedRoute } from "./components/hiddenLinks/hideLinks";
 import AdminOnlyRoute from "./components/hiddenLinks/adminOnlyRoute";
 
+
+
 const App = () => {
   const {  isError, isLoggedIn } = useSelector((state) => state?.auth);
   //const isLoggedIn = useSelector((state) => state?.auth?.isLoggedIn);
@@ -46,7 +48,7 @@ const App = () => {
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails);
   const dispatch = useDispatch();
   const location = useLocation();
-    axios.defaults.baseURL = 'https://regno-hospital-api.onrender.com';
+   axios.defaults.baseURL = 'https://regno-hospital-api.onrender.com';
 axios.defaults.withCredentials = true;
  
 

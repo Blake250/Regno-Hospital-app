@@ -5,6 +5,7 @@
 
 import { useEffect, useState } from "react";
 import { Box, Stack } from "@mui/system";
+  import { keyframes } from "@emotion/react";
 import {
   Avatar, TextField, Typography, Button, Paper, InputLabel,
   Select, MenuItem, FormControl
@@ -25,6 +26,7 @@ const MyProfile = () => {
   //const isLoggedin = useSelector((state) => state?.auth?.isLoggedIn);
   console.log(`is logged in inside profile is ${isLoggedIn}`)
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails) || {};
+
 
   const initialState = {
     photo: user?.photo || '',
@@ -52,7 +54,29 @@ const MyProfile = () => {
   const dispatch = useDispatch();
 
  
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
+
+
+const styledAnimationDown = keyframes`
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`
 
 
 useEffect(() => {
@@ -147,33 +171,7 @@ useEffect(() => {
 };
 
 
-  // const saveProfile = async (e) => {
-  //   e.preventDefault();
-  //   const { photo, name, email, role, phone, dob, gender } = userData;
-  //   try {
-  //     const userInfo = {
-  //       ...userData,
-  //       photo: photo || '',
-  //       name: name || '',
-  //       email: email || '',
-  //       role: role || '',
-  //       phone: phone || '',
-  //       dob: dob || '',
-  //       gender: gender || '',
-  //       address: {
-  //         line1: userData?.address?.line1 || '',
-  //         line2: userData?.address?.line2 || ''
-  //       }
-  //     };
-  //     const userDetails = await dispatch(updatedUser(userInfo)).unwrap();
-  //     if (userDetails) {
-  //       localStorage.setItem('profile', JSON.stringify(userDetails));
-  //     }
-  //   } catch (error) {
-  //     toast.error(error?.message);
-  //   }
-  // };
-
+  
 
 
   const handleImageChange = (e) => {
@@ -233,7 +231,8 @@ useEffect(() => {
       {isLoading && <Loader />}
       <Box sx={{ width: "100%", p: 2,
         '@media(max-width:768px)':{
-          width:'85%'
+          width:'85%',
+           animation: `${styledAnimation} 0.6s ease`,
         }
       }}>
         <Paper
@@ -245,6 +244,7 @@ useEffect(() => {
             borderRadius: 3,
             boxShadow: 3,
                backgroundColor: '#8ea6f4', 
+            animation: `${styledAnimationDown} 0.6s ease`,
             
           }}
         >

@@ -51,6 +51,7 @@ export const PrivateRoute = ({children} )=>{
 export const ProtectedRoute = () => {
   const { isLoggedIn } = useSelector((state) => state.auth);
   const user = useSelector((state)=> state?.auth?.user)  
+  console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
   const storedUser = localStorage.getItem("profile");
 
   if (!isLoggedIn && !storedUser) {

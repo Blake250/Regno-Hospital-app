@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
 import { getAllDoctors } from '../feature/auth/authSlice'
 //import { getAllDoctors } from '../feature/adminAuth/adminSlice'
+  import { keyframes } from "@emotion/react";
 
 const RelatedDoctors = ({speciality,docId, isLoading  }) => {
   const   {doctor}   = useSelector ((state) => state?.auth  )
@@ -25,6 +26,17 @@ const navigate = useNavigate()
 const [relDocs, setRelDocs] = useState([])   
 
 
+
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 
 
@@ -72,6 +84,7 @@ const [relDocs, setRelDocs] = useState([])
           <Box
             key={item._id}
             sx={{
+                  animation: `${styledAnimation} 0.6s ease`,
               display: "flex",
               flexDirection: "column",
               alignItems: "center",

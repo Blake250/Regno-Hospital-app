@@ -3,11 +3,24 @@
 
 import { Box, Typography, Grid, Avatar, Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+  import { keyframes } from "@emotion/react";
 
 const About = () => {
 
 
   const navigate = useNavigate()
+
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
 
   return (
     <Box
@@ -18,6 +31,7 @@ const About = () => {
         display: "flex",
         flexDirection: "column",
         gap: 6,
+         animation: `${styledAnimation} 0.6s ease`,
       }}
     >
       {/* Intro Section */}
@@ -28,6 +42,7 @@ const About = () => {
           borderRadius: "12px",
           backgroundColor: "#f4f7fb",
           boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+        
         }}
       >
         <Typography variant="h3" sx={{ fontWeight: "bold", mb: 2 }}>

@@ -9,6 +9,7 @@ import { register, RESET_AUTH } from "../feature/auth/authSlice";
 import {Visibility, VisibilityOff} from '@mui/icons-material'
 import {IconButton,InputAdornment } from "@mui/material";
 import Loader from "../components/loader/Loader";
+import { keyframes } from "@emotion/react";
 
 
 
@@ -36,15 +37,15 @@ useEffect(() => {
     } else {
       toast.error(message || "Registration failed");
     }
-    dispatch(RESET_AUTH());
+   dispatch(RESET_AUTH());
   }
 
   if (isSuccess) {  
     toast.success("Registration successful. Please log in.");
     navigate("/login");
- //   dispatch(RESET_AUTH());
+   dispatch(RESET_AUTH());
   }
-}, [isError, isSuccess, message, dispatch, navigate]);
+ }, [isError, isSuccess, message, dispatch, navigate]);
 
 
 
@@ -55,38 +56,42 @@ useEffect(() => {
   
 
 
+const registerUser = async (e) => {
+  e.preventDefault();
+  if (!name || !email || !password) {
+    toast.error("Invalid login details");
+    return;
+  }
+  if (!validateEmail(email)) {
+    toast.error("Invalid Email");
+    return;
+  }
 
-const registerUser = (async(e)=>{
-  e.preventDefault()
-if(!name || !email || !password){
-   toast.error(`invaLid login details`) 
- return 
-}
-if(!validateEmail(email)){
-  toast.error(`invalid Email`)
-  return 
-}
+  if (password.length < 6) {
+    toast.error("Password must not be less than 6");
+    return;
+  }
 
-if(password.length < 6){
-  toast.error(`password  must not be less than 6`)
-  return 
-  
-} 
-
-try{
-const userData = {name, email, password}
- await dispatch(register(userData))
-
- // toast.success( 'registration is successful')
-   navigate("/login");
+  try {
+    const userData = { name, email, password };
+    await dispatch(register(userData));
+    navigate("/login");
+  } catch (error) {
+    toast.error(error.message || "Registration failed");
+  }
+};
 
 
-
-}catch(error){
-  toast.error(error.message || "Registration failed");
-}
-
-})
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 
 
@@ -99,6 +104,7 @@ const userData = {name, email, password}
     <Box
     
     sx={{
+       animation: `${styledAnimation} 0.6s ease`,
       display: "flex",
       justifyContent: "center",
       alignItems: "center",

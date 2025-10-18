@@ -14,6 +14,7 @@ import Pagination from "../components/num-page/numPage";
 import Loader from "../components/loader/Loader";
 import { useMemo } from "react";
 import { getAllDoctors } from "../feature/auth/authSlice";
+  import { keyframes } from "@emotion/react";
 
 const Doctors = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ console.log(`isLoading is ${isLoading}`)
   const [showFilter, setShowFilter] = useState(false);
   const [categories, setCategories] = useState([]);
 
+
   // Get category from query string
   const queryParams = new URLSearchParams(location.search);
   const queryCategory = queryParams.get("category");
@@ -38,7 +40,9 @@ console.log(`isLoading is ${isLoading}`)
   }, [dispatch]);
 
 
-const doctors = useMemo(() => { 
+
+
+  const doctors = useMemo(() => {
   return Array.isArray(doctor?.doctor?.doctors)
     ? doctor?.doctor?.doctors
     : [];
@@ -99,11 +103,16 @@ useEffect(() => {
 
 
 
-
-
-
-
-
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
 
 
 
@@ -138,6 +147,18 @@ useEffect(() => {
     }
   };
 
+
+
+  const styledAnimationDown = keyframes`
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
 
   
     const itemsPerPage = 6
@@ -228,6 +249,7 @@ useEffect(() => {
                 key={index}
                 onClick={() => handleCategoryClick(category)}
                 sx={{
+                    animation: `${styledAnimationDown} 0.6s ease`,
                   cursor: "pointer",
                   color: "#007bff",
                   borderBottom: "1px solid black",
@@ -264,6 +286,7 @@ useEffect(() => {
               <Box
                 key={doctor._id}
                 sx={{
+                    animation: `${styledAnimation} 0.6s ease`,
                   display: "flex",
                   flexDirection: "column",
                   alignItems: "center",
@@ -275,6 +298,7 @@ useEffect(() => {
                 <ImageListItem
                   onClick={() => navigate(`/booking/${doctor._id}`)}
                   sx={{
+                     animation: `${styledAnimationDown} 0.6s ease`,
                     width: "100%",
                     paddingBottom: "100%",
                     overflow: "hidden",
@@ -286,6 +310,7 @@ useEffect(() => {
                     "&:hover": {
                       transform: "scale(1.05)",
                       boxShadow: "0px 8px 16px rgba(0, 0, 0, 0.3)",
+                       
                     },
                   }}
                 >
@@ -293,6 +318,7 @@ useEffect(() => {
                     src={doctor?.photo}
                     alt={doctor?.name}
                     style={{
+                      
                       width: "100%",
                       height: "100%",
                       position: "absolute",

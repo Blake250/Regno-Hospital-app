@@ -12,6 +12,8 @@ import { AdminOnlyLinks } from './hiddenLinks/adminOnlyRoute';
 import CenterFocusStrongRoundedIcon from '@mui/icons-material/CenterFocusStrongRounded';
 import { toast } from 'react-toastify';
 import { useEffect } from 'react';
+import { keyframes } from "@emotion/react";
+
 
 const NavBar = () => {
   const navigate = useNavigate();
@@ -33,6 +35,30 @@ const NavBar = () => {
   const userData = user?.name || '';
 
 ;
+
+
+const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+const styledAnimationDown = keyframes`
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
+
 
 
   const logout = async () => {
@@ -73,7 +99,9 @@ const NavBar = () => {
   };
 
   return (
-    <Box sx={{ width: '100%', maxWidth: '100%' }}>
+    <Box sx={{
+       animation: `${styledAnimation} 0.6s ease`,
+      width: '100%', maxWidth: '100%' }}>
       <Box
         sx={{
           display: 'flex',
@@ -123,6 +151,7 @@ const NavBar = () => {
             display: { xs: 'none', md: 'flex' },
             gap: '20px',
             alignItems: 'center',
+             animation: `${styledAnimationDown} 0.6s ease`,
           }}
         >
           {menu?.map((item) => (
