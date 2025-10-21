@@ -17,6 +17,7 @@ import { appointmentAdmin } from "../../../feature/adminAuth/adminSlice";
 import Loader from "../../loader/Loader";
 import { shortenText } from "../../../../util";
 import Pagination from "../../num-page/numPage";
+import { keyframes } from "@emotion/react";
 
 const Appointments = () => {
   const { isLoading,  appointments, cancelledAppointments } = useSelector(
@@ -48,6 +49,19 @@ setItemOffset(newOffset)
   }
 
 
+  const styledAnimation = keyframes`
+  0% {
+    transform: translateY(-5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+`;
+
+
+
   return (
     <>
       {isLoading && <Loader />}
@@ -60,7 +74,10 @@ setItemOffset(newOffset)
         <TableContainer component={Paper} elevation={4} sx={{ borderRadius: 2 }}>
           <Table>
             <TableHead>
-              <TableRow sx={{ backgroundColor: "#1976d2" }}>
+              <TableRow sx={{
+                 backgroundColor: "#1976d2",
+                 animation: `${styledAnimation} 0.6s ease`,
+                 }}>
                 {[
                   "Patient",
                   "User Email",
@@ -91,7 +108,8 @@ setItemOffset(newOffset)
                     hover
                     sx={{
                       "&:hover": {
-                        backgroundColor: "#f1f1f1"
+                        backgroundColor: "#f1f1f1",
+                        
                       }
                     }}
                   >

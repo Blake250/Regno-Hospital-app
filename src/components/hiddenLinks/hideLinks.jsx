@@ -72,28 +72,5 @@ export const ProtectedRoute = () => {
 
 
 
-// export const ProtectedRoute = () => {
-//   const { isLoggedIn, user } = useSelector((state) => state?.auth);
-//  //  const user = useSelector((state)=> state?.auth?.user)  
-//   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
-// const dispatch = useDispatch();
-
-//  const storedUser = localStorage.getItem("profile");
-// //let storedUser
- 
-
-
-//   if (!isLoggedIn &&  (!storedUser || !user))
-//     {
-//     return <Navigate to="/login" replace />;
-//   }
-
-//   // Otherwise, show the protected component
-//   return <Outlet/>;
-// };
-
-
-
-
 
 export default  ShowOnLogin

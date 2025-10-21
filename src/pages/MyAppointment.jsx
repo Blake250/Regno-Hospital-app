@@ -1,327 +1,338 @@
 
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { confirmAlert } from "react-confirm-alert";
+import "react-confirm-alert/src/react-confirm-alert.css";
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  Grid,
+  Avatar,
+  Chip,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import Loader from "../components/loader/Loader";
+import { cancelAppointment, getAllBookings } from "../feature/auth/authSlice";
+import Pagination from "../components/num-page/numPage";
+import { toast } from "react-toastify";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
+import { keyframes } from "@emotion/react";
 
- import { useEffect, useState } from "react";
- import { useDispatch, useSelector } from "react-redux";
- import { confirmAlert } from "react-confirm-alert";
- import "react-confirm-alert/src/react-confirm-alert.css";
- import {
-   Box,
-   Typography,
-   Card,
-   CardContent,
-   Button,
-   Grid,
-   Avatar,
-   Chip,
- } from "@mui/material";
- import { useNavigate } from "react-router-dom";
- import Loader from "../components/loader/Loader";
- import {
-   cancelAppointment,
-   getAllBookings,
- } from "../feature/auth/authSlice";
- import Pagination from "../components/num-page/numPage";
- import { toast } from "react-toastify";
+const MyAppointment = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { isLoading, getThisAppointment } = useSelector(
+    (state) => state?.auth
+  );
 
-import CheckCircleIcon from '@mui/icons-material/CheckCircle'
- 
- const MyAppointment = () => {
-   const dispatch = useDispatch();
-   const navigate = useNavigate();
-   const { isLoading, getThisAppointment } = useSelector((state) => state?.auth);
-   console.log(`getThisAppointment is ${JSON.stringify(getThisAppointment)}`);
- 
-   const itemsPerPage = 5;
-   const [itemOffset, setItemOffset] = useState(0);
- 
-   useEffect(() => {
-     dispatch(getAllBookings());
-   }, [dispatch]);
- 
-   const isPast = (dateStr, timeStr) => {
-     const appointmentISO = `${dateStr}T${timeStr}:00`;
-     const appointmentDateTime = new Date(appointmentISO);
-     const now = new Date();
-     return appointmentDateTime.getTime() < now.getTime();
-   };
- 
-   const sortedAppointments = Array.isArray(getThisAppointment)
-     ? [...getThisAppointment].sort((a, b) => {
-         const aDate = new Date(`${a.slotDate}T${a.slotTime}`);
-         const bDate = new Date(`${b.slotDate}T${b.slotTime}`);
-         const now = new Date();
- 
-         const aIsPast = aDate < now;
-         const bIsPast = bDate < now;
- 
-         if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
-         return aDate - bDate;
-       })
-     : [];
- 
-   const mostRecentBookingId = sortedAppointments?.find(
-     (booking) =>
-       !isPast(booking.slotDate, booking.slotTime) && !booking.payment
-   )?._id;
- 
-   const endOffset = itemOffset + itemsPerPage;
-   const currentItems = sortedAppointments.slice(itemOffset, endOffset);
-   const pageCount = Math.ceil(sortedAppointments.length / itemsPerPage);
- 
-   const handlePageClick = (event) => {
-     const newOffset = event.selected * itemsPerPage;
-     setItemOffset(newOffset);
-   };
- 
-   const cancelThisBooking = async (appointmentId) => {
-     await dispatch(cancelAppointment(appointmentId));
-     await dispatch(getAllBookings());
-   };
- 
-   const cancelThisAppointment = (appointmentId) => {
-     confirmAlert({
-       title: "Confirm Deletion",
-       message: "Are you sure you want to cancel this appointment?",
-       buttons: [
-         {
-           label: "Yes",
-           onClick: () => {
-             cancelThisBooking(appointmentId);
-             toast.success("Appointment cancelled successfully");
-           },
-         },
-         {
-           label: "No",
-           onClick: () => {
-             toast.info("Cancellation aborted");
-           },
-         },
-       ],
-     });
-   };
- 
-   const goToDetailsPage = (docId) => {
-     navigate(`/details/${docId}`);
-   };
- 
-   return (
-     <>
-   
-       <Box sx={{ px: 4, py: 12 }}>
-         <Button
-           variant="outlined"
-           onClick={() => navigate("/doctors")}
-           sx={{ mb: 4 }}
-         >
-           &larr; Back to Doctors
-         </Button>
- 
-         <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
-           My Bookings
-         </Typography>
- 
-         {isLoading && <Loader />}
- 
-         {!isLoading && currentItems &&  currentItems?.length === 0 && (
-           <Typography variant="body1" color="text.secondary">
-             No Appointment found.
-           </Typography>
-         )}
- 
-         { !isLoading  &&  currentItems && currentItems?.length > 0 && (
+  const itemsPerPage = 5;
+  const [itemOffset, setItemOffset] = useState(0);
 
-           currentItems?.map((booking) => {
-             const isOld = isPast(booking.slotDate, booking.slotTime);
- 
-             return (
-               <Card
-                 key={booking._id}
-                 sx={{
-                   mb: 4,
-                   p: 2,
-                   cursor: "pointer",
-                   background: isOld
-                     ? "linear-gradient(135deg, #f7f7f7, #e0e0e0)"
-                     : "linear-gradient(135deg, #e0f7fa, #e1f5fe)",
-                   boxShadow: 3,
-                   borderRadius: 3,
-                   transition:
-                     "background 0.5s ease, box-shadow 0.3s ease, transform 0.3s ease",
-                   ":hover": {
-                     boxShadow: 6,
-                     transform: "scale(1.01)",
-                   },
-                 }}
-               >
-                 <Grid container spacing={3} alignItems="center">
-                   <Grid item xs={12} md={3} textAlign="center">
-                     <Avatar
-                       onClick={() => goToDetailsPage(booking._id)}
-                       src={booking?.docId?.photo}
-                       alt={booking?.docId?.user?.name}
-                       sx={{ width: 120, height: 120, mx: "auto" }}
-                     />
-                   </Grid>
- 
-                   <Grid item xs={12} md={6}>
-                     <CardContent>
-                       <Typography variant="h6" fontWeight="bold" color="primary">
-                         Doctor: {booking?.docId?.user?.name || "N/A"}
-                       </Typography>
+  useEffect(() => {
+    dispatch(getAllBookings());
+  }, [dispatch]);
 
+  // 🕒 Utility to check if appointment date/time has passed
+  const isPast = (dateStr, timeStr) => {
+    const appointmentISO = `${dateStr}T${timeStr}:00`;
+    const appointmentDateTime = new Date(appointmentISO);
+    const now = new Date();
+    return appointmentDateTime.getTime() < now.getTime();
+  };
 
+  // 📅 Sort appointments so that upcoming ones come first
+  const sortedAppointments = Array.isArray(getThisAppointment)
+    ? [...getThisAppointment].sort((a, b) => {
+        const aDate = new Date(`${a.slotDate}T${a.slotTime}`);
+        const bDate = new Date(`${b.slotDate}T${b.slotTime}`);
+        const now = new Date();
 
+        const aIsPast = aDate < now;
+        const bIsPast = bDate < now;
 
+        if (aIsPast !== bIsPast) return aIsPast ? 1 : -1;
+        return aDate - bDate;
+      })
+    : [];
 
-<Typography variant="body1" color="text.primary" gutterBottom>
-  Date & Time:
-</Typography>
+  const endOffset = itemOffset + itemsPerPage;
+  const currentItems = sortedAppointments.slice(itemOffset, endOffset);
+  const pageCount = Math.ceil(sortedAppointments.length / itemsPerPage);
 
-<Typography component="span" fontWeight="medium" sx={{ display: "inline-block", pr: 2 }}>
-    📅 {booking.slotDate}
-  </Typography>
-<Box
+  const handlePageClick = (event) => {
+    const newOffset = event.selected * itemsPerPage;
+    setItemOffset(newOffset);
+  };
 
->
+  // ❌ Cancel booking handler
+  const cancelThisBooking = async (appointmentId) => {
+    await dispatch(cancelAppointment(appointmentId));
+    await dispatch(getAllBookings());
+  };
 
-  <Typography component="span" fontWeight="medium" sx={{ display: "inline-block" }}>
-    🕒 {booking.slotTime}
-  </Typography>
-</Box> 
+  const cancelThisAppointment = (appointmentId) => {
+    confirmAlert({
+      title: "Confirm Cancellation",
+      message: "Are you sure you want to cancel this appointment?",
+      buttons: [
+        {
+          label: "Yes",
+          onClick: async () => {
+            await cancelThisBooking(appointmentId);
+            toast.success("Appointment cancelled successfully");
+          },
+        },
+        {
+          label: "No",
+          onClick: () => toast.info("Cancellation aborted"),
+        },
+      ],
+    });
+  };
 
+  const goToDetailsPage = (docId) => {
+    navigate(`/details/${docId}`);
+  };
 
-                       <Typography variant="body1" color="text.secondary">
-                         Email: {booking?.docId?.user?.email}
-                       </Typography>
-                       <Typography variant="body1" color="text.secondary">
-                         Address: {booking?.docId?.address?.line1}
-                       </Typography>
-                       <Typography variant="body1" color="text.secondary">
-                         Fees: <strong>${booking?.docData?.fees || "N/A"}</strong>
-                       </Typography>
- 
-                       <Box sx={{ mt: 2 }}>
-                         <Chip
-                           label={isOld ? "Past" : "Upcoming"}
-                           color={isOld ? "default" : "success"}
-                           variant="outlined"
-                           sx={{ fontWeight: "bold" }}
-                         />
-                       </Box>
-                     </CardContent>
-                   </Grid>
- 
-                   <Grid item xs={12} md={3} textAlign="center">
+  const styledAnimationDown = keyframes`
+    0% {
+      transform: translateX(5rem);
+      opacity: 0;
+    }
+    100% {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  `;
 
+  return (
+    <>
+      <Box sx={{ px: 4, py: 12 }}>
+        <Button
+          variant="outlined"
+          onClick={() => navigate("/doctors")}
+          sx={{ mb: 4, animation: `${styledAnimationDown} 0.6s ease` }}
+        >
+          &larr; Back to Doctors
+        </Button>
 
+        <Typography variant="h4" fontWeight="bold" color="primary" gutterBottom>
+          My Bookings
+        </Typography>
 
+        {isLoading && <Loader />}
 
+        {!isLoading && currentItems && currentItems.length === 0 && (
+          <Typography variant="body1" color="text.secondary">
+            No Appointment found.
+          </Typography>
+        )}
 
-                     <Box sx={{ display: "flex", flexDirection: "column" }}>
+        {!isLoading && currentItems && currentItems.length > 0 && (
+          currentItems.map((booking) => {
+            const isOld = isPast(booking.slotDate, booking.slotTime);
 
-                       {!isOld && (
-                         <>
-                           {!booking?.payment ? (
-                             <>
-                               <Button
-                                 variant="contained"
-                                 color="primary"
-                                 onClick={() =>
-                                   navigate(`/checkout-options/${booking._id}`)
-                                 }
-                             
-                                 fullWidth
-                                 sx={{ mb: 1 }}
-                               >
-                                 Pay Now
-                               </Button>
-                               <Button
-                                 variant="outlined"
-                                 color="error"
-                                 onClick={() =>
-                                   cancelThisAppointment(booking._id)
-                                 }
-                                 fullWidth
-                               >
-                                 Cancel
-                               </Button>
-                             </>
-                           ) : (
+            return (
+              <Card
+                key={booking._id}
+                sx={{
+                  animation: `${styledAnimationDown} 0.6s ease`,
+                  mb: 4,
+                  p: 2,
+                  cursor: "pointer",
+                  background: booking.cancelled
+                    ? "linear-gradient(135deg, #f5f5f5, #e0e0e0)"
+                    : isOld
+                    ? "linear-gradient(135deg, #f7f7f7, #e0e0e0)"
+                    : "linear-gradient(135deg, #e0f7fa, #e1f5fe)",
+                  opacity: booking.cancelled ? 0.7 : 1,
+                  pointerEvents: booking.cancelled ? "none" : "auto",
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  transition:
+                    "background 0.5s ease, box-shadow 0.3s ease, transform 0.3s ease",
+                  ":hover": {
+                    boxShadow: 6,
+                    transform: "scale(1.01)",
+                  },
+                }}
+              >
+                <Grid container spacing={3} alignItems="center">
+                  <Grid item xs={12} md={3} textAlign="center">
+                    <Avatar
+                      onClick={() => goToDetailsPage(booking._id)}
+                      src={booking?.docId?.photo}
+                      alt={booking?.docId?.user?.name}
+                      sx={{
+                        width: 120,
+                        height: 120,
+                        mx: "auto",
+                        animation: `${styledAnimationDown} 0.6s ease`,
+                      }}
+                    />
+                  </Grid>
 
+                  <Grid item xs={12} md={6}>
+                    <CardContent>
+                      <Typography variant="h6" fontWeight="bold" color="primary">
+                        Doctor: {booking?.docId?.user?.name || "N/A"}
+                      </Typography>
 
+                      <Typography variant="body1" color="text.primary" gutterBottom>
+                        Date & Time:
+                      </Typography>
+
+                      <Typography
+                        component="span"
+                        fontWeight="medium"
+                        sx={{ display: "inline-block", pr: 2 }}
+                      >
+                        📅 {booking.slotDate}
+                      </Typography>
+                      <Box>
+                        <Typography
+                          component="span"
+                          fontWeight="medium"
+                          sx={{ display: "inline-block" }}
+                        >
+                          🕒 {booking.slotTime}
+                        </Typography>
+                      </Box>
+
+                      <Typography variant="body1" color="text.secondary">
+                        Email: {booking?.docId?.user?.email}
+                      </Typography>
+                      <Typography variant="body1" color="text.secondary">
+                        Address: {booking?.docId?.address?.line1}
+                      </Typography>
+                      <Typography variant="body1" color="text.secondary">
+                        Fees: <strong>${booking?.docData?.fees || "N/A"}</strong>
+                      </Typography>
+
+                      <Box sx={{ mt: 2 }}>
+                        <Chip
+                          label={isOld ? "Past" : "Upcoming"}
+                          color={isOld ? "default" : "success"}
+                          variant="outlined"
+                          sx={{ fontWeight: "bold" }}
+                        />
+                      </Box>
+                    </CardContent>
+                  </Grid>
+
+                  <Grid item xs={12} md={3} textAlign="center">
+                    <Box sx={{ display: "flex", flexDirection: "column" }}>
+                      {!isOld && (
+                        <>
+                          {booking?.cancelled ? (
+                            <Chip
+                              label="Cancelled"
+                              color="error"
+                              variant="outlined"
+                              sx={{ fontWeight: "bold", mb: 1 }}
+                            />
+                          ) : !booking?.payment ? (
+                            <>
+                              <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={() =>
+                                  navigate(`/checkout-options/${booking._id}`)
+                                }
+                                fullWidth
+                                sx={{ mb: 1 }}
+                              >
+                                Pay Now
+                              </Button>
+                              <Button
+                                variant="outlined"
+                                color="error"
+                                onClick={() =>
+                                  cancelThisAppointment(booking._id)
+                                }
+                                fullWidth
+                              >
+                                Cancel
+                              </Button>
+                            </>
+                          ) : (
                             <Box>
+                              <Button
+                                sx={{ marginBottom: "10px" }}
+                                variant="outlined"
+                                color="success"
+                                fullWidth
+                              >
+                                Paid
+                              </Button>
 
-
-
-
-                               <Button 
-                               sx={{
-                                marginBottom:'10px'
-                               }}
-                               variant="outlined" color="success" fullWidth>
-                               Paid
-                             </Button>
-                              
-                             <Chip
-  label="Payment Accepted"
-  color="success"
-  icon={<CheckCircleIcon />}
-  variant="outlined"
-  />
-
+                              <Chip
+                                label="Payment Accepted"
+                                color="success"
+                                icon={<CheckCircleIcon />}
+                                variant="outlined"
+                              />
                             </Box>
+                          )}
+                        </>
+                      )}
+                    </Box>
+                  </Grid>
+                </Grid>
+              </Card>
+            );
+          })
+        )}
+
+        {/* Pagination Controls */}
+        <Box
+          sx={{
+            mt: 6,
+            display: "flex",
+            justifyContent: "center",
+            position: "fixed",
+            bottom: 0,
+            left: 0,
+            width: "100%",
+            backgroundColor: "#ffffff",
+            py: 2,
+            boxShadow: "0 -2px 5px rgba(0,0,0,0.05)",
+            zIndex: 99,
+            overflowX: "auto",
+            whiteSpace: "nowrap",
+            scrollbarWidth: "none",
+            "&::-webkit-scrollbar": { display: "none" },
+          }}
+        >
+          <Pagination
+            itemsPerPage={itemsPerPage}
+            pageCount={pageCount}
+            handlePageClick={handlePageClick}
+            itemOffset={itemOffset}
+            setItemOffset={setItemOffset}
+          />
+        </Box>
+      </Box>
+    </>
+  );
+};
+
+export default MyAppointment;
 
 
-                           )}
-                         </>
-                       )}
- 
 
-                     </Box>
-                   </Grid>
-                 </Grid>
-               </Card>
-             );
-           })
-           
-             )
-           
-           }
- 
-         <Box
-           sx={{
-             mt: 6,
-             display: "flex",
-             justifyContent: "center",
-             position: "fixed",
-             bottom: 0,
-             left: 0,
-             width: "100%",
-             backgroundColor: "#ffffff",
-             py: 2,
-             boxShadow: "0 -2px 5px rgba(0,0,0,0.05)",
-             zIndex: 99,
-               overflowX: 'auto', 
-    whiteSpace: 'nowrap', 
-    scrollbarWidth: 'none', 
-    '&::-webkit-scrollbar': { display: 'none' },
-           }}
-         >
-           <Pagination
-             itemsPerPage={itemsPerPage}
-             pageCount={pageCount}
-             handlePageClick={handlePageClick}
-             itemOffset={itemOffset}
-             setItemOffset={setItemOffset}
-           />
-         </Box>
-       </Box>
-     </>
-   );
- };
- 
- export default MyAppointment;
- 
+
+
+
+
+
+
+
+
+
 
 
 

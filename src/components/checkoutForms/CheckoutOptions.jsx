@@ -133,7 +133,11 @@ const styledAnimation = keyframes`
         
       </Grid>
 
-      <Button variant="contained" size="large" onClick={handleProceedToPayment}>
+      <Button 
+      sx={{ 
+          animation: `${styledAnimation} 0.6s ease`,
+       }}
+      variant="contained" size="large" onClick={handleProceedToPayment}>
         Proceed to Payment
       </Button>
     </Box>

@@ -114,7 +114,7 @@ export const appointmentCancel = createAsyncThunk('admin/appointmentCancel', asy
             state.doctor = action.payload
             console.log(`this is the response from add doctor ${action.payload}` )  
             //toast.success(action.payload)
-            toast.success(JSON.stringify(action.payload) || 'Doctor added successfully!')
+            toast.success('Doctor added successfully!')
 
      }  )
      .addCase(addDoctor.rejected,(state,action)=>{

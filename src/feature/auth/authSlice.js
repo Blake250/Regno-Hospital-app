@@ -250,7 +250,8 @@ const initialState = {
     storedUserDetails: null,
     docData : null,
    getThisAppointment : [] ,
-   doctor: []
+   doctor: [],
+   
 }
 
 
@@ -547,10 +548,24 @@ state.isLoggedIn = false;
 .addCase(bookAppointment.fulfilled, (state,action)=>{
 state.isLoggedIn = true;
 state.isSuccess = true;
-state.user = action.payload.appointment
+state.docData = action.payload.appointment || action.payload;
+
 console.log(action.payload);
-state.isLoading = false;
-//toast.success(action.payload)
+//   if (Array.isArray(state.getThisAppointment)) {
+//     state.getThisAppointment.push(appointment);
+//   } else {
+//     state.getThisAppointment = [appointment];
+//   }
+
+//   console.log("✅ Appointment saved to Redux:", appointment);
+//state.docData = action.payload.appointment || action.payload;
+// console.log(`the doctor's  data is ${JSON.stringify(action.payload) } `);
+
+
+
+
+
+
 
 }) 
 
@@ -560,7 +575,7 @@ state.isLoading = false;
     state.isError = true;
     state.message = action.payload
     state.isLoggedIn = false;
-    state.user = null
+    state.getThisAppointment = null
     console.log(action.payload.appointment);
    // toast.success(action.payload.message || "Success");
 
