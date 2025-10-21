@@ -174,7 +174,7 @@ const getAllBookings = async()=>{
 // get All  bookings by a single user
 const cancelAppointment = async(appointmentId)=>{
     const response = await axios.patch(`https://regno-hospital-api.onrender.com/api/user/cancel-doc`,
-        appointmentId,
+        { appointmentId },
       {
        withCredentials:true,
         

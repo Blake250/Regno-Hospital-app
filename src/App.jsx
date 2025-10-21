@@ -147,11 +147,11 @@ useEffect(() => {
              
               <Route path="/doctors" element={<Doctors />} />
             <Route path="/doctors/:speciality" element={<Doctors />} />
-             <Route path="/booking/:docId" element={<Appointment />} />
+            
              <Route element={<ProtectedRoute />}>   
             <Route path="/profile" element={<MyProfile />} />
             <Route path="/my-booking" element={<MyAppointment />} />
-           
+            <Route path="/booking/:docId" element={<Appointment />} />
             <Route path="/details/:docId" element={<BookingDetails />} />
             <Route
               path="/checkout-options/:appointmentId"
