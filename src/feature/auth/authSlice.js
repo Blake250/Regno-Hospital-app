@@ -577,7 +577,7 @@ console.log(action.payload);
     state.isError = true;
     state.message = action.payload
     state.isLoggedIn = false;
-    state.getThisAppointment = null
+    state.docData = null
     console.log(action.payload.appointment);
    // toast.success(action.payload.message || "Success");
 
