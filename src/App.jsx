@@ -83,26 +83,6 @@ useEffect(() => {
 }, [dispatch]);
 
 
-// useEffect(() => {
-//   const initAuth = async () => {
-//     const stored = localStorage.getItem("profile");
-
-//     if (stored) {
-//       dispatch(setUser(JSON.parse(stored)));
-//     } else {
-//       try {
-//         const status = await dispatch(getLoginStatus()).unwrap();
-//         if (status) await dispatch(getUser());
-//       } catch (err) {
-//         console.error("Auth init error:", err);
-//       }
-//     }
-//   };
-
-//   initAuth();
-// }, [dispatch]);
-
-
 
 
       
