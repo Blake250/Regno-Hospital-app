@@ -154,7 +154,9 @@ try{
 //book an appointment by a user 
 export const bookAppointment = createAsyncThunk(`auth/bookAppointment`, async({docId, bookingData},  {rejectWithValue} )=>{
     try {
-        return await authService.bookAppointment({docId,bookingData})
+      //  return await authService.bookAppointment({docId,bookingData})
+          const data = await authService.bookAppointment({ docId, bookingData });
+      return data.appointment; 
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message
         || error.toString()
