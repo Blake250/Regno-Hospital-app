@@ -134,7 +134,7 @@ const Appointment = () => {
   }, [docId]);
 
 
-  // useEffect(() => {
+
   //   if (docId) {
   //     setDocInfo(null);
   //     setDocSlots([]);
