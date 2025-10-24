@@ -36,12 +36,12 @@ export const ShowOnLogOut = ({children})=>{
 }
 
 
-// eslint-disable-next-line react/prop-types
-export const PrivateRoute = ({children} )=>{
-    const {isLoggedIn,  } = useSelector((state)=> state?.auth)
- const user = useSelector((state)=> state?.auth?.user)  
- return user ? children :  <Navigate to='/login' />
-}
+// // eslint-disable-next-line react/prop-types
+// export const PrivateRoute = ({children} )=>{
+//     const {isLoggedIn,  } = useSelector((state)=> state?.auth)
+//  const user = useSelector((state)=> state?.auth?.user)  
+//  return user ? children :  <Navigate to='/login' />
+// }
 
 
 
@@ -54,7 +54,7 @@ export const ProtectedRoute = () => {
   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
   const storedUser = localStorage.getItem("profile");
 
-  if (!isLoggedIn && ( !user)) {
+  if (   isLoggedIn && user===null) {
     return (
       <div style={{ textAlign: "center", marginTop: "4rem" }}>
         <p>Checking login status...</p>
@@ -62,7 +62,7 @@ export const ProtectedRoute = () => {
     );
   }
 
-  if (!isLoggedIn ||  !storedUser) {
+  if (!isLoggedIn ) {
     return <Navigate to="/login" replace />;
   }
 
