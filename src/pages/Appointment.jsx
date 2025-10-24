@@ -147,14 +147,27 @@ const Appointment = () => {
     const slotTime = `${hours}:${minutes}`;
 
     try {
+
+  // Optimistic UI update: remove the booked slot immediately
+setDocSlots(prev =>
+  prev.map((daySlots, idx) => {
+    if (idx !== slotsIndex) return daySlots;
+    return daySlots.filter(slot => slot.time !== selectedTime);
+  })
+);
+
+
+
       const bookingData = { slotDate, slotTime };
       await dispatch(bookAppointment({ docId, bookingData })).unwrap();
      await dispatch(getAllBookings()).unwrap();
       toast.success("Successfully booked");
       navigate(`/my-booking`);
     } catch (error) {
+        const message = error?.message || error || "Booking failed";
       console.error(`Invalid booking due to ${error.message}`);
-      toast.error(`Doctor already booked for this date`);
+      toast.error(`Booking not possible: ${message}`);
+      // toast.error(`Doctor already booked for this date : ${error.message}`);
     }
   };
 
@@ -393,32 +406,27 @@ const Appointment = () => {
                 </Button>
               ))}
             </Box>
+          
 
-    <Button
-      onClick={bookAppointment}
-      disabled={isLoading}
-        variant="contained"
-              color="primary"
-              onClick={ bookAnAppointment }
-              disabled={!selectedTime}
-              sx={{
-                alignSelf: { xs: "center", md: "flex-start" },
-                fontSize: { xs: "12px", md: "14px" },
-                padding: { xs: "6px 12px", md: "8px 16px" },
-                  animation: `${styledAnimationDown} 0.6s ease`,
-         backgroundColor: isLoading ? "#ccc" : "#007bff",
-         cursor: isLoading ? "not-allowed" : "pointer",
-    
-              }}
+           <Button
+  variant="contained"
+  color="primary"
+  onClick={bookAnAppointment}
+  disabled={isLoading || !selectedTime}
+  sx={{
+    alignSelf: { xs: "center", md: "flex-start" },
+    fontSize: { xs: "12px", md: "14px" },
+    padding: { xs: "6px 12px", md: "8px 16px" },
+    animation: `${styledAnimationDown} 0.6s ease`,
+    backgroundColor: isLoading ? "#ccc" : "#007bff",
+    cursor: isLoading ? "not-allowed" : "pointer",
+  }}
+>
+  {isLoading ? "Booking..." : "Book Appointment"}
+</Button>
 
 
-      // style={{
-      //   backgroundColor: isLoading ? "#ccc" : "#007bff",
-      //   cursor: isLoading ? "not-allowed" : "pointer",
-      // }}
-    >
-      {isLoading ? "Booking..." : "Book Appointment"}
-    </Button>
+
 
             {/* <Button
               variant="contained"

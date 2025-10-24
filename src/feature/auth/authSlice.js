@@ -543,7 +543,7 @@ state.message = action.payload;
 
 // booking an appointment as a user 
 .addCase(bookAppointment.pending, (state)=>{
-    state.isLoading = false;
+    state.isLoading = true;
 
    
 })
@@ -571,7 +571,7 @@ console.log(action.payload);
   
   
     console.log(action.payload);
-    toast.error(action.payload.message );
+    toast.error(action.payload);
 
     
     })
