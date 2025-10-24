@@ -43,7 +43,7 @@ const Appointment = () => {
 useEffect(() => {
   const getUserInfo = async () => {
     try {
-      if (isLoggedIn && !user ) {
+      if (isLoggedIn && user===null) {
         await dispatch(getUser()).unwrap();
       }
     } catch (error) {
