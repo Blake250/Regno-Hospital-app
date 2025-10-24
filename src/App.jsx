@@ -62,15 +62,36 @@ axios.defaults.withCredentials = true;
 
 
 
+useEffect(() => {
+  const initializeAuth = async () => {
+    try {
+      const stored = localStorage.getItem("profile");
+      if (stored) {
+        dispatch(setUser(JSON.parse(stored)));
+      } else {
+        const status = await dispatch(getLoginStatus()).unwrap();
+        if (status ) await dispatch(getUser());
+      }
+    } catch (err) {
+      console.error("Auth init error:", err);
+    }
+  };
+  initializeAuth();
+}, [dispatch]);
+
+
+
 // useEffect(() => {
 //   const initializeAuth = async () => {
 //     try {
 //       const stored = localStorage.getItem("profile");
-//       if (stored) {
+//       if (stored ) {
 //         dispatch(setUser(JSON.parse(stored)));
 //       } else {
 //         const status = await dispatch(getLoginStatus()).unwrap();
-//         if (status) await dispatch(getUser());
+//         if (status) {
+//           await dispatch(getUser());
+//         }
 //       }
 //     } catch (err) {
 //       console.error("Auth init error:", err);
@@ -78,27 +99,6 @@ axios.defaults.withCredentials = true;
 //   };
 //   initializeAuth();
 // }, [dispatch]);
-
-
-
-useEffect(() => {
-  const initializeAuth = async () => {
-    try {
-      const stored = localStorage.getItem("profile");
-      if (stored ) {
-        dispatch(setUser(JSON.parse(stored)));
-      } else {
-        const status = await dispatch(getLoginStatus()).unwrap();
-        if (status && user === null) {
-          await dispatch(getUser());
-        }
-      }
-    } catch (err) {
-      console.error("Auth init error:", err);
-    }
-  };
-  initializeAuth();
-}, [dispatch,user]);
 
 
 

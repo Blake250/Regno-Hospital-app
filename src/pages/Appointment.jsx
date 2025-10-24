@@ -19,9 +19,9 @@ const Appointment = () => {
   const [selectedTime, setSelectedTime] = useState(null);
 
   const { doctors, currencySymbol } = useContext(AppContext);
-  const { isLoading, docData , isError, user, isLoggedIn} = useSelector((state) => state?.auth);
+  const { isLoading, docData , isError,  isLoggedIn} = useSelector((state) => state?.auth);
   
-  
+  const user = useSelector((state)=> state?.auth?.user)
   console.log(`the current appointment data is ${JSON.stringify(docData) } `);
 
   //let docData = getThisAppointment
@@ -43,7 +43,7 @@ const Appointment = () => {
 useEffect(() => {
   const getUserInfo = async () => {
     try {
-      if (isLoggedIn && user === null) {
+      if (isLoggedIn && !user ) {
         await dispatch(getUser()).unwrap();
       }
     } catch (error) {
