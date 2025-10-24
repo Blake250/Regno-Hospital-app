@@ -62,7 +62,7 @@ export const ProtectedRoute = () => {
     );
   }
 
-  if (!isLoggedIn || (!user && !storedUser)) {
+  if (!isLoggedIn || (user === null && !storedUser)) {
     return <Navigate to="/login" replace />;
   }
 
