@@ -37,23 +37,23 @@ const Appointment = () => {
   //  dispatch(getUser())
     }
 
-  }, [dispatch]);
+  }, []);
 
 
-useEffect(() => {
-  const getUserInfo = async () => {
-    try {
-      if (isLoggedIn && !user) {
-        await dispatch(getUser()).unwrap();
-      }
-    } catch (error) {
-      console.error(`Error fetching user info: ${error.message}`);
-      toast.error(`Error fetching user info: ${error.message}`);
-    }
-  };
+// useEffect(() => {
+//   const getUserInfo = async () => {
+//     try {
+//       if (isLoggedIn && !user) {
+//         await dispatch(getUser()).unwrap();
+//       }
+//     } catch (error) {
+//       console.error(`Error fetching user info: ${error.message}`);
+//       toast.error(`Error fetching user info: ${error.message}`);
+//     }
+//   };
 
-  getUserInfo(); // ✅ call it here (outside the async function)
-}, [dispatch, isLoggedIn,]);
+//   getUserInfo(); // ✅ call it here (outside the async function)
+// }, [dispatch, isLoggedIn,]);
 
 
 
@@ -154,7 +154,7 @@ useEffect(() => {
       navigate(`/my-booking`);
     } catch (error) {
       console.error(`Invalid booking due to ${error.message}`);
-      toast.error(`Booking not possible: ${error.message}`);
+      toast.error(`Doctor already booked for this date: ${error.message}`);
     }
   };
 
@@ -396,7 +396,7 @@ useEffect(() => {
             <Button
               variant="contained"
               color="primary"
-              onClick={bookAnAppointment}
+              onClick={ bookAnAppointment }
               disabled={!selectedTime}
               sx={{
                 alignSelf: { xs: "center", md: "flex-start" },
