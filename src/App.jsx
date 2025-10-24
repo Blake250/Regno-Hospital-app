@@ -52,9 +52,9 @@ const App = () => {
 axios.defaults.withCredentials = true;
  
 
-  // useEffect(() => {
-  //   dispatch(getLoginStatus());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(getLoginStatus());
+  }, [dispatch]);
 
   useEffect(() => {
     if (isError) toast.error(isError);
@@ -70,7 +70,7 @@ useEffect(() => {
         dispatch(setUser(JSON.parse(stored)));
       } else {
         const status = await dispatch(getLoginStatus()).unwrap();
-        if (status  && user === null){
+        if (status   ){
            await dispatch(getUser());
         }
       }
@@ -79,7 +79,7 @@ useEffect(() => {
     }
   };
   initializeAuth();
-}, [dispatch, user]);
+}, [dispatch, ]);
 
 
 

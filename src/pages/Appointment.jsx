@@ -31,19 +31,19 @@ const Appointment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   if(isError){
-  //     toast.error(isError)
-  // //  dispatch(getUser())
-  //   }
+  useEffect(() => {
+    if(isError){
+      toast.error(isError)
+  //  dispatch(getUser())
+    }
 
-  // }, [dispatch]);
+  }, [dispatch]);
 
 
 useEffect(() => {
   const getUserInfo = async () => {
     try {
-      if (isLoggedIn && user===null) {
+      if (isLoggedIn && !user) {
         await dispatch(getUser()).unwrap();
       }
     } catch (error) {
@@ -53,7 +53,7 @@ useEffect(() => {
   };
 
   getUserInfo(); // ✅ call it here (outside the async function)
-}, [dispatch, isLoggedIn, user]);
+}, [dispatch, isLoggedIn,]);
 
 
 
