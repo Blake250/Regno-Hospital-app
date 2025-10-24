@@ -154,7 +154,7 @@ const Appointment = () => {
       navigate(`/my-booking`);
     } catch (error) {
       console.error(`Invalid booking due to ${error.message}`);
-      toast.error(`Doctor already booked for this date: ${error.message}`);
+      toast.error(`Doctor already booked for this date`);
     }
   };
 
@@ -393,7 +393,34 @@ const Appointment = () => {
                 </Button>
               ))}
             </Box>
-            <Button
+
+    <Button
+      onClick={bookAppointment}
+      disabled={isLoading}
+        variant="contained"
+              color="primary"
+              onClick={ bookAnAppointment }
+              disabled={!selectedTime}
+              sx={{
+                alignSelf: { xs: "center", md: "flex-start" },
+                fontSize: { xs: "12px", md: "14px" },
+                padding: { xs: "6px 12px", md: "8px 16px" },
+                  animation: `${styledAnimationDown} 0.6s ease`,
+         backgroundColor: isLoading ? "#ccc" : "#007bff",
+         cursor: isLoading ? "not-allowed" : "pointer",
+    
+              }}
+
+
+      // style={{
+      //   backgroundColor: isLoading ? "#ccc" : "#007bff",
+      //   cursor: isLoading ? "not-allowed" : "pointer",
+      // }}
+    >
+      {isLoading ? "Booking..." : "Book Appointment"}
+    </Button>
+
+            {/* <Button
               variant="contained"
               color="primary"
               onClick={ bookAnAppointment }
@@ -406,7 +433,7 @@ const Appointment = () => {
               }}
             >
               Book Appointment
-            </Button>
+            </Button> */}
           </Box>
 
           {/* Related Doctors */}
