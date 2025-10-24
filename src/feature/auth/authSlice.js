@@ -154,9 +154,9 @@ try{
 //book an appointment by a user 
 export const bookAppointment = createAsyncThunk(`auth/bookAppointment`, async({docId, bookingData},  {rejectWithValue} )=>{
     try {
-      //  return await authService.bookAppointment({docId,bookingData})
-          const data = await authService.bookAppointment({ docId, bookingData });
-      return data.appointment; 
+        return await authService.bookAppointment({docId,bookingData})
+    //       const data = await authService.bookAppointment({ docId, bookingData });
+    //   return data.appointment; 
     } catch (error) {
         const message = (error.response && error.response.data && error.response.data.message) || error.message
         || error.toString()
@@ -440,7 +440,7 @@ state.user = null;
     state.isError = true;
     state.message = action.payload;
     state.isLoggedIn = false;
-    state.user = null;
+    //state.user = null;
   // toast.error(action.payload);
 })
 
@@ -461,7 +461,7 @@ state.user = null;
 state.isLoading = false;
 state.isError = true;
 state.message = action.payload;
-state.isLoggedIn = false;
+
 state.user = null;
 
 //toast.error(action.payload);
@@ -485,7 +485,7 @@ state.isLoading = false;
 state.isLoading = false;
 state.isError = true;
 state.message = action.payload;
-state.isLoggedIn = false;
+
 
 })
 
@@ -509,7 +509,7 @@ state.isLoading = false;
 state.isLoading = false;
 state.isError = true;
 state.message = action.payload;
-state.isLoggedIn = false;
+
 
 })
 
@@ -553,15 +553,7 @@ state.isSuccess = true;
 state.docData = action.payload.appointment || action.payload;
 
 console.log(action.payload);
-//   if (Array.isArray(state.getThisAppointment)) {
-//     state.getThisAppointment.push(appointment);
-//   } else {
-//     state.getThisAppointment = [appointment];
-//   }
 
-//   console.log("✅ Appointment saved to Redux:", appointment);
-//state.docData = action.payload.appointment || action.payload;
-// console.log(`the doctor's  data is ${JSON.stringify(action.payload) } `);
 
 
 
@@ -576,10 +568,10 @@ console.log(action.payload);
     state.isLoading = false;
     state.isError = true;
     state.message = action.payload
-    state.isLoggedIn = false;
-    state.docData = null
-    console.log(action.payload.appointment);
-   // toast.success(action.payload.message || "Success");
+  
+  
+    console.log(action.payload);
+    toast.error(action.payload.message );
 
     
     })
@@ -602,7 +594,7 @@ console.log(action.payload);
     state.isLoading = false;
     state.isError = true;
     state.message = action.payload;
-    state.isLoggedIn = false;
+    
     
     })
 
@@ -624,7 +616,7 @@ console.log(action.payload);
     state.isLoading = false;
     state.isError = true;
     state.message = action.payload;
-    state.isLoggedIn = false;
+    
     
     })
 
@@ -647,7 +639,7 @@ console.log(action.payload);
             state.isLoading = false;
             state.isError = true;
             state.message = action.payload;
-            state.isLoggedIn = false;
+            
             toast.error(action.payload);
             console.log(action.payload);    
            }                
