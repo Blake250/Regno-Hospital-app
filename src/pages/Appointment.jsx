@@ -7,7 +7,7 @@ import { AppContext } from "../components/context/AppContext";
 import { Box, Avatar, Button, Typography, Paper } from "@mui/material";
 import RelatedDoctors from "../components/RelatedDoctors";
 import { useDispatch, useSelector } from "react-redux";
-import { bookAppointment, getAllBookings, getOneDoctor } from "../feature/auth/authSlice";
+import { bookAppointment, getAllBookings, getOneDoctor, getUser } from "../feature/auth/authSlice";
 import Loader from "../components/loader/Loader";
 import { toast } from "react-toastify";
 import { keyframes } from "@emotion/react";
@@ -19,7 +19,9 @@ const Appointment = () => {
   const [selectedTime, setSelectedTime] = useState(null);
 
   const { doctors, currencySymbol } = useContext(AppContext);
-  const { isLoading, docData } = useSelector((state) => state?.auth);
+  const { isLoading, docData , isError, user, isLoggedIn} = useSelector((state) => state?.auth);
+  
+  
   console.log(`the current appointment data is ${JSON.stringify(docData) } `);
 
   //let docData = getThisAppointment
@@ -29,6 +31,33 @@ const Appointment = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  // useEffect(() => {
+  //   if(isError){
+  //     toast.error(isError)
+  // //  dispatch(getUser())
+  //   }
+
+  // }, [dispatch]);
+
+
+useEffect(() => {
+  const getUserInfo = async () => {
+    try {
+      if (isLoggedIn && user === null) {
+        await dispatch(getUser()).unwrap();
+      }
+    } catch (error) {
+      console.error(`Error fetching user info: ${error.message}`);
+      toast.error(`Error fetching user info: ${error.message}`);
+    }
+  };
+
+  getUserInfo(); // ✅ call it here (outside the async function)
+}, [dispatch, isLoggedIn, user]);
+
+
+
+       
 
   const styledAnimationDown = keyframes`
   0% {
