@@ -48,13 +48,13 @@ const App = () => {
   const storedUserDetails = useSelector((state) => state?.auth?.storedUserDetails);
   const dispatch = useDispatch();
   const location = useLocation();
-   axios.defaults.baseURL = 'https://regno-hospital-api.onrender.com';
+   //axios.defaults.baseURL = 'https://regno-hospital-api.onrender.com';
 axios.defaults.withCredentials = true;
  
 
-  useEffect(() => {
-    dispatch(getLoginStatus());
-  }, [dispatch]);
+ useEffect(()=>{
+  dispatch(getLoginStatus())
+ }, [dispatch])
 
   useEffect(() => {
     if (isError) toast.error(isError);
@@ -82,25 +82,6 @@ useEffect(() => {
 }, [dispatch, ]);
 
 
-
-// useEffect(() => {
-//   const initializeAuth = async () => {
-//     try {
-//       const stored = localStorage.getItem("profile");
-//       if (stored ) {
-//         dispatch(setUser(JSON.parse(stored)));
-//       } else {
-//         const status = await dispatch(getLoginStatus()).unwrap();
-//         if (status) {
-//           await dispatch(getUser());
-//         }
-//       }
-//     } catch (err) {
-//       console.error("Auth init error:", err);
-//     }
-//   };
-//   initializeAuth();
-// }, [dispatch]);
 
 
 
