@@ -52,9 +52,9 @@ const App = () => {
 axios.defaults.withCredentials = true;
  
 
-  useEffect(() => {
-    dispatch(getLoginStatus());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getLoginStatus());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (isError) toast.error(isError);
@@ -70,14 +70,16 @@ useEffect(() => {
         dispatch(setUser(JSON.parse(stored)));
       } else {
         const status = await dispatch(getLoginStatus()).unwrap();
-        if (status ) await dispatch(getUser());
+        if (status  && user === null){
+           await dispatch(getUser());
+        }
       }
     } catch (err) {
       console.error("Auth init error:", err);
     }
   };
   initializeAuth();
-}, [dispatch]);
+}, [dispatch, user]);
 
 
 
