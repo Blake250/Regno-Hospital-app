@@ -18,6 +18,7 @@ import {
 import Loader from '../components/loader/Loader'
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { keyframes } from "@emotion/react";
 
   
   const BookingDetails = () => {
@@ -37,6 +38,16 @@ import jsPDF from 'jspdf';
     }, [docId, dispatch])
   
 
+    const styledAnimationDown = keyframes`
+  0% {
+    transform: translateX(5rem);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+`;
 
     
 const downloadPDF = ()=>{
@@ -116,6 +127,7 @@ const downloadPDF = ()=>{
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             mb: 5,
+            animation: `${styledAnimationDown} 0.6s ease`,
           }}
         >
           Appointment Summary
@@ -151,7 +163,9 @@ const downloadPDF = ()=>{
 
 
 
-          <CardContent>
+          <CardContent
+          sx={{ animation: `${styledAnimationDown} 0.5s ease-in-out` }}
+          >
             <Typography variant="h5" fontWeight={600} color="primary" gutterBottom>
               👤 Patient Information
             </Typography>
@@ -187,6 +201,7 @@ const downloadPDF = ()=>{
 <Card
   elevation={6}
   sx={{
+  animation: `${styledAnimationDown} 0.6s ease`,
     borderRadius: 3,
     mb: 2, 
     background: '#fff',
@@ -202,7 +217,9 @@ const downloadPDF = ()=>{
   }}
 >
 
-          <CardContent>
+          <CardContent
+          sx={{ animation: `${styledAnimationDown} 0.6s ease` }}
+          >
             <Typography variant="h5" fontWeight={600} color="secondary" gutterBottom>
               🩺 Doctor Details
             </Typography>
@@ -254,7 +271,9 @@ const downloadPDF = ()=>{
   }}
 >
 
-          <CardContent>
+          <CardContent
+          sx={{ animation: `${styledAnimationDown} 0.6s ease` }}
+          >
             <Typography variant="h5" fontWeight={600} color="success.main" gutterBottom>
               ⏰ Appointment Time
             </Typography>
@@ -293,6 +312,7 @@ const downloadPDF = ()=>{
           sx={{
             textAlign:'start',
             padding: { xs: '4px 9px', sm: '10px 20px' },
+            animation: `${styledAnimationDown} 0.6s ease`,
            // marginTop:'10px',
           }}
         >
@@ -310,7 +330,7 @@ const downloadPDF = ()=>{
       small
       //size='small'
       sx={{ 
-        
+        animation: `${styledAnimationDown} 0.6s ease`,
         textAlign: 'center' }}
     >
       Download as PDF

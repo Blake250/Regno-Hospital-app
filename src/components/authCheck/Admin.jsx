@@ -38,6 +38,7 @@ const Admin = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
   const { user, isLoggedIn, storedUserDetails } = useSelector((state) => state?.auth);
+  console.log(` admin user date looks like this ${user}`)
   const userImg = storedUserDetails?.photo || '';
 
   if (isLoggedIn && !userImg) {

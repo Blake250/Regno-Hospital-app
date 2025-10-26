@@ -76,7 +76,8 @@ const CheckoutWithPaypal = () => {
                     toast.success("Payment successful!");
                 
                     // Send orderID and appointmentId to your backend for verification
-                   const res = await fetch(`https://regno-hospital-api.onrender.com/api/payment/paypal-verify/${appointmentId}`, {
+                  //  const res = await fetch(`https://regno-hospital-api.onrender.com/api/payment/paypal-verify/${appointmentId}`, {
+                    const res = await fetch(`${BACKEND_URL}/api/payment/paypal-verify/${appointmentId}`, {
                       method: 'POST',
                       headers: {
                         'Content-Type': 'application/json',
@@ -91,10 +92,10 @@ const CheckoutWithPaypal = () => {
                  
                  const result = await res.json();
                 
-              //       if (!result.ok) {
-              //       //  throw new Error(result.message || "Payment verification failed");
-              //  //     toast.error(result.message || "Payment verification failed")
-              //       }
+                    if (!result.ok) {
+                    //  throw new Error(result.message || "Payment verification failed");
+                    toast.error(result.message || "Payment verification failed");
+                    }
                 
                     toast.success("Payment verified and appointment updated!");
                     navigate("/checkout-success");
