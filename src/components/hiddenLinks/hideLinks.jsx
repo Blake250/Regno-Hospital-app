@@ -55,7 +55,7 @@ export const ProtectedRoute = () => {
   }
 
   // ✅ If not logged in or user missing → redirect to login
-  if (!isLoggedIn || !storedUser ) {
+  if (!isLoggedIn || !user) {
     return <Navigate to="/login" replace />;
   }
 
