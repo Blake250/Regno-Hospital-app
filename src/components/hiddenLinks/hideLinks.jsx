@@ -39,14 +39,13 @@ export const ShowOnLogOut = ({children})=>{
 
 
 
-
 export const ProtectedRoute = () => {
-  const { isLoggedIn,  isLoading,user } = useSelector((state) => state?.auth);
- // const user = useSelector((state)=> state?.auth?.user)  
+  const { isLoggedIn, isLoading, } = useSelector((state) => state?.auth);
+  const user = useSelector((state)=> state?.auth?.user)
+  console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
 
-  // Show loading state only while auth is being verified
-  const storedUser = localStorage.getItem("profile");
-  if ( isLoading && !isLoading ) {
+  // ✅ While verifying login (on initial mount)
+  if (isLoading) {
     return (
       <div style={{ textAlign: "center", marginTop: "4rem" }}>
         <p>Checking login status...</p>
@@ -54,16 +53,14 @@ export const ProtectedRoute = () => {
     );
   }
 
-  // If not logged in or user data is missing, redirect to home
-  if (!isLoggedIn || !storedUser ) {
+  // ✅ If not logged in or user missing → redirect to login
+  if (!isLoggedIn || !user) {
     return <Navigate to="/login" replace />;
   }
 
-  // Otherwise render protected route
+  // ✅ Otherwise, render the protected content
   return <Outlet />;
 };
-
-
 
 
 // export const ProtectedRoute = () => {
