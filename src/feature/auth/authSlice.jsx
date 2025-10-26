@@ -241,7 +241,7 @@ try {
 
 const initialState = {
 
-   isLoggedIn: false,
+   isLoggedIn: userFromStorage ? true : false,
   //  user:null,
    user: userFromStorage || null,
     isError:false,
