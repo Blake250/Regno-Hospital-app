@@ -121,17 +121,12 @@ useEffect(() => {
           {/* <Route path="/login" element={<Home />} /> */}
           <Route path="/about" element={<About />} />
           <Route path="/contact" element={<Contact />} />
-                
-             
-          
-            <Route path="/" element={<Home />} />
-             
-             
-           
-            
+          <Route path="/" element={<Home />} />
+          <Route path="/doctors" element={<Doctors />} />
+
              <Route element={<ProtectedRoute />}>   
             <Route path="/profile" element={<MyProfile />} />
-             <Route path="/doctors" element={<Doctors />} />
+           
                 <Route path="/doctors/:speciality" element={<Doctors />} />
            
               <Route path="/booking/:docId" element={<Appointment />} />
