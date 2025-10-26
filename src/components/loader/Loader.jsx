@@ -43,7 +43,7 @@ const Loader = () => {
      <img 
      style={{
       width:'15%',
-
+      height:'15%',
 
      }}
      src="./spinner/spinner.jpg" alt="" />
