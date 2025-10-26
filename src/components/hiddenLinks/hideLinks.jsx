@@ -54,7 +54,7 @@ export const ProtectedRoute = () => {
   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
   const storedUser = localStorage.getItem("profile");
 
-  if (   isLoggedIn && user===null) {
+  if (   isLoggedIn && !user) {
     return (
       <div style={{ textAlign: "center", marginTop: "4rem" }}>
         <p>Checking login status...</p>
@@ -62,7 +62,7 @@ export const ProtectedRoute = () => {
     );
   }
 
-  if (!isLoggedIn ) {
+  if (!isLoggedIn && !storedUser ) {
     return <Navigate to="/login" replace />;
   }
 
