@@ -43,9 +43,10 @@ export const ProtectedRoute = () => {
   const { isLoggedIn, isLoading, } = useSelector((state) => state?.auth);
   const user = useSelector((state)=> state?.auth?.user)
   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
+  const storedUser = localStorage.getItem("profile");
 
   // ✅ While verifying login (on initial mount)
-  if (isLoading) {
+  if (isLoading && user?.role === undefined) {
     return (
       <div style={{ textAlign: "center", marginTop: "4rem" }}>
         <p>Checking login status...</p>
@@ -54,7 +55,7 @@ export const ProtectedRoute = () => {
   }
 
   // ✅ If not logged in or user missing → redirect to login
-  if (!isLoggedIn || !user) {
+  if (!isLoggedIn || !storedUser ) {
     return <Navigate to="/login" replace />;
   }
 
