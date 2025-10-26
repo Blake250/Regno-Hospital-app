@@ -241,7 +241,7 @@ try {
 
 const initialState = {
 
-   isLoggedIn: userFromStorage ? true : false,
+   isLoggedIn: false,
   //  user:null,
    user: userFromStorage || null,
     isError:false,
@@ -253,6 +253,7 @@ const initialState = {
     docData : null,
    getThisAppointment : [] ,
    doctor: [],
+
    
 }
 
@@ -381,8 +382,11 @@ const authSlice = createSlice({
     state.isSuccess = true;
     state.isLoggedIn = action.payload;
     state.isLoading = false
+    
+
     //toast.success(action.payload)
     console.log(action.payload)
+    
 //localStorage.setItem("profile", JSON.stringify(action.payload)); // <-- This
 })
 
@@ -395,6 +399,8 @@ const authSlice = createSlice({
     console.log(action.payload)
     state.isLoggedIn = false;
     state.user = null;
+    
+  
 })
 
 

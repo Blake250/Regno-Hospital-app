@@ -52,9 +52,9 @@ const App = () => {
 axios.defaults.withCredentials = true;
  
 
- useEffect(()=>{
-  dispatch(getLoginStatus())
- }, [dispatch])
+//  useEffect(()=>{
+//   dispatch(getLoginStatus())
+//  }, [dispatch])
 
   useEffect(() => {
     if (isError) toast.error(isError);

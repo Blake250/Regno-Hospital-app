@@ -40,42 +40,13 @@ export const ShowOnLogOut = ({children})=>{
 
 
 
-
-
-
-// export const ProtectedRoute = () => {
-//   const { isLoggedIn,  isLoading,user } = useSelector((state) => state?.auth);
-//    //const user = useSelector((state)=> state?.auth?.user)  
-
-//   // 1️⃣ Still loading from Redux — show loader just once
-//   if (isLoading) {
-//     return (
-//       <div style={{ textAlign: "center", marginTop: "4rem" }}>
-//        <p>Checking login status...</p>
-//       </div>
-//     );
-//   }
-
-//   // 2️⃣ Not logged in — go to login
-//   if (!isLoggedIn || !user) {
-//     return <Navigate to="/login" replace />;
-//   }
-
-//   // 3️⃣ Logged in — continue to route
-//   return <Outlet />;
-// };
-
-
-
-
-
 export const ProtectedRoute = () => {
-  const { isLoggedIn,  } = useSelector((state) => state?.auth);
-const user = useSelector((state)=> state?.auth?.user)  
-  console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
-  const storedUser = localStorage.getItem("profile");
+  const { isLoggedIn,  isLoading,user } = useSelector((state) => state?.auth);
+ // const user = useSelector((state)=> state?.auth?.user)  
 
-  if (   isLoggedIn && !user) {
+  // Show loading state only while auth is being verified
+  const storedUser = localStorage.getItem("profile");
+  if ( isLoading && !isLoading ) {
     return (
       <div style={{ textAlign: "center", marginTop: "4rem" }}>
         <p>Checking login status...</p>
@@ -83,12 +54,38 @@ const user = useSelector((state)=> state?.auth?.user)
     );
   }
 
-  if (!isLoggedIn && (!storedUser || !user)) {
+  // If not logged in or user data is missing, redirect to home
+  if (!isLoggedIn || !storedUser ) {
     return <Navigate to="/login" replace />;
   }
 
+  // Otherwise render protected route
   return <Outlet />;
 };
+
+
+
+
+// export const ProtectedRoute = () => {
+//   const { isLoggedIn, isAuthLoaded } = useSelector((state) => state?.auth);
+// const user = useSelector((state)=> state?.auth?.user)  
+//   console.log(`ProtectedRoute - isLoggedIn: ${isLoggedIn}, user: ${JSON.stringify(user)}`);
+//   const storedUser = localStorage.getItem("profile");
+
+//   if (isAuthLoaded && !user) {
+//     return (
+//       <div style={{ textAlign: "center", marginTop: "4rem" }}>
+//         <p>Checking login status...</p>
+//       </div>
+//     );
+//   }
+
+//   if (!isLoggedIn && !storedUser ) {
+//     return <Navigate to="/login" replace />;
+//   }
+
+//   return <Outlet />;
+// };
 
 
 
